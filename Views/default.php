@@ -5,49 +5,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-CuOF+2SnTUfTwSZjCXf01h7uYhfOBuxIhGKPbfEJ3+FqH/s6cIFN9bGr1HmAg4fQ" crossorigin="anonymous">
 </head>
 
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="\projectpool2\boutique">Accueil</a>
+    <section class="navbar navbar-expand-md navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand ml-4 " href="\projectpool2\boutique">
+                RésaSalle
+            </a>
+
+            <!--menu burger-->
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li>
+            <!-- barre nav -->
+            <div class="collapse navbar-collapse mr-auto" id="navbarSupportedContent">
+                <ul class="navbar-nav nav-fill ml-auto">
+                    <li class="nav-item ml-3 ">
                         <a class="nav-link" href="\projectpool2\boutique/annonces">Annonces</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
+                    <li class="nav-item ml-3">
+                        <a class="nav-link" href="\projectpool2\boutique/annonces/ajouter" >Creer annonce</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Dropdown
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="#">Disabled</a>
-                    </li>
+                    <?php
+                    if (isset($_SESSION['user']) AND !empty($_SESSION['user']['id'])): ?>
+                        <li class="nav-item ml-3">
+                            <a class="nav-link" href="\projectpool2\boutique/users/profil" >Profil</a>
+                        </li>
+                        <li class="nav-item ml-3 mr-3">
+                            <a class="nav-link" href="\projectpool2\boutique/users/logout" >Se déconnecter</a>
+                        </li>
+
+                    <?php else: ?>
+                        <li class="nav-item ml-3">
+                            <a class="nav-link" href="\projectpool2\boutique/users/register">Inscription</a>
+                        </li>
+                        <li class="nav-item ml-3 mr-3">
+                            <a class="nav-link" href="\projectpool2\boutique/users/login" >Connexion</a>
+                        </li>
+                    <?php endif;
+                    ?>                  
                 </ul>
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
             </div>
-        </nav>
+        </div>
+    </section>
     </header>
     <main class="container">
-    <?= $contenu ?>
+        <?= $contenu ?>
     </main>
 
 

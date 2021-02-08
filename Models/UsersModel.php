@@ -4,15 +4,16 @@ namespace App\Models;
 class UsersModel extends Model
 {
     protected $id;
+    protected $nom;
+    protected $prenom;
     protected $email;
     protected $password;
-    protected $roles;
+    protected $droits_id = 1;
 
-    public function __construct()
-    {
-        $class = str_replace(__NAMESPACE__.'\\', '', __CLASS__);
-        $this->table = strtolower(str_replace('Model', '', $class));
-    }
+   public function __construct()
+   {
+       $this->table = 'users';
+   }
 
     /**
      * Récupérer un user à partir de son e-mail
@@ -21,7 +22,7 @@ class UsersModel extends Model
      */
     public function findOneByEmail(string $email)
     {
-        return $this->requete("SELECT * FROM {$this->table} WHERE email = ?", [$email])->fetch();
+        return $this->requete("SELECT * FROM $this->table WHERE email = ?", [$email])->fetch();
     }
 
     /**
@@ -32,8 +33,10 @@ class UsersModel extends Model
     {
         $_SESSION['user'] = [
             'id' => $this->id,
+            'nom' => $this->nom,
+            'prenom' => $this->prenom,
             'email' => $this->email,
-            'roles' => $this->roles
+            'droits_id' => $this->droits_id,        
         ];
     }
 
@@ -97,27 +100,82 @@ class UsersModel extends Model
         return $this;
     }
 
-
     /**
-     * Get the value of roles
+     * Get the value of droits_id
      */ 
-    public function getRoles():array
+    public function getDroits_id()
     {
-        $roles = $this->roles;
-
-        $roles[] = 'ROLE_USER';
-
-        return array_unique($roles);
+        return $this->droits_id;
     }
 
     /**
-     * Set the value of roles
+     * Set the value of droits_id
      *
      * @return  self
      */ 
-    public function setRoles($roles)
+    public function setDroits_id($droits_id)
     {
-        $this->roles = json_decode($roles);
+        $this->droits_id = $droits_id;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of login
+     */ 
+    public function getLogin()
+    {
+        return $this->login;
+    }
+
+    /**
+     * Set the value of login
+     *
+     * @return  self
+     */ 
+    public function setLogin($login)
+    {
+        $this->login = $login;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of nom
+     */ 
+    public function getNom()
+    {
+        return $this->nom;
+    }
+
+    /**
+     * Set the value of nom
+     *
+     * @return  self
+     */ 
+    public function setNom($nom)
+    {
+        $this->nom = $nom;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of prenom
+     */ 
+    public function getPrenom()
+    {
+        return $this->prenom;
+    }
+
+    /**
+     * Set the value of prenom
+     *
+     * @return  self
+     */ 
+    public function setPrenom($prenom)
+    {
+        $this->prenom = $prenom;
 
         return $this;
     }

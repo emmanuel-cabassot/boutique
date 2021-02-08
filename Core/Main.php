@@ -10,7 +10,9 @@ class Main
 {
     public function start()
     {
-        /* echo "ca fonctionne"; */
+        // On démarre la session
+        session_start();
+        
         // http:/boutique/controleur/methode/parametres
         //http:/boutique/annonces/detail/brouette
         //http:/boutique/index.php?p=annonces/detail/brouette
