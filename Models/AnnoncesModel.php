@@ -6,9 +6,11 @@ class AnnoncesModel extends Model
     protected $id;
     protected $titre;
     protected $description;
+    protected $photo;
     protected $created_at;
-    protected $actif;
-    protected $users_id;
+    protected $status;
+    protected $id_vendeur;
+    protected $id_boutique;
 
     public function __construct()
     {
