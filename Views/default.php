@@ -36,7 +36,7 @@
                             <a class="nav-link" href="<?= ACCUEIL ?>users/logout" >Se déconnecter</a>
                         </li>
                         <li class="nav-item ml-3">
-                            <a class="nav-link" href="<?= ACCUEIL ?>annonces/ajouter" >Creer annonce</a>
+                            <a class="nav-link" href="<?= ACCUEIL ?>annonces/ajouter" >Publier annonce</a>
                         </li>
                     <?php else: ?>
                         <li class="nav-item ml-3">
