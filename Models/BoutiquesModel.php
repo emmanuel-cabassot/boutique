@@ -4,9 +4,7 @@ namespace App\Models;
 class BoutiquesModel extends Model
 {
     protected $id;
-    protected $user_id;
     protected $nom;
-    protected $prenom;
     protected $email;
     protected $adresse;
     protected $code;
@@ -54,26 +52,6 @@ class BoutiquesModel extends Model
     public function setNom($nom)
     {
         $this->nom = $nom;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of prenom
-     */ 
-    public function getPrenom()
-    {
-        return $this->prenom;
-    }
-
-    /**
-     * Set the value of prenom
-     *
-     * @return  self
-     */ 
-    public function setPrenom($prenom)
-    {
-        $this->prenom = $prenom;
 
         return $this;
     }
@@ -174,26 +152,6 @@ class BoutiquesModel extends Model
     public function setSiret($siret)
     {
         $this->siret = $siret;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of user_id
-     */ 
-    public function getUser_id()
-    {
-        return $this->user_id;
-    }
-
-    /**
-     * Set the value of user_id
-     *
-     * @return  self
-     */ 
-    public function setUser_id($user_id)
-    {
-        $this->user_id = $user_id;
 
         return $this;
     }

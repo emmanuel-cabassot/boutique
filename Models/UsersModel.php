@@ -6,6 +6,9 @@ class UsersModel extends Model
     protected $id;
     protected $nom;
     protected $prenom;
+    protected $adresse = null;
+    protected $code = null;
+    protected $ville = null;
     protected $email;
     protected $password;
     protected $droits_id = 1;
@@ -176,6 +179,66 @@ class UsersModel extends Model
     public function setPrenom($prenom)
     {
         $this->prenom = $prenom;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of adresse
+     */ 
+    public function getAdresse()
+    {
+        return $this->adresse;
+    }
+
+    /**
+     * Set the value of adresse
+     *
+     * @return  self
+     */ 
+    public function setAdresse($adresse)
+    {
+        $this->adresse = $adresse;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of code
+     */ 
+    public function getCode()
+    {
+        return $this->code;
+    }
+
+    /**
+     * Set the value of code
+     *
+     * @return  self
+     */ 
+    public function setCode($code)
+    {
+        $this->code = $code;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of ville
+     */ 
+    public function getVille()
+    {
+        return $this->ville;
+    }
+
+    /**
+     * Set the value of ville
+     *
+     * @return  self
+     */ 
+    public function setVille($ville)
+    {
+        $this->ville = $ville;
 
         return $this;
     }

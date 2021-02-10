@@ -12,8 +12,8 @@
     <header>
     <section class="navbar navbar-expand-md navbar-dark bg-primary">
         <div class="container-fluid">
-            <a class="navbar-brand ml-4 " href="\projectpool2\boutique">
-                RésaSalle
+            <a class="navbar-brand ml-4 " href="<?= ACCUEIL ?>">
+           Boutique en ligne
             </a>
 
             <!--menu burger-->
@@ -25,27 +25,30 @@
             <div class="collapse navbar-collapse mr-auto" id="navbarSupportedContent">
                 <ul class="navbar-nav nav-fill ml-auto">
                     <li class="nav-item ml-3 ">
-                        <a class="nav-link" href="\projectpool2\boutique/annonces">Annonces</a>
-                    </li>
-                    <li class="nav-item ml-3">
-                        <a class="nav-link" href="\projectpool2\boutique/annonces/ajouter" >Creer annonce</a>
+                        <a class="nav-link" href="<?= ACCUEIL ?>annonces">Annonces</a>
                     </li>
                     <?php
                     if (isset($_SESSION['user']) AND !empty($_SESSION['user']['id'])): ?>
                         <li class="nav-item ml-3">
-                            <a class="nav-link" href="\projectpool2\boutique/users/profil" >Profil</a>
+                            <a class="nav-link" href="<?= ACCUEIL ?>users/profil" >Profil</a>
                         </li>
-                        <li class="nav-item ml-3 mr-3">
-                            <a class="nav-link" href="\projectpool2\boutique/users/logout" >Se déconnecter</a>
+                        <li class="nav-item ml-3">
+                            <a class="nav-link" href="<?= ACCUEIL ?>users/logout" >Se déconnecter</a>
                         </li>
-
+                        <li class="nav-item ml-3">
+                            <a class="nav-link" href="<?= ACCUEIL ?>annonces/ajouter" >Creer annonce</a>
+                        </li>
                     <?php else: ?>
                         <li class="nav-item ml-3">
-                            <a class="nav-link" href="\projectpool2\boutique/users/register">Inscription</a>
+                            <a class="nav-link" href="<?= ACCUEIL ?>boutiques/register">Créer boutique</a>
+                        </li>
+                        <li class="nav-item ml-3">
+                            <a class="nav-link" href="<?= ACCUEIL ?>users/register">Inscription</a>
                         </li>
                         <li class="nav-item ml-3 mr-3">
-                            <a class="nav-link" href="\projectpool2\boutique/users/login" >Connexion</a>
+                            <a class="nav-link" href="<?= ACCUEIL ?>users/login" >Connexion</a>
                         </li>
+                        
                     <?php endif;
                     ?>                  
                 </ul>

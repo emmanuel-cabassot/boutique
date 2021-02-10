@@ -17,6 +17,7 @@ class Autoloader
         // On retire App\ (Client\Compte)
         $class = str_replace(__NAMESPACE__ . '\\', '', $class);
         
+        
         // On remplace les \ par des /
         $class = str_replace('\\', '/', $class);
 

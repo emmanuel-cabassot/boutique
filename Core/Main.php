@@ -17,10 +17,11 @@ class Main
         //http:/boutique/annonces/detail/brouette
         //http:/boutique/index.php?p=annonces/detail/brouette
         // On retire le trailing slash eventuel de l'URL
-        // ON recupere l'URL
-        $uri = $_SERVER['REQUEST_URI'];
-        $uri = str_replace('/projectpool2/boutique', '', $uri);
+        // On recupere l'URL
+        $uri = $_SERVER['QUERY_STRING'];
 
+        //var_dump($_SERVER['DOCUMENT_ROOT']);die;
+        //$uri = str_replace('/projectpool2/boutique', '', $uri); 
         // On vérifie que $uri n'est pas vide et se termine par un slash
         if (!empty($uri) AND $uri[-1] === "/" AND $uri != "/") {
             $uri = substr($uri, 0, -1);
@@ -42,8 +43,9 @@ class Main
             // On recupere le nom du controleur à instancier avec son namspace
             $controleur = '\\App\\Controllers\\'.ucfirst(array_shift($params)).'Controller';
             // On instancie le controleur
+            
             $controleur = new $controleur();
-
+            
             // On recupere le deuxieme parametre d'URL
             $action = (isset($params[0])) ? array_shift($params) : 'index';
 
@@ -54,8 +56,7 @@ class Main
             }else {
                 http_response_code(404);
                 echo "la page recherchée n'existe pas";
-            }
-            
+            }            
 
         }else{
             // Si on a pas de paramètres on instancie le controleur par défaut

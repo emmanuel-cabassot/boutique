@@ -49,7 +49,7 @@ class AnnoncesController extends Controller
             // On se protège des failles xss
             $titre = strip_tags($_POST['titre']);
             $description = strip_tags($_POST['description']);
-
+            
             // On instancie notre modele
             $annonce = new AnnoncesModel;
 
