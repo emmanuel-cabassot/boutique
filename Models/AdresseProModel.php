@@ -1,19 +1,17 @@
 <?php
 namespace App\Models;
 
-class BoutiquesModel extends Model
+class AdressePro extends Model
 {
     protected $id;
     protected $nom;
-    protected $email;
     protected $adresse;
     protected $code;
     protected $ville;
-    protected $siret;
 
     public function __construct()
     {
-        $this->table = 'boutiques';
+        $this->table = 'adresse_pro';
     }
 
     /**
@@ -52,26 +50,6 @@ class BoutiquesModel extends Model
     public function setNom($nom)
     {
         $this->nom = $nom;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of email
-     */ 
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    /**
-     * Set the value of email
-     *
-     * @return  self
-     */ 
-    public function setEmail($email)
-    {
-        $this->email = $email;
 
         return $this;
     }
@@ -132,26 +110,6 @@ class BoutiquesModel extends Model
     public function setVille($ville)
     {
         $this->ville = $ville;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of siret
-     */ 
-    public function getSiret()
-    {
-        return $this->siret;
-    }
-
-    /**
-     * Set the value of siret
-     *
-     * @return  self
-     */ 
-    public function setSiret($siret)
-    {
-        $this->siret = $siret;
 
         return $this;
     }

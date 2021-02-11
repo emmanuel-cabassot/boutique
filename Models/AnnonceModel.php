@@ -1,21 +1,25 @@
 <?php
 namespace App\Models;
 
-class AnnoncesModel extends Model
+class AnnonceModel extends Model
 {   
     protected $id;
     protected $titre;
     protected $description;
-    protected $photo;
+    protected $photo_id;
     protected $created_at;
-    protected $status;
-    protected $id_vendeur;
-    protected $id_boutique;
+    protected $create_at;
+    protected $user_id;
+    protected $boutique_pro_id;
+    protected $boutique_particulier_id;
 
     public function __construct()
     {
-        $this->table = 'annonces';
+        $this->table = 'annonce';
     }
+
+    
+
 
     /**
      * Get the value of id
@@ -78,6 +82,26 @@ class AnnoncesModel extends Model
     }
 
     /**
+     * Get the value of photo_id
+     */ 
+    public function getPhoto_id()
+    {
+        return $this->photo_id;
+    }
+
+    /**
+     * Set the value of photo_id
+     *
+     * @return  self
+     */ 
+    public function setPhoto_id($photo_id)
+    {
+        $this->photo_id = $photo_id;
+
+        return $this;
+    }
+
+    /**
      * Get the value of created_at
      */ 
     public function getCreated_at()
@@ -98,43 +122,62 @@ class AnnoncesModel extends Model
     }
 
     /**
-     * Get the value of actif
+     * Get the value of user_id
      */ 
-    public function getActif():int
+    public function getUser_id()
     {
-        return $this->actif;
+        return $this->user_id;
     }
 
     /**
-     * Set the value of actif
+     * Set the value of user_id
      *
      * @return  self
      */ 
-    public function setActif(int $actif)
+    public function setUser_id($user_id)
     {
-        $this->actif = $actif;
+        $this->user_id = $user_id;
 
         return $this;
     }
 
     /**
-     * Get the value of users_id
+     * Get the value of boutique_pro_id
      */ 
-    public function getUsers_id():int
+    public function getBoutique_pro_id()
     {
-        return $this->users_id;
+        return $this->boutique_pro_id;
     }
 
     /**
-     * Set the value of users_id
+     * Set the value of boutique_pro_id
      *
      * @return  self
      */ 
-    public function setUsers_id(int $users_id)
+    public function setBoutique_pro_id($boutique_pro_id)
     {
-        $this->users_id = $users_id;
+        $this->boutique_pro_id = $boutique_pro_id;
 
         return $this;
     }
 
+    /**
+     * Get the value of boutique_particulier_id
+     */ 
+    public function getBoutique_particulier_id()
+    {
+        return $this->boutique_particulier_id;
+    }
+
+    /**
+     * Set the value of boutique_particulier_id
+     *
+     * @return  self
+     */ 
+    public function setBoutique_particulier_id($boutique_particulier_id)
+    {
+        $this->boutique_particulier_id = $boutique_particulier_id;
+
+        return $this;
+    }
 }
