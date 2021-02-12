@@ -19,6 +19,12 @@ class Model extends Db
         return $query->fetchAll();
     }
 
+    /**
+     * Requete par rapport à des critères dans le where
+     *
+     * @param array $criteres  exemple ['id' => '3', 'nom' => 'manu'] 
+     * @return void
+     */
     public function findBy(array $criteres)
     {
         $champs = [];
@@ -42,6 +48,11 @@ class Model extends Db
     public function find(int $id)
     {
         return $this->requete("SELECT * FROM $this->table WHERE id = $id")->fetch();
+    }
+
+    public function findOneByEmail(string $email)
+    {
+        return $this->requete("SELECT * FROM $this->table WHERE email = ?", [$email])->fetch();
     }
 
     public function create()

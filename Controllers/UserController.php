@@ -2,23 +2,29 @@
 namespace App\Controllers;
 
 use App\Core\Form;
-use App\Models\UsersModel;
+use App\Models\BoutiqueProModel;
+use App\Models\UserModel;
 
-class UsersController extends Controller
+class UserController extends Controller
 {
+    /**
+     * Connexion de l'utilisateur
+     *
+     * @return void
+     */
     public function login()
     {
         // On vérifie si le formulaire est complet
         if(Form::validate($_POST, ['email', 'password'])){
 
             // On vérifie en BDD d'un utilisateur à un email qui correspond
-            $user = new UsersModel;
+            $user = new UserModel;
             $userArray = $user->findOneByEmail(strip_tags($_POST['email']));
             
 
             if (!$userArray) {
                 $_SESSION['erreur'] = "L'adresse e-mail et/ou mot de passe est incorrect";
-                header('location: \projectpool2\boutique/users/login');
+                header('location: '.ACCUEIL.'user/login');
                 exit;
             }
 
@@ -30,12 +36,12 @@ class UsersController extends Controller
                 // Le mot de passe est bon
                 $user->setSession();
                 $_SESSION['success'] = "Vous êtes connecté";
-                header('location: \projectpool2\boutique/annonces');
+                header('location: '.ACCUEIL.'main');
                 exit;
             }
             else {
                 $_SESSION['erreur'] = "L'adresse e-mail et/ou mot de passe est incorrect";
-                header('location: \projectpool2\boutique/users/login');
+                header('location: '.ACCUEIL.'user/login');
                 exit;
             }
 
@@ -51,7 +57,7 @@ class UsersController extends Controller
             ->ajoutBouton('Me connecter', ['class' => 'btn btn-primary col-12'])
             ->finForm();
                 
-        $this->render('users/login', ['loginForm' => $form->create()]);       
+        $this->render('user/login', ['loginForm' => $form->create()]);       
     }   
 
     /**
@@ -69,8 +75,17 @@ class UsersController extends Controller
             $email = strip_tags($_POST['email']);
             $pass = password_hash($_POST['password'], PASSWORD_ARGON2I);
         
-            // On instancie la classe Users
-            $user = new UsersModel;
+            // On instancie la classe Users et la classe boutiquepro
+            $user = new UserModel;
+            $boutiquepro = new BoutiqueProModel;
+            $email_exist = $boutiquepro->findOneByEmail($email);
+            $email_existe = $user->findOneByEmail($email);
+            if (!empty($email_exist) OR !empty($email_existe)) {
+                // l'email est déjà pris
+                $_SESSION['erreur'] = "Cet email est déjà pris";
+                header('location: '.ACCUEIL.'user/register');
+                exit;
+            }
 
             // On hydrate l'objet
             $user->setEmail($email)
@@ -81,10 +96,14 @@ class UsersController extends Controller
 
             //On stock l'utilisateur en BDD
             $user->create();
+            
+            $_SESSION['success'] = "Votre compte à été crée, connectez-vous";
+            header('location: '.ACCUEIL.'user/login');
         }
 
         $form = new Form;
         
+        // Formulaire fait grace à la classe Form
         $form->debutForm()
             ->ajoutLabelFor('nom', 'nom :')
             ->ajoutInput('text', 'nom', ['id' => 'nom', 'class' => 'form-control'])
@@ -98,9 +117,14 @@ class UsersController extends Controller
             ->finForm()
         ;
 
-        $this->render('users/register', ['registerForm' => $form->create()]);
+        $this->render('user/register', ['registerForm' => $form->create()]);
     }
 
+    /**
+     * Modifie le profil de l'utilisateur
+     *
+     * @return void
+     */
     public function profil()
     {
         if(Form::validate($_POST, ['nom', 'prenom', 'email', 'password'])){
@@ -111,7 +135,7 @@ class UsersController extends Controller
             $pass = password_hash($_POST['password'], PASSWORD_ARGON2I);
         
             // On instancie la classe Users
-            $user = new UsersModel;
+            $user = new UserModel;
 
             // On hydrate l'objet
             $user->setId((int) $_SESSION['user']['id'])
@@ -147,13 +171,18 @@ class UsersController extends Controller
         ;
 
 
-        $this->render('users/profil', ['profilForm' => $form->create()]);
+        $this->render('user/profil', ['profilForm' => $form->create()]);
     }
 
+    /**
+     * Déconnexion de l'utilisateur
+     *
+     * @return void
+     */
     public function logout()
     {
         unset($_SESSION['user']);
-        header('location: '.$_SERVER['HTTP_REFERER']);
+        header('location: '.ACCUEIL);
         exit;
     }
 

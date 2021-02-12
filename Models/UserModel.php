@@ -1,13 +1,14 @@
 <?php
 namespace App\Models;
 
-class UsersModel extends Model
+class UserModel extends Model
 {
     protected $id;
     protected $nom;
     protected $prenom;
     protected $email;
     protected $password;
+    protected $droit_id = null;
     
 
    public function __construct()
@@ -15,17 +16,7 @@ class UsersModel extends Model
        $this->table = 'user';
    }
 
-    /**
-     * Récupérer un user à partir de son e-mail
-     * @param string $email 
-     * @return mixed 
-     */
-    public function findOneByEmail(string $email)
-    {
-        return $this->requete("SELECT * FROM $this->table WHERE email = ?", [$email])->fetch();
-    }
-
-    /**
+    /** 
      * Crée la session de l'utilisateur
      * @return void 
      */
@@ -136,6 +127,26 @@ class UsersModel extends Model
     public function setPassword($password)
     {
         $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of droit_id
+     */ 
+    public function getDroit_id()
+    {
+        return $this->droit_id;
+    }
+
+    /**
+     * Set the value of droit_id
+     *
+     * @return  self
+     */ 
+    public function setDroit_id($droit_id)
+    {
+        $this->droit_id = $droit_id;
 
         return $this;
     }

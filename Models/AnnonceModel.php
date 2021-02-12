@@ -6,20 +6,16 @@ class AnnonceModel extends Model
     protected $id;
     protected $titre;
     protected $description;
-    protected $photo_id;
+    protected $photo_id = null;
     protected $created_at;
-    protected $create_at;
-    protected $user_id;
-    protected $boutique_pro_id;
-    protected $boutique_particulier_id;
+    protected $user_id = null;
+    protected $boutique_pro_id = null;
+    protected $boutique_particulier_id = null;
 
     public function __construct()
     {
         $this->table = 'annonce';
     }
-
-    
-
 
     /**
      * Get the value of id

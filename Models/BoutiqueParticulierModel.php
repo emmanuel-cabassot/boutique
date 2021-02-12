@@ -1,12 +1,12 @@
 <?php
 namespace App\Models;
 
-class BoutiqueParticulier extends Model
+class BoutiqueParticulierModel extends Model
 {
     protected $id;
     protected $nom_boutique;
     protected $create_at;
-    protected $droit_id;
+    protected $droit_id = 10;
     protected $user_id;
 
     public function __construct()

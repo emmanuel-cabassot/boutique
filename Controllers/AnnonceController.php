@@ -2,9 +2,9 @@
 namespace App\Controllers;
 
 use App\Core\Form;
-use App\Models\AnnoncesModel;
+use App\Models\AnnonceModel;
 
-class AnnoncesController extends Controller
+class AnnonceController extends Controller
 {
     /**
      * Cette méhode affichera une page listant toutes les annonces de la BDD
@@ -14,12 +14,12 @@ class AnnoncesController extends Controller
     public function index()
     {
         // On instancie le class correspondant à la table annonces
-        $annonce = new AnnoncesModel;
+        $annonce = new AnnonceModel;
         // On appelle la méthode findAll qui va enregistrer les annonces dans $annonces
         $annonces = $annonce->findAll();
         
         // On génère la vue
-        $this->render('annonces/index', compact('annonces'));
+        $this->render('annonce/index', compact('annonces'));
     }
 
     /**
@@ -30,10 +30,10 @@ class AnnoncesController extends Controller
      */
     public function voir(int $id)
     {
-        $annonce = new AnnoncesModel;
+        $annonce = new AnnonceModel;
         $annonces = $annonce->find($id);
         
-        $this->render('annonces/voir', compact('annonces'));
+        $this->render('annonce/voir', compact('annonces'));
     }
 
     /**
@@ -51,12 +51,11 @@ class AnnoncesController extends Controller
             $description = strip_tags($_POST['description']);
             
             // On instancie notre modele
-            $annonce = new AnnoncesModel;
+            $annonce = new AnnonceModel;
 
             // On hydrate l'objet
             $annonce->setTitre($titre)
                 ->setDescription($description)
-                ->setUsers_id($_SESSION['user']['id'])
         ;
 
             // On crée l'annonce en BDD
@@ -64,7 +63,7 @@ class AnnoncesController extends Controller
 
             // On redirige 
             $_SESSION['success'] = "votre annonce à été enregistrée avec sucess";
-            header('location: \projectpool2\boutique');
+            header('location: '.ACCUEIL.'boutique');
         }else {
             // Le formulaire est incomplet
             $_SESSION['erreur'] = "Le formulaire est incomplet";
@@ -83,12 +82,12 @@ class AnnoncesController extends Controller
                 ->finForm()
             ;
 
-            $this->render('annonces/ajouter', ['form' => $form->create()]);
+            $this->render('annonce/ajouter', ['form' => $form->create()]);
 
         }else {
             // L'utilisateur n'est pas connecté
             $_SESSION['erreur'] = "Vous devez être connecté(e) pour accéder à cette page";
-            header('location: \projectpool2\boutique/users/login');
+            header('location: '.ACCUEIL.'users/login');
             exit;
         }
     }

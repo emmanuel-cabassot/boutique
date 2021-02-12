@@ -1,7 +1,7 @@
 <?php
 namespace App\Models;
 
-class AdresseParticulier extends Model
+class AdresseParticulierModel extends Model
 {
     protected $id;
     protected $user_id;

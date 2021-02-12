@@ -6,11 +6,11 @@ class BoutiqueProModel extends Model
     protected $id;
     protected $nom;
     protected $email;
-    protected $droit_id;
+    protected $droit_id = 20;
     protected $create_at;
-    protected $adresse_id;
+    protected $adresse_id = null;
     protected $siret;
-    protected $rib;
+    protected $rib = null;
 
     public function __construct()
     {

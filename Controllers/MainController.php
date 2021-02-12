@@ -2,13 +2,13 @@
 
 namespace App\Controllers;
 
-use App\Models\UsersModel;
+use App\Models\UserModel;
 
 class MainController extends Controller
 {
     public function index()
     {
-        $utilisateurs = new UsersModel;
+        $utilisateurs = new UserModel;
         $utilisateurs = $utilisateurs->findAll();
 
         $this->render('main/index', compact('utilisateurs'));

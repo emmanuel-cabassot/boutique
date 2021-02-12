@@ -1,13 +1,13 @@
 <?php
 namespace App\Models;
 
-class AdressePro extends Model
+class AdresseProModel extends Model
 {
     protected $id;
-    protected $nom;
     protected $adresse;
     protected $code;
     protected $ville;
+    protected $boutique_id;
 
     public function __construct()
     {
@@ -30,26 +30,6 @@ class AdressePro extends Model
     public function setId($id)
     {
         $this->id = $id;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of nom
-     */ 
-    public function getNom()
-    {
-        return $this->nom;
-    }
-
-    /**
-     * Set the value of nom
-     *
-     * @return  self
-     */ 
-    public function setNom($nom)
-    {
-        $this->nom = $nom;
 
         return $this;
     }
@@ -110,6 +90,26 @@ class AdressePro extends Model
     public function setVille($ville)
     {
         $this->ville = $ville;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of boutique_id
+     */ 
+    public function getBoutique_id()
+    {
+        return $this->boutique_id;
+    }
+
+    /**
+     * Set the value of boutique_id
+     *
+     * @return  self
+     */ 
+    public function setBoutique_id($boutique_id)
+    {
+        $this->boutique_id = $boutique_id;
 
         return $this;
     }
