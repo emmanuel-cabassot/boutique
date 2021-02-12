@@ -6,6 +6,7 @@ class BoutiqueProModel extends Model
     protected $id;
     protected $nom;
     protected $email;
+    protected $password;
     protected $droit_id = 20;
     protected $create_at;
     protected $adresse_id = null;
@@ -17,6 +18,19 @@ class BoutiqueProModel extends Model
         $this->table = 'boutique_pro';
     }
 
+    /** 
+     * Crée la session de la boutique
+     * @return void 
+     */
+    public function setSession()
+    {
+        $_SESSION['user'] = [
+            'id' => $this->id,
+            'nom' => $this->nom,
+            'email' => $this->email,
+            'droit' => $this->droit_id,            
+        ];
+    }
 
 
     /**
@@ -175,6 +189,26 @@ class BoutiqueProModel extends Model
     public function setRib($rib)
     {
         $this->rib = $rib;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of password
+     */ 
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * Set the value of password
+     *
+     * @return  self
+     */ 
+    public function setPassword($password)
+    {
+        $this->password = $password;
 
         return $this;
     }

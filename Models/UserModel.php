@@ -26,7 +26,8 @@ class UserModel extends Model
             'id' => $this->id,
             'nom' => $this->nom,
             'prenom' => $this->prenom,
-            'email' => $this->email,        
+            'email' => $this->email,
+            'droit' => $this->droit_id,            
         ];
     }
 

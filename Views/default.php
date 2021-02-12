@@ -27,10 +27,19 @@
                     <li class="nav-item ml-3 ">
                         <a class="nav-link" href="<?= ACCUEIL ?>annonce">Annonces</a>
                     </li>
-                    <li class="nav-item ml-3">
+                    <?php 
+                    if (isset($_SESSION['user']['droit']) AND $_SESSION['user']['droit'] < 10 OR !isset($_SESSION['user'])) {?>
+                        <li class="nav-item ml-3">
                             <a class="nav-link" href="<?= ACCUEIL ?>creer/index">Créer sa boutique</a>
+                        </li>
+                        <?php
+                    }else {?>
+                        <li class="nav-item ml-3">
+                        <a class="nav-link" href="<?= ACCUEIL ?>vitrine/index">Ma boutique</a>
                     </li>
                     <?php
+                    }
+        
                     if (isset($_SESSION['user']) AND !empty($_SESSION['user']['id'])): ?>
                         <li class="nav-item ml-3">
                             <a class="nav-link" href="<?= ACCUEIL ?>user/profil" >Profil</a>

@@ -1,4 +1,7 @@
 <h1>Page d'accueil du site</h1>
+<?php
+var_dump($_SESSION);
+?>
 <?php 
 if (isset($_SESSION['erreur'])) {
 
@@ -8,5 +11,5 @@ if (isset($_SESSION['erreur'])) {
 if (isset($_SESSION['success'])) {
 
     echo '<div class="alert alert-success text-center" role="alert">'. $_SESSION['success'].'</div>';
-    unset($_SESSION['erreur']);
+    unset($_SESSION['success']);
 }

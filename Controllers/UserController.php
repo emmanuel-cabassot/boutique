@@ -19,31 +19,55 @@ class UserController extends Controller
 
             // On vérifie en BDD d'un utilisateur à un email qui correspond
             $user = new UserModel;
-            $userArray = $user->findOneByEmail(strip_tags($_POST['email']));
+            $boutique = new BoutiqueProModel;
+            $user_exist = $user->findOneByEmail(strip_tags($_POST['email']));
+            $boutique_exist = $boutique->findOneByEmail($_POST['email']);
             
 
-            if (!$userArray) {
+            if (!$user_exist AND !$boutique_exist) {
                 $_SESSION['erreur'] = "L'adresse e-mail et/ou mot de passe est incorrect";
                 header('location: '.ACCUEIL.'user/login');
                 exit;
             }
+             
+            if (!empty($user_exist)) {
+                // l'utilisateur existe et on hydrate l'user avec user_exist
+                $user = $user->hydrate($user_exist);
 
-            // l'utilisateur existe et on hydrate l'userArray
-            $user = $user->hydrate($userArray);
+                // On vérifie que le mot de passe est correct
+                if(password_verify($_POST['password'], $user->getPassword())) {
+                    // Le mot de passe est bon
+                    $user->setSession();
+                    $_SESSION['success'] = "Vous êtes connecté";
+                    header('location: '.ACCUEIL.'main');
+                    exit;
+                }
+                else {
+                    $_SESSION['erreur'] = "L'adresse e-mail et/ou mot de passe est incorrect";
+                    header('location: '.ACCUEIL.'user/login');
+                    exit;
+                }
+            }
 
-            // On vérifie que le mot de passe est correct
-            if(password_verify($_POST['password'], $user->getPassword())) {
-                // Le mot de passe est bon
-                $user->setSession();
-                $_SESSION['success'] = "Vous êtes connecté";
-                header('location: '.ACCUEIL.'main');
-                exit;
+            if (!empty($boutique_exist)) {
+                // La boutique existe et on hydrate boutique avec boutique_exist
+                $boutique = $boutique->hydrate($boutique_exist);
+
+                // On vérifie que le mot de passe est correct
+                if(password_verify($_POST['password'], $boutique->getPassword())) {
+                    // Le mot de passe est bon
+                    $boutique->setSession();
+                    $_SESSION['success'] = "Vous êtes connecté";
+                    header('location: '.ACCUEIL.'main');
+                    exit;
+                }
+                else {
+                    $_SESSION['erreur'] = "L'adresse e-mail et/ou mot de passe est incorrect";
+                    header('location: '.ACCUEIL.'user/login');
+                    exit;
+                }
             }
-            else {
-                $_SESSION['erreur'] = "L'adresse e-mail et/ou mot de passe est incorrect";
-                header('location: '.ACCUEIL.'user/login');
-                exit;
-            }
+            
 
         }
         

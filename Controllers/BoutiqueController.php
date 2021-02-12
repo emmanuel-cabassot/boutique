@@ -20,13 +20,14 @@ class BoutiqueController extends Controller
     {
         
         // On vérifie si le formulaire est complet
-        if(Form::validate($_POST, ['nom','email', 'adresse', 'code', 'ville'])){
+        if(Form::validate($_POST, ['nom','email', 'adresse', 'code', 'ville', 'password'])){
             $nom = strip_tags($_POST['nom']);
             $email = strip_tags($_POST['email']);
             $adresse = strip_tags($_POST['adresse']);
             $code = (int) $_POST['code'];
             $ville = strip_tags($_POST['ville']);
             $siret = $_POST['siret'];
+            $password = password_hash($_POST['password'], PASSWORD_ARGON2I);
 
             // On instancie la class Boutiquepro, Boutiqueparticulier et user
             $boutiquepro = new BoutiqueproModel;
@@ -41,10 +42,12 @@ class BoutiqueController extends Controller
                 $email_exist = $boutiquepro->findBy(['email' => $email]);
                 $email_existe = $user->findBy(['email' => $email]);
                 if (empty($email_exist) AND empty($email_existe)) {
+
                     // On hydrate l'objet
                     $boutiquepro->setNom($nom)
                     ->setEmail($email)
                     ->setSiret($siret)
+                    ->setPassword($password)
                     ;
 
                     // On crée la boutique en BDD
@@ -90,6 +93,8 @@ class BoutiqueController extends Controller
             ->ajoutInput('text', 'ville', ['id' => 'ville', 'class' => 'form-control', 'required' => true])
             ->ajoutLabelFor('siret', 'Numéro Siret')
             ->ajoutInput('number', 'siret', ['id' => 'siret', 'class' => 'form-control'])
+            ->ajoutLabelFor('password', 'Mot de passe :')
+            ->ajoutInput('password', 'password', ['id' => 'password', 'class' => 'form-control', 'required' => true])
             ->ajoutBouton('Créer boutique', ['class' => 'btn btn-primary col-12'])
             ->finForm()
         ;
@@ -153,6 +158,8 @@ class BoutiqueController extends Controller
                 ;
                
                 $user->update();
+
+                $_SESSION['user']['droit'] = 10;
 
                 if (empty($exist_adresse)) {
                     // Si on a pas d'adresse enregistrée dans BDD correspondant avec user_id
