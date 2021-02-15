@@ -2,14 +2,13 @@
 namespace App\Controllers;
 
 use App\Core\Form;
-
 use App\Models\AdresseParticulierModel;
 use App\Models\AdresseProModel;
 use App\Models\BoutiqueParticulierModel;
 use App\Models\BoutiqueProModel;
 use App\Models\UserModel;
 
-class BoutiqueController extends Controller
+class BoutiqueRegisterController extends Controller
 {
     /**
      * Création de la boutique pro en BDD
@@ -99,7 +98,7 @@ class BoutiqueController extends Controller
             ->finForm()
         ;
 
-        $this->render('boutique/registerpro', ['boutiqueForm' => $form->create()]);        
+        $this->render('boutique_register/registerpro', ['boutiqueForm' => $form->create()]);        
     }
 
     /**
@@ -209,6 +208,6 @@ class BoutiqueController extends Controller
             ->finForm()
         ;
 
-        $this->render('boutique/registerpar', ['boutiqueForm' => $form->create()]);       
+        $this->render('boutique_register/registerpar', ['boutiqueForm' => $form->create()]);       
     }
 }

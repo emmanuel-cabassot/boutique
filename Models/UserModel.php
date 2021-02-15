@@ -8,7 +8,7 @@ class UserModel extends Model
     protected $prenom;
     protected $email;
     protected $password;
-    protected $droit_id = null;
+    protected $droit_id = 1;
     
 
    public function __construct()

@@ -3,6 +3,7 @@ namespace App\Controllers;
 
 use App\Core\Form;
 use App\Models\BoutiqueProModel;
+use App\Models\PhotoAvatarModel;
 use App\Models\UserModel;
 
 class UserController extends Controller
@@ -116,6 +117,7 @@ class UserController extends Controller
                 ->setPassword($pass)
                 ->setNom($nom)
                 ->setPrenom($prenom)
+                ->setDroit_id(1)
             ; 
 
             //On stock l'utilisateur en BDD
@@ -151,6 +153,7 @@ class UserController extends Controller
      */
     public function profil()
     {
+        // Validation pour le profil
         if(Form::validate($_POST, ['nom', 'prenom', 'email', 'password'])){
             // Le formulaire est valide On nettoie et on encode le mot de passe
             $nom = strip_tags($_POST['nom']);
@@ -158,6 +161,81 @@ class UserController extends Controller
             $email = strip_tags($_POST['email']);
             $pass = password_hash($_POST['password'], PASSWORD_ARGON2I);
         
+            if (isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name']) ) {
+                // Une photo à bien été mise dans le formulaire
+                //Taille max
+                $tailleMax = 4000000;
+                // Ext"extensions valides
+                $extensionValides = ['jpg', 'jpeg', 'gif', 'png'];
+
+                if($_FILES['avatar']['size'] <= $tailleMax){
+                    // La taille du fichier est bien inféreur à ce que l'on demande
+                    // On vérifie l'extension
+                    $extensionUpload = strtolower(substr(strrchr($_FILES['avatar']['name'], '.'),1));
+
+                    if (in_array($extensionUpload, $extensionValides)) {
+                        // La taille et l'extension de la photo sont valides
+                        // On recherche en BDD si une photo existe
+                        $photo = new PhotoAvatarModel;
+                        $photos = $photo->findBy(['user_id' => $_SESSION['user']['id']]);
+                        if (!empty($photos)) {
+                            // Une photo de profil est déjà enregistrée
+                            // On supprime la photo de profil enregistrée dans le fichier
+                            $chemin_supp = 'public/img/avatar/'.$photos[0]->photo;
+                            unlink($chemin_supp);
+                            // On supprime la photo de profil enregistrée dans la bdd
+                            $photo->deletePhotoUser($_SESSION['user']['id']);
+                            //Chemin et nom du fichier que l'on va enregistrer 
+                            $chemin = 'public/img/avatar/'.$_SESSION['user']['id'].'.'.$extensionUpload;
+                            // On enregistre le fichier grace à move et $resultat = false ou true
+                            $resultat = move_uploaded_file($_FILES['avatar']['tmp_name'], $chemin);
+                            if ($resultat) {   
+                                // On hydrate l'objet
+                                $photo->setUser_id($_SESSION['user']['id'])
+                                    ->setPhoto($_SESSION['user']['id'].'.'.$extensionUpload)
+                                ;
+                                // On crée insert la photo en BDD
+                                $photo->create();
+                           
+                            }else{
+                                $_SESSION['erreur'] = "Erreur durant l'importation du fichier";
+                                header('location: '.ACCUEIL.'user/profil');
+                                exit;
+                            }
+                        }else {
+                            // Pas de photo de profil enregistrée 
+                            // Chemin et nom du fichier que l'on va enregistrer 
+                            $chemin = 'public/img/avatar/'.$_SESSION['user']['id'].'.'.$extensionUpload;
+                            // On enregistre le fichier grace à move et $resultat = false ou true
+                            $resultat = move_uploaded_file($_FILES['avatar']['tmp_name'], $chemin);
+                            if ($resultat) {   
+                                // On hydrate l'objet
+                                $photo->setUser_id($_SESSION['user']['id'])
+                                    ->setPhoto($_SESSION['user']['id'].'.'.$extensionUpload)
+                                ;
+                                // On crée insert la photo en BDD
+                                $photo->create();
+                            }else{
+                                $_SESSION['erreur'] = "Erreur durant l'importation du fichier";
+                                header('location: '.ACCUEIL.'user/profil');
+                                exit;
+                            }
+                        }
+                    }else{
+                        $_SESSION['erreur'] = "Votre photo de profil doit être au format jpg, jpeg, gif ou png";
+                        header('location: '.ACCUEIL.'user/profil');
+                        exit;
+                    }
+                }else{
+                    $_SESSION['erreur'] = "Votre photo de profil ne doit pas dépasser 4 mo";
+                    header('location: '.ACCUEIL.'user/profil');
+                    exit;
+                }
+            }
+                        
+                        
+            
+            
             // On instancie la classe Users
             $user = new UserModel;
 
@@ -178,24 +256,55 @@ class UserController extends Controller
             // On fait passer le message de success
             $_SESSION['success'] = "Votre profil à été modifié";
         }
+        
+        // Validation pour l'adresse
+        if(Form::validate($_POST, ['adresse', 'code', 'ville', 'passwor'])){
+            // Le formulaire est valide On nettoie et on encode le mot de passe
+            $adresse = strip_tags($_POST['adresse']);
+            (int) $code = ($_POST['code']);
+            $ville = strip_tags($_POST['ville']);
+            $pass = password_hash($_POST['passwor'], PASSWORD_ARGON2I);
+
+            
+        }
+
 
         $form = new Form;
 
-        $form->debutForm()
+        $form->debutForm('post','#', ['enctype' => 'multipart/form-data'])
             ->ajoutLabelFor('nom', 'Nom :')
             ->ajoutInput('text', 'nom', ['id' => 'nom', 'class' => 'form-control', 'value' => $_SESSION['user']['nom'] ])
             ->ajoutLabelFor('prenom', 'Prénom :')
             ->ajoutInput('text', 'prenom', ['id' => 'prenom', 'class' => 'form-control', 'value' => $_SESSION['user']['prenom']])
             ->ajoutLabelFor('email', 'E-mail :')
             ->ajoutInput('email', 'email', ['id' => 'email', 'class' => 'form-control', 'value' => $_SESSION['user']['email']])
+            ->ajoutLabelFor('avatar', 'photo de profil :')
+            ->ajoutInput('file', 'avatar', ['id' => 'avatar', 'class' => 'form-control'])
             ->ajoutLabelFor('password', 'Mot de passe :')
             ->ajoutInput('pass', 'password', ['id' => 'pass', 'class' => 'form-control'])
             ->ajoutBouton('Modifier mon profil', ['class' => 'btn btn-primary'])
             ->finForm()
         ;
 
+        $adress = new Form;
 
-        $this->render('user/profil', ['profilForm' => $form->create()]);
+        $adress->debutForm()
+            ->ajoutLabelFor('adresse', 'Adresse :')
+            ->ajoutInput('text', 'adresse', ['id' => 'adresse', 'class' => 'form-control'])
+            ->ajoutLabelFor('code', 'Code postal :')
+            ->ajoutInput('numer', 'code', ['id' => 'code', 'class' => 'form-control'])
+            ->ajoutLabelFor('ville', 'Ville :')
+            ->ajoutInput('text', 'ville', ['id' => 'ville', 'class' => 'form-control'])
+            ->ajoutLabelFor('passwor', 'Mot de passe :')
+            ->ajoutInput('pass', 'passwor', ['id' => 'pass', 'class' => 'form-control'])
+            ->ajoutBouton('Valider adresse', ['class' => 'btn btn-primary'])
+            ->finForm()
+        ;
+            
+
+
+
+        $this->render('user/profil', ['profilForm' => $form->create(), 'adressForm' => $adress->create()]);
     }
 
     /**
