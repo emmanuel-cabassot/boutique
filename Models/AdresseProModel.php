@@ -14,6 +14,11 @@ class AdresseProModel extends Model
         $this->table = 'adresse_pro';
     }
 
+    public function findAdresse($boutique_id)
+    {
+        return $this->requete("SELECT * FROM $this->table WHERE boutique_id = $boutique_id")->fetch();
+    }
+
     /**
      * Get the value of id
      */ 

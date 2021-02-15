@@ -6,15 +6,20 @@ class AnnonceModel extends Model
     protected $id;
     protected $titre;
     protected $description;
-    protected $photo_id = null;
+    protected $photo_id;
     protected $created_at;
-    protected $user_id = null;
-    protected $boutique_pro_id = null;
-    protected $boutique_particulier_id = null;
+    protected $user_id;
+    protected $boutique_pro_id;
+    protected $boutique_particulier_id;
 
     public function __construct()
     {
         $this->table = 'annonce';
+    }
+
+    public function findAnnoneProLimit($boutique_pro_id)
+    {
+        return $this->requete("SELECT * FROM $this->table WHERE boutique_pro_id = $boutique_pro_id ORDER BY create_at DESC LIMIT 10")->fetchAll();
     }
 
     /**

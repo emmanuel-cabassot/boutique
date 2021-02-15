@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : ven. 12 fév. 2021 à 09:24
+-- Généré le : lun. 15 fév. 2021 à 11:32
 -- Version du serveur :  5.7.31
 -- Version de PHP : 7.3.21
 
@@ -40,14 +40,14 @@ CREATE TABLE IF NOT EXISTS `adresse_particulier` (
   PRIMARY KEY (`id`),
   KEY `users_id` (`user_id`),
   KEY `boutique_id` (`boutique_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `adresse_particulier`
 --
 
 INSERT INTO `adresse_particulier` (`id`, `boutique_id`, `user_id`, `adresse`, `code`, `ville`) VALUES
-(12, NULL, 24, ',jpkop', 5585, 'niomjnomij');
+(13, NULL, 26, '22 rue poucel', 13004, 'Marseille');
 
 -- --------------------------------------------------------
 
@@ -64,7 +64,14 @@ CREATE TABLE IF NOT EXISTS `adresse_pro` (
   `ville` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `boutique_id` (`boutique_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
+
+--
+-- Déchargement des données de la table `adresse_pro`
+--
+
+INSERT INTO `adresse_pro` (`id`, `boutique_id`, `adresse`, `code`, `ville`) VALUES
+(7, 18, '22 rue poucel', 13004, 'Marseille');
 
 -- --------------------------------------------------------
 
@@ -77,7 +84,7 @@ CREATE TABLE IF NOT EXISTS `annonce` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `titre` varchar(255) NOT NULL,
   `description` longtext NOT NULL,
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `create_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `user_id` int(11) DEFAULT NULL,
   `boutique_pro_id` int(11) DEFAULT NULL,
   `boutique_particulier_id` int(11) DEFAULT NULL,
@@ -87,6 +94,13 @@ CREATE TABLE IF NOT EXISTS `annonce` (
   KEY `user_id` (`user_id`,`boutique_pro_id`,`boutique_particulier_id`),
   KEY `annonce_ibfk_1` (`boutique_particulier_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+
+--
+-- Déchargement des données de la table `annonce`
+--
+
+INSERT INTO `annonce` (`id`, `titre`, `description`, `create_at`, `user_id`, `boutique_pro_id`, `boutique_particulier_id`) VALUES
+(1, 'PC portable', 'super pc portable', '2021-02-13 23:11:56', NULL, 18, NULL);
 
 -- --------------------------------------------------------
 
@@ -104,14 +118,14 @@ CREATE TABLE IF NOT EXISTS `boutique_particulier` (
   PRIMARY KEY (`id`),
   KEY `users_id` (`user_id`),
   KEY `droit_id` (`droit_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `boutique_particulier`
 --
 
 INSERT INTO `boutique_particulier` (`id`, `nom_boutique`, `create_at`, `droit_id`, `user_id`) VALUES
-(9, 'jiojopjoi^joijpj', '2021-02-12 10:12:15', 10, 24);
+(10, 'Le stand de Manu', '2021-02-12 11:15:26', 10, 26);
 
 -- --------------------------------------------------------
 
@@ -124,13 +138,21 @@ CREATE TABLE IF NOT EXISTS `boutique_pro` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nom` varchar(50) CHARACTER SET utf8 NOT NULL,
   `email` varchar(100) CHARACTER SET utf8 NOT NULL,
+  `password` varchar(255) NOT NULL,
   `droit_id` int(11) NOT NULL,
   `create_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `siret` varchar(255) NOT NULL,
   `rib` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `droit_id` (`droit_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4;
+
+--
+-- Déchargement des données de la table `boutique_pro`
+--
+
+INSERT INTO `boutique_pro` (`id`, `nom`, `email`, `password`, `droit_id`, `create_at`, `siret`, `rib`) VALUES
+(18, 'Chacha', 'chacha@hotmail.fr', '$argon2i$v=19$m=65536,t=4,p=1$VFY5UDQuUkl6cDR5b2x3dA$+QWjW9+vKBb4Z3LrMN+gdb7wvDCRs+wLcEZt48a8WS4', 20, '2021-02-12 12:38:37', '2525525', NULL);
 
 -- --------------------------------------------------------
 
@@ -245,7 +267,15 @@ CREATE TABLE IF NOT EXISTS `photo_avatar` (
   `user_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+
+--
+-- Déchargement des données de la table `photo_avatar`
+--
+
+INSERT INTO `photo_avatar` (`id`, `photo`, `user_id`) VALUES
+(2, '28.jpg', 28),
+(4, '27.jpg', 27);
 
 -- --------------------------------------------------------
 
@@ -283,18 +313,16 @@ CREATE TABLE IF NOT EXISTS `user` (
   `password` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `droit_id` (`droit_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `user`
 --
 
 INSERT INTO `user` (`id`, `droit_id`, `nom`, `prenom`, `email`, `password`) VALUES
-(20, NULL, 'cabassot', 'Adrien', 'adrien@hotmail.fr', '$argon2i$v=19$m=65536,t=4,p=1$eVZtck9LTUZ1SloyZkRqSg$5Xxx7mnfOL3R161xdGMvwJ9v4QBcHowgQyxVJPj6F3k'),
-(21, NULL, 'cabassot', 'lou', 'lou@hotamil.fr', '$argon2i$v=19$m=65536,t=4,p=1$MVR2ZHhqb2t5MkozNWN6bw$xreBHDbaMrPggBWuSbOpY5ZpIzyh2ysymlVBV9r8SY4'),
-(22, NULL, 'KDJSO', '?DKS', '?DLKS?P@gmail.com', '$argon2i$v=19$m=65536,t=4,p=1$ZzduU2c3eW53M096cEp5Wg$0ohO22uYtBiGmupSp9Thae62hiscsWK5j3LGxJZjNFY'),
-(23, NULL, 'mapetitiefemme', 'pareil', 'femme@hotm.fr', '$argon2i$v=19$m=65536,t=4,p=1$MEd1VVhRL3ZmTWpIclJLWQ$rRqGxZsL3teM06N8gk6oLEA1uk1+X1DO+mvrtpG4zqA'),
-(24, 10, 'toto', 'toto', 'toto@toto', '$argon2i$v=19$m=65536,t=4,p=1$U3hnYzM5MDc5YmE3S1RLZQ$ET0h/bFkYkmYeE8gKwsy+r4/kpk6j6CG99mKUZchj7o');
+(26, 10, 'Cabassot', 'Emmanuel', 'emmanuel.cabassot@laplateforme.io', '$argon2i$v=19$m=65536,t=4,p=1$dk5PeU9zVDhVRGN0ZzV2Ng$CxfNmk0YlVLTWXTK3xEpRP24uSLpOYSDoPMTF1MAti8'),
+(27, 1, 'cabassot', 'lou', 'lou@hotamil.fr', '$argon2i$v=19$m=65536,t=4,p=1$dlVtNXRxamYvR2d2SS40eg$cfJpR7mDYLvvW32p56Sbf9DGx28vHzhUU+BBrkJGUrs'),
+(28, 1, 'adrien', 'cabassot', 'adrien@hotmail.fr', '$argon2i$v=19$m=65536,t=4,p=1$THM2eEloUjEzZFRkQXRqYg$/CNddIdGQiJpzikyGebMRx/FHKQZ/1H48JhnfAS8qbA');
 
 --
 -- Contraintes pour les tables déchargées

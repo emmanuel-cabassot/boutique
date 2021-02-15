@@ -6,4 +6,12 @@ if(isset($_SESSION['success'])): ?>
   <?php echo $_SESSION['success']; unset($_SESSION['success']) ?>
 </div>
 <?php endif; 
-echo $profilForm;
+if (isset($_SESSION['erreur'])) {
+
+  echo '<div class="alert alert-danger text-center" role="alert">'. $_SESSION['erreur'].'</div>';
+  unset($_SESSION['erreur']);
+}
+echo $profilForm;?>
+<h2>Adresse</h2>
+<?php
+echo $adressForm;
