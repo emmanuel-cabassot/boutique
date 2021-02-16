@@ -6,7 +6,8 @@ class AnnonceModel extends Model
     protected $id;
     protected $titre;
     protected $description;
-    protected $photo_id;
+    protected $prix;
+    protected $stock = 1;
     protected $created_at;
     protected $user_id;
     protected $boutique_pro_id;
@@ -20,6 +21,16 @@ class AnnonceModel extends Model
     public function findAnnoneProLimit($boutique_pro_id)
     {
         return $this->requete("SELECT * FROM $this->table WHERE boutique_pro_id = $boutique_pro_id ORDER BY create_at DESC LIMIT 10")->fetchAll();
+    }
+
+    public function findAnnonceByPro($boutique_pro_id)
+    {
+        return $this->requete("SELECT * FROM $this->table WHERE boutique_pro_id = $boutique_pro_id ORDER BY create_at DESC")->fetch();
+    }
+
+    public function findAnnonceByPar($boutique_particulier_id)
+    {
+        return $this->requete("SELECT * FROM $this->table WHERE boutique_pro_id = $boutique_particulier_id ORDER BY create_at DESC")->fetch();
     }
 
     /**
@@ -82,26 +93,7 @@ class AnnonceModel extends Model
         return $this;
     }
 
-    /**
-     * Get the value of photo_id
-     */ 
-    public function getPhoto_id()
-    {
-        return $this->photo_id;
-    }
-
-    /**
-     * Set the value of photo_id
-     *
-     * @return  self
-     */ 
-    public function setPhoto_id($photo_id)
-    {
-        $this->photo_id = $photo_id;
-
-        return $this;
-    }
-
+    
     /**
      * Get the value of created_at
      */ 
@@ -178,6 +170,46 @@ class AnnonceModel extends Model
     public function setBoutique_particulier_id($boutique_particulier_id)
     {
         $this->boutique_particulier_id = $boutique_particulier_id;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of prix
+     */ 
+    public function getPrix()
+    {
+        return $this->prix;
+    }
+
+    /**
+     * Set the value of prix
+     *
+     * @return  self
+     */ 
+    public function setPrix($prix)
+    {
+        $this->prix = $prix;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of stock
+     */ 
+    public function getStock()
+    {
+        return $this->stock;
+    }
+
+    /**
+     * Set the value of stock
+     *
+     * @return  self
+     */ 
+    public function setStock($stock)
+    {
+        $this->stock = $stock;
 
         return $this;
     }

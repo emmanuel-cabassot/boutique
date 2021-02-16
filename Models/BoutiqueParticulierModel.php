@@ -14,6 +14,11 @@ class BoutiqueParticulierModel extends Model
         $this->table = 'boutique_particulier';
     }
 
+    public function findBoutiqueByUser($user_id)
+    {
+        return $this->requete("SELECT * FROM $this->table WHERE user_id = $user_id")->fetch();
+    }
+
     /**
      * Get the value of id
      */ 

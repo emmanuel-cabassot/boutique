@@ -164,8 +164,8 @@ class UserController extends Controller
             if (isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name']) ) {
                 // Une photo à bien été mise dans le formulaire
                 //Taille max
-                $tailleMax = 4000000;
-                // Ext"extensions valides
+                $tailleMax = 2000000;
+                // Extensions valides
                 $extensionValides = ['jpg', 'jpeg', 'gif', 'png'];
 
                 if($_FILES['avatar']['size'] <= $tailleMax){
@@ -227,7 +227,7 @@ class UserController extends Controller
                         exit;
                     }
                 }else{
-                    $_SESSION['erreur'] = "Votre photo de profil ne doit pas dépasser 4 mo";
+                    $_SESSION['erreur'] = "Votre photo de profil ne doit pas dépasser 2 mo";
                     header('location: '.ACCUEIL.'user/profil');
                     exit;
                 }
@@ -281,7 +281,7 @@ class UserController extends Controller
             ->ajoutLabelFor('avatar', 'photo de profil :')
             ->ajoutInput('file', 'avatar', ['id' => 'avatar', 'class' => 'form-control'])
             ->ajoutLabelFor('password', 'Mot de passe :')
-            ->ajoutInput('pass', 'password', ['id' => 'pass', 'class' => 'form-control'])
+            ->ajoutInput('password', 'password', ['id' => 'pass', 'class' => 'form-control'])
             ->ajoutBouton('Modifier mon profil', ['class' => 'btn btn-primary'])
             ->finForm()
         ;

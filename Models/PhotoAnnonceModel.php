@@ -1,11 +1,12 @@
 <?php
 namespace App\Models;
 
-class PhotoAnnonce extends Model
+class PhotoAnnonceModel extends Model
 {
     protected $id;
     protected $photo;
     protected $annonce_id;
+    protected $statut;
 
     public function __construct()
     {
@@ -68,6 +69,26 @@ class PhotoAnnonce extends Model
     public function setAnnonce_id($annonce_id)
     {
         $this->annonce_id = $annonce_id;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of statut
+     */ 
+    public function getStatut()
+    {
+        return $this->statut;
+    }
+
+    /**
+     * Set the value of statut
+     *
+     * @return  self
+     */ 
+    public function setStatut($statut)
+    {
+        $this->statut = $statut;
 
         return $this;
     }

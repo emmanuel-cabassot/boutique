@@ -6,26 +6,52 @@
 main{
     display: flex;
     flex-direction: column;
-    width: 100%;
-    background: rgb(243, 243, 243);
+   
     align-items: center;
+    
 }
 
-.profil_general{
+
+                                /* ACCUEIL BOUTIQUE */
+.boutique_accueil{
     display: flex;
     justify-content: center;
-    width: 80%;
-}
-.profil{
-    display: flex;
-    flex-direction: column;
-    width: 40%;
-    text-align: center;
-    border: 1px solid black;
+    width: 90%;
 }
 
-.annonces{
-    width: 55%;
+.boutique_accueil .profil{
+    width: 25%;
     text-align: center;
-    border: 1px solid black;
+    border: 1px solid rgb(206, 206, 206);
+    
+}
+
+.boutique_accueil .profil p{
+    text-align: center;
+    font-size: 25px;
+    margin-bottom: 0.3em;
+}
+
+.boutique_accueil .profil p{
+    text-align: center;
+    font-size: 25px;
+}
+
+
+.boutique_accueil .profil img{
+    width: 100%;
+}
+
+.boutique_accueil .note{
+    border-top: 1.5px solid rgb(206, 206, 206);
+    border-bottom: 1.5px solid rgb(206, 206, 206);
+}
+
+.boutique_accueil .modifier a{
+    margin: 10px 10px;
+    width: 85%;
+}
+
+.boutique_accueil .annonces{
+    width: 50%;
 }

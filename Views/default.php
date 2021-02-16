@@ -29,16 +29,41 @@
                             <a class="nav-link" href="<?= ACCUEIL ?>annonce">Annonces</a>
                         </li>
                         <?php
-                        if (isset($_SESSION['user']['droit']) and $_SESSION['user']['droit'] < 10 or !isset($_SESSION['user'])) { ?>
+                        if (isset($_SESSION['user']['droit']) and $_SESSION['user']['droit'] == 20 ) { ?>
+                            <li class="nav-item ml-3">
+                                <a class="nav-link" href="<?= ACCUEIL ?>annonce/ajouterPro">Vends</a>
+                            </li>
+                            <div class="dropdown">
+                                <a class="nav-link dropdown-toggle text-center" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Ma boutique
+                                </a>
+
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                    <a class="dropdown-item" href="<?= ACCUEIL ?>boutiqueAccueil/accueilPro">Profil de ma boutique</a>
+                                    <a class="dropdown-item" href="<?= ACCUEIL ?>annonce/ajouterPro">Vendre un article</a>
+                                    <a class="dropdown-item" href="#">Mes paramètres</a>
+                                </div>
+                            </div>
+                        <?php
+                        }
+                        if (isset($_SESSION['user']['droit']) and $_SESSION['user']['droit'] == 1 or !isset($_SESSION['user'])) { ?>
                             <li class="nav-item ml-3">
                                 <a class="nav-link" href="<?= ACCUEIL ?>creer/index">Créer sa boutique</a>
                             </li>
                         <?php
                         }
-                        if (isset($_SESSION['user']['droit']) and $_SESSION['user']['droit'] > 9) { ?>
-                            <li class="nav-item ml-3">
-                                <a class="nav-link" href="<?= ACCUEIL ?>boutiqueAccueil/accueilPro">Ma boutique</a>
-                            </li>
+                        if (isset($_SESSION['user']['droit']) AND $_SESSION['user']['droit'] == 10) { ?>
+                            <div class="dropdown">
+                                <a class="nav-link dropdown-toggle text-center" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Ma boutique
+                                </a>
+
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                    <a class="dropdown-item" href="<?= ACCUEIL ?>boutiqueAccueil/accueilPar">Profil de ma boutique</a>
+                                    <a class="dropdown-item" href="<?= ACCUEIL ?>annonce/ajouterPar">Vendre un article</a>
+                                    <a class="dropdown-item" href="#">Mes paramètres</a>
+                                </div>
+                            </div>
                         <?php
                         }
 
@@ -77,8 +102,8 @@
 
 
 
-<!-- JavaScript Bundle with Popper -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-popRpmFF9JQgExhfw5tZT4I9/CI5e2QcuUZPOVXb1m7qUmeR2b50u+YFEYe1wgzy" crossorigin="anonymous"></script>
 </body>
 
 </html>

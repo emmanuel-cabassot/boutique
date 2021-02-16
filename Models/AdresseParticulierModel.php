@@ -14,6 +14,11 @@ class AdresseParticulierModel extends Model
         $this->table = 'adresse_particulier';
     }
 
+    public function findAdresse($user_id)
+    {
+        return $this->requete("SELECT * FROM $this->table WHERE boutique_id = $user_id")->fetch();
+    }
+
     /**
      * Get the value of id
      */ 

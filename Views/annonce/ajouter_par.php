@@ -1,4 +1,4 @@
-<h1>Page d'accueil du site</h1>
+<h1>Publier une annonce</h1>
 <?php 
 if (isset($_SESSION['erreur'])) {
 
@@ -8,5 +8,7 @@ if (isset($_SESSION['erreur'])) {
 if (isset($_SESSION['success'])) {
 
     echo '<div class="alert alert-success text-center" role="alert">'. $_SESSION['success'].'</div>';
-    unset($_SESSION['success']);
+    unset($_SESSION['succes']);
 }
+
+ echo $form ?>
