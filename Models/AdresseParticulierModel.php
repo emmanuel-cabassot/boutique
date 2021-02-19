@@ -16,7 +16,7 @@ class AdresseParticulierModel extends Model
 
     public function findAdresse($user_id)
     {
-        return $this->requete("SELECT * FROM $this->table WHERE boutique_id = $user_id")->fetch();
+        return $this->requete("SELECT * FROM $this->table WHERE user_id = $user_id")->fetch();
     }
 
     /**

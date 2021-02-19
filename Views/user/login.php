@@ -7,7 +7,7 @@ if(isset($_SESSION['erreur'])): ?>
 <?php endif; 
 if (isset($_SESSION['success'])): ?>
 
-  <div class="alert alert-success text-center" role="alert"><?=$_SESSION['success']?></div>;
+  <div class="alert alert-success text-center" role="alert"><?=$_SESSION['success']?></div>
   <?php unset($_SESSION['success']);
 endif;
   echo $loginForm;

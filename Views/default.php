@@ -29,7 +29,7 @@
                             <a class="nav-link" href="<?= ACCUEIL ?>annonce">Annonces</a>
                         </li>
                         <?php
-                        if (isset($_SESSION['user']['droit']) and $_SESSION['user']['droit'] == 20 ) { ?>
+                        if (isset($_SESSION['user']['droit']) and $_SESSION['user']['droit'] == 20) { ?>
                             <li class="nav-item ml-3">
                                 <a class="nav-link" href="<?= ACCUEIL ?>annonce/ajouterPro">Vends</a>
                             </li>
@@ -41,7 +41,7 @@
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                     <a class="dropdown-item" href="<?= ACCUEIL ?>boutiqueAccueil/accueilPro">Profil de ma boutique</a>
                                     <a class="dropdown-item" href="<?= ACCUEIL ?>annonce/ajouterPro">Vendre un article</a>
-                                    <a class="dropdown-item" href="#">Mes paramètres</a>
+                                    <a class="dropdown-item" href="<?= ACCUEIL ?>boutiqueProfil/profilPro">Mes paramètres</a>
                                 </div>
                             </div>
                         <?php
@@ -52,27 +52,49 @@
                             </li>
                         <?php
                         }
-                        if (isset($_SESSION['user']['droit']) AND $_SESSION['user']['droit'] == 10) { ?>
+                        if (isset($_SESSION['user']['droit']) and $_SESSION['user']['droit'] == 10) { ?>
                             <div class="dropdown">
-                                <a class="nav-link dropdown-toggle text-center" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <a class="nav-link dropdown-toggle text-center ml-3" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Ma boutique
                                 </a>
 
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                     <a class="dropdown-item" href="<?= ACCUEIL ?>boutiqueAccueil/accueilPar">Profil de ma boutique</a>
                                     <a class="dropdown-item" href="<?= ACCUEIL ?>annonce/ajouterPar">Vendre un article</a>
-                                    <a class="dropdown-item" href="#">Mes paramètres</a>
+                                    <a class="dropdown-item" href="<?= ACCUEIL ?>boutiqueprofil/profilparticulier">Mes paramètres</a>
+                                </div>
+                            </div>
+                            <div class="dropdown ml-3">
+                                <a class="nav-link dropdown-toggle text-center" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Profil
+                                </a>
+
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                    <a class="dropdown-item" href="<?= ACCUEIL ?>userprofil/profil">Mon profil</a>
+                                    <a class="dropdown-item" href="<?= ACCUEIL ?>user/profil">Modifier mon profil</a>
+                                    <a class="dropdown-item" href="<?= ACCUEIL ?>user/adresse">Mon adresse</a>
+                                    <a class="dropdown-item" href="<?= ACCUEIL ?>boutiqueProfil/profilPro">Moyen de paiement</a>
                                 </div>
                             </div>
                         <?php
+                        
                         }
 
 
 
                         if (isset($_SESSION['user']['droit']) and $_SESSION['user']['droit'] == 1) { ?>
-                            <li class="nav-item ml-3">
-                                <a class="nav-link" href="<?= ACCUEIL ?>user/profil">Profil</a>
-                            </li>
+                            <div class="dropdown ml-3">
+                                <a class="nav-link dropdown-toggle text-center" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Profil
+                                </a>
+
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                    <a class="dropdown-item" href="<?= ACCUEIL ?>userprofil/profil">Mon profil</a>
+                                    <a class="dropdown-item" href="<?= ACCUEIL ?>user/profil">Modifier mon profil</a>
+                                    <a class="dropdown-item" href="<?= ACCUEIL ?>user/adresse">Mon adresse</a>
+                                    <a class="dropdown-item" href="<?= ACCUEIL ?>boutiqueProfil/profilPro">Moyen de paiement</a>
+                                </div>
+                            </div>
                         <?php
                         }
                         if (isset($_SESSION['user']) and !empty($_SESSION['user']['id'])) : ?>

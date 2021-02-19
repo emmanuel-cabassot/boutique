@@ -14,6 +14,17 @@ class PhotoAnnonceModel extends Model
     }
 
     /**
+     * Cherche une photo par rapport à l'id de l'annonce
+     *
+     * @param string $annonce_id
+     * @return void
+     */
+    public function findPhotoByAnnonceId($annonce_id)
+    {
+        return $this->requete("SELECT * FROM $this->table WHERE annonce_id = $annonce_id")->fetch();
+    }
+
+    /**
      * Get the value of id
      */ 
     public function getId()

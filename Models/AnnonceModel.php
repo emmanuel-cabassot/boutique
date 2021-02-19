@@ -5,9 +5,11 @@ class AnnonceModel extends Model
 {   
     protected $id;
     protected $titre;
+    protected $categorie_id;
     protected $description;
     protected $prix;
-    protected $stock = 1;
+    protected $poids;
+    protected $stock;
     protected $created_at;
     protected $user_id;
     protected $boutique_pro_id;
@@ -30,7 +32,12 @@ class AnnonceModel extends Model
 
     public function findAnnonceByPar($boutique_particulier_id)
     {
-        return $this->requete("SELECT * FROM $this->table WHERE boutique_pro_id = $boutique_particulier_id ORDER BY create_at DESC")->fetch();
+        return $this->requete("SELECT * FROM $this->table WHERE boutique_particulier_id = $boutique_particulier_id ORDER BY create_at DESC")->fetch();
+    }
+
+    public function findAnnonceParLimit($boutique_particulier_id)
+    {
+        return $this->requete("SELECT * FROM $this->table WHERE boutique_particulier_id = $boutique_particulier_id ORDER BY create_at DESC LIMIT 10")->fetchAll();
     }
 
     /**
@@ -210,6 +217,46 @@ class AnnonceModel extends Model
     public function setStock($stock)
     {
         $this->stock = $stock;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of poids
+     */ 
+    public function getPoids()
+    {
+        return $this->poids;
+    }
+
+    /**
+     * Set the value of poids
+     *
+     * @return  self
+     */ 
+    public function setPoids($poids)
+    {
+        $this->poids = $poids;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of categorie_id
+     */ 
+    public function getCategorie_id()
+    {
+        return $this->categorie_id;
+    }
+
+    /**
+     * Set the value of categorie_id
+     *
+     * @return  self
+     */ 
+    public function setCategorie_id($categorie_id)
+    {
+        $this->categorie_id = $categorie_id;
 
         return $this;
     }

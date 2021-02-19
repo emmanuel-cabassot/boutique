@@ -18,6 +18,11 @@ class BoutiqueProModel extends Model
         $this->table = 'boutique_pro';
     }
 
+    public function countByNom($nom)
+    {
+        return $this->requete("SELECT * FROM $this->table WHERE 'nom' = $nom")->fetch();
+    }
+
     /** 
      * Crée la session de la boutique
      * @return void 

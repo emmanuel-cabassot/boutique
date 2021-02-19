@@ -1,8 +1,11 @@
 <?php
+
 namespace App\Controllers;
 
 use App\Core\Form;
 use App\Models\AnnonceModel;
+use App\Models\BoutiqueParticulierModel;
+use App\Models\CategorieModel;
 use App\Models\PhotoAnnonceModel;
 
 class AnnonceController extends Controller
@@ -18,7 +21,7 @@ class AnnonceController extends Controller
         $annonce = new AnnonceModel;
         // On appelle la méthode findAll qui va enregistrer les annonces dans $annonces
         $annonces = $annonce->findAll();
-        
+
         // On génère la vue
         $this->render('annonce/index', compact('annonces'));
     }
@@ -33,7 +36,7 @@ class AnnonceController extends Controller
     {
         $annonce = new AnnonceModel;
         $annonces = $annonce->find($id);
-        
+
         $this->render('annonce/voir', compact('annonces'));
     }
 
@@ -51,6 +54,7 @@ class AnnonceController extends Controller
             $titre = strip_tags($_POST['titre']);
             $description = strip_tags($_POST['description']);
             $prix = (int) $_POST['prix'];
+            $poids = (int) $_POST['poids'];
             $stock = (int) $_POST['stock'];
 
             // On instancie notre modele
@@ -58,11 +62,12 @@ class AnnonceController extends Controller
 
             // On hydrate l'objet
             $annonce->setTitre($titre)
+                ->setCategorie_id($_POST['categorie_0='])
                 ->setDescription($description)
                 ->setPrix($prix)
+                ->setPoids($poids)
                 ->setStock($stock)
-                ->setBoutique_pro_id($_SESSION['user']['id'])
-            ;
+                ->setBoutique_pro_id($_SESSION['user']['id']);
 
             // On crée l'annonce en BDD
             $annonce->create();
@@ -79,70 +84,191 @@ class AnnonceController extends Controller
             // Extensions valides pour la photo
             $extensionValides = ['jpg', 'jpeg', 'gif', 'png'];
 
-            if($_FILES['avatar']['size'] <= $tailleMax){
+            if ($_FILES['avatar']['size'] <= $tailleMax) {
                 // La taille du fichier est bien inféreur à ce que l'on demande
                 // On vérifie l'extension
-                $extensionUpload = strtolower(substr(strrchr($_FILES['photo_principale']['name'], '.'),1));
+                $extensionUpload = strtolower(substr(strrchr($_FILES['photo_principale']['name'], '.'), 1));
                 if (in_array($extensionUpload, $extensionValides)) {
                     // La taille et l'extension de la photo sont valides
 
                     // Chemin et nom du fichier que l'on va enregistrer 
-                    $chemin = 'public/img/annonce/'.$annonce->id.'.'.$extensionUpload;
+                    $chemin = 'public/img/annonce/' . $annonce->id . '.' . $extensionUpload;
 
                     // On enregistre le fichier grace à move et $resultat = false ou true
                     $resultat = move_uploaded_file($_FILES['photo_principale']['tmp_name'], $chemin);
-                    if ($resultat) {   
+                    if ($resultat) {
                         // On hydrate l'objet
                         $photo->setAnnonce_id($annonce->id)
-                            ->setPhoto($annonce->id.'.'.$extensionUpload)
-                        ;
+                            ->setPhoto($annonce->id . '.' . $extensionUpload);
                         // On crée insert la photo en BDD
                         $photo->create();
-                    }else{
+                    } else {
                         $_SESSION['erreur'] = "Erreur durant l'importation du fichier";
-                        header('location: '.ACCUEIL.'annonce/ajouter');
+                        header('location: ' . ACCUEIL . 'annonce/ajouter');
                         exit;
                     }
-                }else {
+                } else {
                     $_SESSION['erreur'] = "Votre photo de profil doit être au format jpg, jpeg, gif ou png";
-                    header('location: '.ACCUEIL.'annonce/ajouter');
+                    header('location: ' . ACCUEIL . 'annonce/ajouter');
                     exit;
                 }
-            }else {
+            } else {
                 $_SESSION['erreur'] = "Votre photo de profil ne doit pas dépasser 2 mo";
-                header('location: '.ACCUEIL.'annonce/ajouter');
+                header('location: ' . ACCUEIL . 'annonce/ajouter');
                 exit;
             }
 
             // On redirige 
             $_SESSION['success'] = "votre annonce à été enregistrée avec sucess";
-            header('location: '.ACCUEIL.'boutiqueAccueil/accueilPro');
-        }else {
+            header('location: ' . ACCUEIL . 'boutiqueAccueil/accueilPro');
+        } else {
             // Le formulaire est incomplet
             /* $_SESSION['erreur'] = "Le formulaire est incomplet"; */
-            
         }
 
+        $categorie = new CategorieModel;
+        $categories = $categorie->findCategories();
         
-            // L'utilisateur est connecté
-            $form = new Form;
-            $form->debutForm('post','#', ['enctype' => 'multipart/form-data'])
-                ->ajoutLabelFor('titre', 'titre de l\'annonce :')
-                ->ajoutInput('text', 'titre', ['id' => 'titre', 'required' => true, 'class' => 'form-control'])
-                ->ajoutLabelFor('description', 'description de l\'article')
-                ->ajoutTextarea('description', '', ['id' => 'description', 'required' => true, 'class' => 'form-control'])
-                ->ajoutLabelFor('prix', 'prix de l\'article :')
-                ->ajoutInput('number', 'prix', ['id' => 'prix', 'required' => true, 'class' => 'form-control'])
-                ->ajoutLabelFor('stock', 'nombre d\'articles en stock')
-                ->ajoutInput('number', 'stock', ['id' => 'stock', 'class' => 'form-control'])
-                ->ajoutLabelFor('photo_principale', 'photo principale :')
-                ->ajoutInput('file', 'photo_principale', ['id' => 'photo_principale', 'required' => true, 'class' => 'form-control'])
-                ->ajoutBouton('Ajouter', ['class' => 'btn btn-primary'])
-                ->finForm()
-            ;
+        foreach ($categories  as  $key => $value) {
+            $categoriees [$value->id] = $value->nom;
+        }
 
-            $this->render('annonce/ajouter_pro', ['form' => $form->create()]);
+        // L'utilisateur est connecté
+        $form = new Form;
+        $form->debutForm('post', '#', ['enctype' => 'multipart/form-data'])
+            ->ajoutLabelFor('titre', 'titre de l\'annonce :')
+            ->ajoutInput('text', 'titre', ['id' => 'titre', 'required' => true, 'class' => 'form-control'])
+            ->ajoutLabelFor('categorie', 'categorie : ')
+            ->ajoutSelect('categorie', $categoriees, [null, 'id' => 'categorie', 'class' => 'form-control'])
+            ->ajoutLabelFor('description', 'description de l\'article')
+            ->ajoutTextarea('description', '', ['id' => 'description', 'required' => true, 'class' => 'form-control'])
+            ->ajoutLabelFor('prix', 'prix de l\'article :')
+            ->ajoutInput('number', 'prix', ['id' => 'prix', 'required' => true, 'class' => 'form-control'])
+            ->ajoutLabelFor('poids', 'poids de l\'article en kg;  0.600 = 0.6kg')
+            ->ajoutInput('number', 'poids', ['id' => 'poids', 'required' => true, 'class' => 'form-control', 'step' =>'any'])
+            ->ajoutLabelFor('stock', 'nombre d\'articles en stock')
+            ->ajoutInput('number', 'stock', ['id' => 'stock', 'class' => 'form-control'])
+            ->ajoutLabelFor('photo_principale', 'photo principale :')
+            ->ajoutInput('file', 'photo_principale', ['id' => 'photo_principale', 'required' => true, 'class' => 'form-control'])
+            ->ajoutBouton('Ajouter', ['class' => 'btn btn-primary'])
+            ->finForm();
 
+        $this->render('annonce/ajouter_pro', ['form' => $form->create()]);
+    }
+
+    public function ajouterPar()
+    {
         
+        // On vérifie que  le formulaire est complet
+        if (Form::validate($_POST, ['titre', 'description', 'prix', 'stock'])) {
+            // Le forumlaire est complet
+            // On se protège des failles xss
+            
+            var_dump($_POST);
+            $titre = strip_tags($_POST['titre']);
+            $description = strip_tags($_POST['description']);
+            $prix = (int) $_POST['prix'];
+            $poids = (int) $_POST['poids'];
+            $stock = (int) $_POST['stock'];
+
+            // On instancie notre modele et la classe boutique_par
+            $annonce = new AnnonceModel;
+            $boutique = new BoutiqueParticulierModel;
+            $boutique = $boutique->findBoutiqueByUser($_SESSION['user']['id']);
+            
+
+            // On hydrate l'objet
+            $annonce->setTitre($titre)
+                ->setCategorie_id($_POST['categorie_0='])
+                ->setDescription($description)
+                ->setPrix($prix)
+                ->setPoids($poids)
+                ->setStock($stock)
+                ->setBoutique_particulier_id($boutique->id);
+
+            // On crée l'annonce en BDD
+            $annonce->create();
+
+            // On retour chercher l'annonce crée pour obtenir son id
+            $annonce = $annonce->findAnnonceByPar($boutique->id);
+
+            // On instancie la classe photo
+            $photo = new PhotoAnnonceModel;
+
+            //Taille max de la photo
+            $tailleMax = 2000000;
+
+            // Extensions valides pour la photo
+            $extensionValides = ['jpg', 'jpeg', 'gif', 'png'];
+
+            if ($_FILES['photo_principale']['size'] <= $tailleMax) {
+                // La taille du fichier est bien inféreur à ce que l'on demande
+                // On vérifie l'extension
+                $extensionUpload = strtolower(substr(strrchr($_FILES['photo_principale']['name'], '.'), 1));
+                if (in_array($extensionUpload, $extensionValides)) {
+                    // La taille et l'extension de la photo sont valides
+
+                    // Chemin et nom du fichier que l'on va enregistrer 
+                    $chemin = 'public/img/annonce/' . $annonce->id . '.' . $extensionUpload;
+
+                    // On enregistre le fichier grace à move et $resultat = false ou true
+                    $resultat = move_uploaded_file($_FILES['photo_principale']['tmp_name'], $chemin);
+                    if ($resultat) {
+                        // On hydrate l'objet
+                        $photo->setAnnonce_id($annonce->id)
+                            ->setPhoto($annonce->id . '.' . $extensionUpload);
+                        // On crée insert la photo en BDD
+                        $photo->create();
+                    } else {
+                        $_SESSION['erreur'] = "Erreur durant l'importation du fichier";
+                        header('location: ' . ACCUEIL . 'annonce/ajouterpar');
+                        exit;
+                    }
+                } else {
+                    $_SESSION['erreur'] = "Votre photo de profil doit être au format jpg, jpeg, gif ou png";
+                    header('location: ' . ACCUEIL . 'annonce/ajouterpar');
+                    exit;
+                }
+            } else {
+                $_SESSION['erreur'] = "Votre photo de profil ne doit pas dépasser 2 mo";
+                header('location: ' . ACCUEIL . 'annonce/ajouterpar');
+                exit;
+            }
+
+            // On redirige 
+            $_SESSION['success'] = "votre annonce à été enregistrée avec sucess";
+            header('location: ' . ACCUEIL . 'boutiqueAccueil/accueilPar');
+        } else {
+           
+        }
+
+        $categorie = new CategorieModel;
+        $categories = $categorie->findCategories();
+        
+        foreach ($categories  as  $key => $value) {
+            $categoriees [$value->id] = $value->nom;
+        }
+        var_dump($categoriees);
+        // L'utilisateur est connecté
+        $form = new Form;
+        $form->debutForm('post', '#', ['enctype' => 'multipart/form-data'])
+            ->ajoutLabelFor('titre', 'titre de l\'annonce :')
+            ->ajoutInput('text', 'titre', ['id' => 'titre', 'required' => true, 'class' => 'form-control'])
+            ->ajoutLabelFor('categorie', 'categorie : ')
+            ->ajoutSelect('categorie', $categoriees, [null, 'id' => 'categorie', 'class' => 'form-control'])
+            ->ajoutLabelFor('description', 'description de l\'article')
+            ->ajoutTextarea('description', '', ['id' => 'description', 'required' => true, 'class' => 'form-control'])
+            ->ajoutLabelFor('prix', 'prix de l\'article :')
+            ->ajoutInput('number', 'prix', ['id' => 'prix', 'required' => true, 'class' => 'form-control'])
+            ->ajoutLabelFor('poids', 'poids de l\'article en kg;  0.600 = 0.6kg')
+            ->ajoutInput('number', 'poids', ['id' => 'poids', 'required' => true, 'class' => 'form-control', 'step' =>'any'])
+            ->ajoutLabelFor('stock', 'nombre d\'articles en stock')
+            ->ajoutInput('number', 'stock', ['id' => 'stock', 'class' => 'form-control'])
+            ->ajoutLabelFor('photo_principale', 'photo principale :')
+            ->ajoutInput('file', 'photo_principale', ['id' => 'photo_principale', 'required' => true, 'class' => 'form-control'])
+            ->ajoutBouton('Ajouter', ['class' => 'btn btn-primary'])
+            ->finForm();
+
+        $this->render('annonce/ajouter_par', ['form' => $form->create()]);
     }
 }

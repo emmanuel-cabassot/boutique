@@ -21,7 +21,7 @@ class BoutiqueAccueilController extends Controller
             
             (int) $id = $_SESSION['user']['id'];
             $photo = new PhotoAvatarModel;
-            $photo = $photo->findPhotoAvatar($id);
+            $photo = $photo->findPhotoBoutique($_SESSION['user']['id']);
             
             $boutique = new BoutiqueProModel;
             $boutique = $boutique->find($id);
@@ -32,9 +32,6 @@ class BoutiqueAccueilController extends Controller
             $annonce = new AnnonceModel;
             $annonce = $annonce->findAnnoneProLimit($id);
             
-            
-
-
             $this->render('boutique_accueil/accueil_pro', ['boutique' => $boutique, 'adresse' => $adresse, 'annonce' => $annonce, 'photo' => $photo]);
         }else {
             $_SESSION['erreur'] = "Vous n'avez pas les accès pour cette page";
@@ -44,7 +41,7 @@ class BoutiqueAccueilController extends Controller
     }
 
     /**
-     * Affiche le profil de la boutique pro
+     * Affiche le profil de la boutique de particulier
      *
      * @return void
      */
@@ -54,16 +51,22 @@ class BoutiqueAccueilController extends Controller
             
             (int) $id = $_SESSION['user']['id'];
             $photo = new PhotoAvatarModel;
-            $photo = $photo->findPhotoAvatar($id);
+            $photo = $photo->findPhotoBoutiquePar($_SESSION['user']['boutique_id']);
             
             $boutique = new BoutiqueParticulierModel;
             $boutique = $boutique->findBoutiqueByUser($id);
+            
    
             $adresse = new AdresseParticulierModel;
             $adresse = $adresse->findAdresse($id);
             
+            
             $annonce = new AnnonceModel;
-            $annonce = $annonce->findAnnonceByPar($id);
+            $annonce = $annonce->findAnnonceParLimit($boutique->id);
+
+            
+
+            
             
             $this->render('boutique_accueil/accueil_par', ['boutique' => $boutique, 'adresse' => $adresse, 'annonce' => $annonce, 'photo' => $photo]);
         }else {

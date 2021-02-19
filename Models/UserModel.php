@@ -8,7 +8,7 @@ class UserModel extends Model
     protected $prenom;
     protected $email;
     protected $password;
-    protected $droit_id = 1;
+    protected $droit_id;
     
 
    public function __construct()
@@ -20,14 +20,15 @@ class UserModel extends Model
      * Crée la session de l'utilisateur
      * @return void 
      */
-    public function setSession()
+    public function setSession($boutique_id)
     {
         $_SESSION['user'] = [
             'id' => $this->id,
             'nom' => $this->nom,
             'prenom' => $this->prenom,
             'email' => $this->email,
-            'droit' => $this->droit_id,            
+            'droit' => $this->droit_id,
+            'boutique_id' => $boutique_id,            
         ];
     }
 

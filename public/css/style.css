@@ -1,29 +1,30 @@
-*{
+*, a{
     box-sizing: border-box;
     margin: 0;
+    text-decoration: none;
+    
 }
 
 main{
     display: flex;
-    flex-direction: column;
-   
-    align-items: center;
-    
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center;  
 }
 
 
                                 /* ACCUEIL BOUTIQUE */
 .boutique_accueil{
     display: flex;
-    justify-content: center;
-    width: 90%;
+    justify-content: space-around;
+    width: 95%;
 }
 
 .boutique_accueil .profil{
     width: 25%;
+    min-width: 250px;
     text-align: center;
     border: 1px solid rgb(206, 206, 206);
-    
 }
 
 .boutique_accueil .profil p{
@@ -53,5 +54,101 @@ main{
 }
 
 .boutique_accueil .annonces{
-    width: 50%;
+    width: 60%;
+    display: flex;
+    flex-wrap: wrap;
+    height: 148px;
 }
+
+.annonces .annonce{
+    margin: 7px;
+    border: 1px solid white;
+    transition: all 0.4s;
+}
+
+.annonces .annonce:hover{
+    background-color: rgb(248, 246, 246);
+    border: 1px solid rgb(248, 246, 246);
+    border-radius: 1px;
+    transition: all 0.4s;
+}
+
+.annonce .titre{
+    color: black;
+    font-size: 0.9em;
+    padding-left: 2px;
+}
+
+.annonce .prix{
+    color: grey;
+    font-size: 0.8em;
+    padding-left: 2px;
+    padding-bottom: 2px;
+}
+
+.annonces .annonce img{
+    width: 150px;
+    height: 120px;
+}
+
+                                /* PROFIL USER */
+.profil_profil{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    justify-content: center;
+    align-items: center;
+}
+
+.profil_user{
+    display: flex;
+    margin-top: 60px;
+    margin-bottom: 20px;
+    justify-content: center;
+    align-items:flex-start;
+    min-width: 570px;
+    box-shadow: 0 0 10px grey;
+    border-radius: 12px;
+    line-height: 2em;
+    
+}
+
+.profil_user .nom{
+    margin-top: 3px;
+    font-family: monospace;
+    font-size: 1.4em;
+}
+
+.profil_user .ville{
+    color: grey;
+}
+
+.profil_user .achat{
+    margin-bottom: 7px;
+}
+
+.profil_user .photo{
+    width: 50%;
+    min-width: 280px;
+}
+
+.profil_user .photo img{
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+    height: 200px;
+    width: 280px;
+}
+
+.profil_user .description{
+    width: 50%;
+    min-width: 280px;
+    text-align: center;
+}
+
+.profil_profil .boutique{
+    display: flex;
+    justify-content: center;
+    min-width: 600px;
+}
+

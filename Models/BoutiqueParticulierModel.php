@@ -14,9 +14,26 @@ class BoutiqueParticulierModel extends Model
         $this->table = 'boutique_particulier';
     }
 
+    /**
+     * Undocumented function
+     *
+     * @param [type] $user_id
+     * @return void
+     */
     public function findBoutiqueByUser($user_id)
     {
         return $this->requete("SELECT * FROM $this->table WHERE user_id = $user_id")->fetch();
+    }
+
+    /**
+     * Cherche une boutique de particulier par rapport à l'id de la boutique
+     *
+     * @param int $id
+     * @return fetch
+     */
+    public function findBoutiqueById($id)
+    {
+        return $this->requete("SELECT * FROM $this->table WHERE id = ?", [$id])->fetch();
     }
 
     /**

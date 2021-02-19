@@ -1,17 +1,52 @@
-<h1>Modifier votre profil</h1>
-
 <?php
-if(isset($_SESSION['success'])): ?>
-<div class="alert alert-success text-center" role="alert">
-  <?php echo $_SESSION['success']; unset($_SESSION['success']) ?>
-</div>
-<?php endif; 
 if (isset($_SESSION['erreur'])) {
 
-  echo '<div class="alert alert-danger text-center" role="alert">'. $_SESSION['erreur'].'</div>';
-  unset($_SESSION['erreur']);
+    echo '<div class="alert alert-danger text-center" role="alert">' . $_SESSION['erreur'] . '</div>';
+    unset($_SESSION['erreur']);
 }
-echo $profilForm;?>
-<h2>Adresse</h2>
-<?php
-echo $adressForm;
+if (isset($_SESSION['success'])) {
+
+    echo '<div class="alert alert-success text-center" role="alert">' . $_SESSION['success'] . '</div>';
+    unset($_SESSION['success']);
+}
+?>
+<h1>profil</h1>
+<section class="profil_profil">
+    
+    <section class="profil_user">
+        <section class="photo">
+            <?php
+            if (empty($photo->photo)) { ?>
+                <img src="../public/img/default/avatar.jpg" alt="Photo de la boutique">
+            <?php
+            } else { ?>
+                <img src="../public/img/avatar/<?= $photo->photo ?>" alt="Photo de la boutique">
+            <?php
+            }
+            ?>
+        </section>
+        <section class="description">
+            <div class="nom"><?= ucfirst($user->nom) . ' ' . ucfirst($user->prenom) ?></div>
+            <div class="date"><?= $user->create_at ?></div>
+            <div class="ville"><?php if (isset($adresse) AND $adresse !== false){
+                echo $adresse->ville;
+            }else {
+                echo "Pas d'adresse renseignée";
+            } ?></div>
+            <div class="achat">Nombre d'achats</div>
+            <div class="modifier"><a class="btn btn-primary text-center col-10" href="<?= ACCUEIL ?>user/profil">Modifier mon profil</a></div>
+        </section>
+    </section>
+    <section class="boutique">
+        <div class="boutique">
+        <?php
+        if ($_SESSION['user']['droit'] != 10) { ?>
+            <a class="btn btn-secondary text-center col-10" href="<?= ACCUEIL ?>creer/index">Crée ta boutique</a>
+            <?php
+        }else { ?>
+            <a class="btn btn-secondary text-center col-10" href="<?= ACCUEIL ?>boutiqueAccueil/accueilpar">Ma boutique</a>
+            <?php
+        } ?>
+        </div>
+    </section>
+</section>

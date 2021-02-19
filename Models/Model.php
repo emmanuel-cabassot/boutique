@@ -50,6 +50,12 @@ class Model extends Db
         return $this->requete("SELECT * FROM $this->table WHERE id = $id")->fetch();
     }
 
+    /**
+     * Cherche une element grace à son email
+     *
+     * @param string $email
+     * @return void
+     */
     public function findOneByEmail(string $email)
     {
         return $this->requete("SELECT * FROM $this->table WHERE email = ?", [$email])->fetch();

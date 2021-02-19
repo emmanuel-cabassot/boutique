@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controllers;
 
 use App\Core\Form;
@@ -17,9 +18,9 @@ class BoutiqueRegisterController extends Controller
      */
     public function registerpro()
     {
-        
+
         // On vérifie si le formulaire est complet
-        if(Form::validate($_POST, ['nom','email', 'adresse', 'code', 'ville', 'password'])){
+        if (Form::validate($_POST, ['nom', 'email', 'adresse', 'code', 'ville', 'password'])) {
             $nom = strip_tags($_POST['nom']);
             $email = strip_tags($_POST['email']);
             $adresse = strip_tags($_POST['adresse']);
@@ -37,17 +38,16 @@ class BoutiqueRegisterController extends Controller
             $nom_exist = $boutiquepro->findBy(['nom' => $nom]);
             $nom_existe = $boutiquepar->findBy(['nom_boutique' => $nom]);
 
-            if (empty($nom_exist) AND empty($nom_existe)) {
+            if (empty($nom_exist) and empty($nom_existe)) {
                 $email_exist = $boutiquepro->findBy(['email' => $email]);
                 $email_existe = $user->findBy(['email' => $email]);
-                if (empty($email_exist) AND empty($email_existe)) {
+                if (empty($email_exist) and empty($email_existe)) {
 
                     // On hydrate l'objet
                     $boutiquepro->setNom($nom)
-                    ->setEmail($email)
-                    ->setSiret($siret)
-                    ->setPassword($password)
-                    ;
+                        ->setEmail($email)
+                        ->setSiret($siret)
+                        ->setPassword($password);
 
                     // On crée la boutique en BDD
                     $boutiquepro->create();
@@ -62,21 +62,22 @@ class BoutiqueRegisterController extends Controller
                     $adress->setBoutique_id($exist->id)
                         ->setAdresse($adresse)
                         ->setCode($code)
-                        ->setVille($ville)
-                    ;
+                        ->setVille($ville);
 
                     // On crée l'adresse en bdd avec la clef primaire id de la table Boutiquepro
                     $adress->create();
-
-        
-                }else {
+                } else {
                     $_SESSION['erreur'] = "Ce mail existe déjà";
                 }
-            }else {
+            } else {
                 $_SESSION['erreur'] = "Ce nom de société existe déjà";
-            }          
+            }
+
+            $_SESSION['success'] = "Votre boutique a été crée avec succès, connectez-vous";
+            header('location: ' .ACCUEIL. 'user/login');
+            exit;
         }
-           
+
         $form = new Form;
 
         $form->debutForm()
@@ -95,10 +96,9 @@ class BoutiqueRegisterController extends Controller
             ->ajoutLabelFor('password', 'Mot de passe :')
             ->ajoutInput('password', 'password', ['id' => 'password', 'class' => 'form-control', 'required' => true])
             ->ajoutBouton('Créer boutique', ['class' => 'btn btn-primary col-12'])
-            ->finForm()
-        ;
+            ->finForm();
 
-        $this->render('boutique_register/registerpro', ['boutiqueForm' => $form->create()]);        
+        $this->render('boutique_register/registerpro', ['boutiqueForm' => $form->create()]);
     }
 
     /**
@@ -107,19 +107,19 @@ class BoutiqueRegisterController extends Controller
      * @return void
      */
     public function registerpar()
-    {        
+    {
         $adress = new AdresseParticulierModel;
-        $exist_adresse = $adress->requete('SELECT * FROM adresse_particulier WHERE user_id = '.$_SESSION['user']['id'])->fetchAll();
+        $exist_adresse = $adress->requete('SELECT * FROM adresse_particulier WHERE user_id = ' . $_SESSION['user']['id'])->fetchAll();
 
 
         // On vérifie si le formulaire est complet
-        if(Form::validate($_POST, ['nom_boutique', 'nom', 'prenom', 'email'])){
+        if (Form::validate($_POST, ['nom_boutique', 'nom', 'prenom', 'email'])) {
             $nom_boutique = strip_tags($_POST['nom_boutique']);
             $nom = strip_tags($_POST['nom']);
             $prenom = strip_tags($_POST['prenom']);
             $email = strip_tags($_POST['email']);
-            
-            
+
+
             // On instancie la class Boutique particulier et Boutique pro
             $boutique = new BoutiqueParticulierModel;
             $boutiquepro = new BoutiqueProModel;
@@ -130,33 +130,39 @@ class BoutiqueRegisterController extends Controller
             if ($_SESSION['user']['email'] != $email) {
                 $email_exist = $boutiquepro->findBy(['email' => $email]);
                 $email_existe = $user->findBy(['email' => $email]);
-                if (!empty($email_exist) OR !empty($email_existe)) {
+                if (!empty($email_exist) or !empty($email_existe)) {
                     $_SESSION['erreur'] = "Cet email est déjà pris";
-                    header('location: '.ACCUEIL.'boutique/registerpar');
+                    header('location: ' . ACCUEIL . 'boutique/registerpar');
                     exit;
                 }
             }
-            
 
-            if (empty($nom_exist) AND empty($nom_existe)) {
+
+            if (empty($nom_exist) and empty($nom_existe)) {
                 // On hydrate l'objet
                 $boutique->setNom_boutique($nom_boutique)
-                    ->setUser_id($_SESSION['user']['id'])              
-                ;
+                    ->setUser_id($_SESSION['user']['id']);
 
                 // On créer la boutique en BDD
-                $boutique->create();   
-                
+                $boutique->create();
+
+                // On va chercher l'id de la boutique crée
+                $boutique_id = $boutique->findBoutiqueByUser($_SESSION['user']['id']);
+                $boutique_id = $boutique_id->id;
+
+                // On ajoute l'id de la boutique en variable de session
+                $_SESSION['user']['boutique_id'] = $boutique_id;
+
                 // On instancie la classe user pour mettre à jour la table user si modifications
                 $user = new UserModel;
                 $user->setId($_SESSION['user']['id'])
                     ->setNom($nom)
                     ->setPrenom($prenom)
-                    ->setEmail($email) 
-                    ->setDroit_id(10)   
-                ;
-               
+                    ->setEmail($email)
+                    ->setDroit_id(10);
+
                 $user->update();
+
 
                 $_SESSION['user']['droit'] = 10;
 
@@ -165,25 +171,27 @@ class BoutiqueRegisterController extends Controller
                     $adresse = strip_tags($_POST['adresse']);
                     $code = (int) $_POST['code'];
                     $ville = strip_tags($_POST['ville']);
-    
+
                     // On hydrate l'objet
                     $adress->setUser_id($_SESSION['user']['id'])
                         ->setAdresse($adresse)
                         ->setCode($code)
-                        ->setVille($ville)
-                    ;
-    
+                        ->setVille($ville);
+
                     // On crée l'adresse en BDD
                     $adress->create();
                 }
-            }else {
+            } else {
                 $_SESSION['erreur'] = "Ce nom de boutique existe déjà";
-                header('location: '.ACCUEIL.'boutique/registerpar');
+                header('location: ' . ACCUEIL . 'boutique/registerpar');
                 exit;
             }
+            $_SESSION['success'] = "Votre boutique a bien été crée";
+            header('location: ' . ACCUEIL . 'boutiqueaccueil/accueilpar');
+            exit;
         }
 
-            
+
         $form = new Form;
 
         // Création du formulaire avec la classe Form
@@ -191,23 +199,22 @@ class BoutiqueRegisterController extends Controller
             ->ajoutLabelFor('nom_boutique', 'Nom de votre boutique  :')
             ->ajoutInput('text', 'nom_boutique', ['id' => 'nom_boutique', 'class' => 'form-control', 'required' => true])
             ->ajoutLabelFor('nom', 'Nom  :')
-            ->ajoutInput('text', 'nom', ['id' => 'nom', 'class' => 'form-control', 'value' => $_SESSION['user']['nom'] , 'required' => true])
+            ->ajoutInput('text', 'nom', ['id' => 'nom', 'class' => 'form-control', 'value' => $_SESSION['user']['nom'], 'required' => true])
             ->ajoutLabelFor('prenom', 'Prénom  :')
-            ->ajoutInput('text', 'prenom', ['id' => 'prenom', 'class' => 'form-control', 'value' => $_SESSION['user']['prenom'] , 'required' => true])
+            ->ajoutInput('text', 'prenom', ['id' => 'prenom', 'class' => 'form-control', 'value' => $_SESSION['user']['prenom'], 'required' => true])
             ->ajoutLabelFor('email', 'E-mail :')
-            ->ajoutInput('email', 'email', ['id' => 'email', 'class' => 'form-control', 'value' => $_SESSION['user']['email'] , 'required' => true]);
-            if (empty($exist_adresse)) {
+            ->ajoutInput('email', 'email', ['id' => 'email', 'class' => 'form-control', 'value' => $_SESSION['user']['email'], 'required' => true]);
+        if (empty($exist_adresse)) {
             $form->ajoutLabelFor('adresse', 'Entrez votre adresse')
                 ->ajoutInput('text', 'adresse', ['id' => 'adresse', 'class' => 'form-control', 'required' => true])
                 ->ajoutLabelFor('code', 'Code postal')
                 ->ajoutInput('number', 'code', ['id' => 'code', 'class' => 'form-control', 'required' => true])
                 ->ajoutLabelFor('ville', 'Ville :')
                 ->ajoutInput('text', 'ville', ['id' => 'ville', 'class' => 'form-control', 'required' => true]);
-            }
-            $form->ajoutBouton('Créer boutique', ['class' => 'btn btn-primary col-12'])
-            ->finForm()
-        ;
+        }
+        $form->ajoutBouton('Créer boutique', ['class' => 'btn btn-primary col-12'])
+            ->finForm();
 
-        $this->render('boutique_register/registerpar', ['boutiqueForm' => $form->create()]);       
+        $this->render('boutique_register/registerpar', ['boutiqueForm' => $form->create()]);
     }
 }
