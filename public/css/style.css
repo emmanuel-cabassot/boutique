@@ -9,7 +9,8 @@ main{
     display: flex;
     flex-direction: column; 
     justify-content: center; 
-    align-items: center;  
+    align-items: center;
+    width: 100%;  
 }
 
 
@@ -151,4 +152,148 @@ main{
     justify-content: center;
     min-width: 600px;
 }
+
+                                /* VOIR ANNONCE  */                    
+
+.boutique_par_container{
+    width: 100%;
+    background-color: lightgray;
+    display: flex;
+    justify-content: center;
+}
+.boutique_par{
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-width: 90%;
+    flex-wrap: wrap;
+    margin: 30px 0;
+    min-width: 800px;
+    max-width: 1000px;
+}
+
+.photo_container{
+    display: flex;
+    justify-content: center;  
+    width: 55%;
+}
+
+.photo_container img{
+    width: 90%;
+    border-radius: 2px;
+    border: 1px solid white;
+}
+
+.description_container{
+    width: 30%;
+    padding-top: 0px;
+}
+
+.description_container div{
+    padding: 0 10px;
+    margin: 7px 0;
+}
+
+.description_container .titre{
+    text-align: center;
+    font-size: 1.1em;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin-top: 0;
+    padding-top: 6px;
+}
+
+.description_container .description{
+    border-top: 1px solid rgb(238, 238, 238);
+    border-bottom: 1px solid rgb(238, 238, 238);
+    padding: 6px 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: rgb(116, 114, 114);
+}
+
+.description_container .livraison{
+    font-size: 0.9em;
+}
+
+.description_container .prix{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.description_container .date_annonce{
+    font-size: 0.9em;
+}
+
+.ajouter_panier a{
+    color: white;
+    padding: 3px 3px 4px 3px;
+    background-color: rgb(27, 239, 247);
+    border: 1px solid rgb(27, 239, 247);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 0.9em;
+}
+
+.ajouter_panier :hover{
+    color: rgb(27, 239, 247);
+    padding: 3px 3px 4px 3px;
+    background-color: white;
+    border: 1px solid rgb(27, 239, 247);
+}
+
+
+.favoris a{
+    color: #6c757d;
+    background-color: white;
+    padding: 2px 4px;
+    border: 1px solid #6c757d;
+    margin-bottom: 12px;
+}
+
+.description_boutique_par{
+    background-color: white;
+    margin-bottom: 17px;
+    border-radius: 2px;
+}
+
+.boutique_boutique_par{
+    background-color: white;
+    border-radius: 2px;
+    text-align: center;
+}
+.boutique_boutique_par img{
+    width: 60%;
+    
+}
+
+.boutique_boutique_par .boutique{
+    padding-top: 7px;
+    font-size: 1.1em;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.boutique_boutique_par .boutique_nom{
+    color: rgb(71, 71, 71);
+}
+
+.boutique_boutique_par .boutique_image{
+    display: flex;
+    justify-content: center;
+}
+
+.boutique_boutique_par .voir_boutique a{
+    color: white;
+    padding: 3px 3px 4px 3px;
+    background-color: rgb(27, 239, 247);
+    border: 1px solid rgb(27, 239, 247);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 0.9em;
+    margin-bottom: 10px;
+}
+
+.boutique_boutique_par .voir_boutique :hover{
+    color: rgb(27, 239, 247);
+    padding: 3px 3px 4px 3px;
+    background-color: white;
+    border: 1px solid rgb(27, 239, 247);
+}
+
+
 

@@ -42,15 +42,15 @@ if (isset($_SESSION['success'])) {
     </section>
     <section class="annonces">
         <?php
-        /* var_dump($annonce); */
+        $photo_annonce = new PhotoAnnonceModel;
         if (isset($annonce) and !empty($annonce)) {
             foreach ($annonce as $annonces) { ?>
                 <section class="annonce">
-                    <a href="<?= ACCUEIL ?>annoncevoir/boutiquepar/<?= $boutique->id ?>/<?= $annonces->id?>">
+                    <a href="<?= ACCUEIL ?>annonceVoir/boutiquePar/<?= $boutique->id ?>/<?= $annonces->id?>">
                         <section class="photo">
-                            <?php $photo_annonce = new PhotoAnnonceModel;
+                            <?php 
                             $photo_annonces = $photo_annonce->findPhotoByAnnonceId($annonces->id);
-                            ?>
+                            ?>           
                             <img src="../public/img/annonce/<?= $photo_annonces->photo ?>" alt="photo principale de l'annonce">
                         </section>
                         <section class="description">

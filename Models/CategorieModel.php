@@ -11,6 +11,9 @@ class CategorieModel extends Model
         $this->table = 'categorie';
     }
 
+    
+
+
 
     /**
      * Recherche toutes les categories dans la table categorie

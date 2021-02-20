@@ -146,4 +146,5 @@ class Model extends Db
         }
         return $this;
     }
+    
 }
