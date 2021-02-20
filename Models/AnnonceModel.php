@@ -39,6 +39,7 @@ class AnnonceModel extends Model
     {
         return $this->requete("SELECT * FROM $this->table WHERE boutique_particulier_id = $boutique_particulier_id ORDER BY create_at DESC LIMIT 10")->fetchAll();
     }
+    
 
     /**
      * Get the value of id
