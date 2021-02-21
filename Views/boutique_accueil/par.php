@@ -18,10 +18,10 @@ if (isset($_SESSION['success'])) {
         <section class="avatar">
             <?php
             if ($photo_boutique == false){ ?>
-                <img src="../public\img\default\18.png" alt="photo de la boutique par default">
+                <img src="../../public\img\default\18.png" alt="photo de la boutique par default">
             <?php
             } else { ?>
-                <img src="../public\img\boutique_par\<?= $photo->photo ?>" alt="photo de la boutique de particulier">
+                <img src="../../public\img\boutique_par\<?= $photo->photo ?>" alt="photo de la boutique de particulier">
             <?php
             }
             ?>
@@ -51,7 +51,7 @@ if (isset($_SESSION['success'])) {
                             <?php 
                             $photo_annonces = $photo_annonce->findPhotoByAnnonceId($annonces->id);
                             ?>           
-                            <img src="../public/img/annonce/<?= $photo_annonces->photo ?>" alt="photo principale de l'annonce">
+                            <img src="../../public/img/annonce/<?= $photo_annonces->photo ?>" alt="photo principale de l'annonce">
                         </section>
                         <section class="description">
                             <div class="titre"><?= $annonces->titre ?></div>

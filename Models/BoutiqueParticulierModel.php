@@ -18,7 +18,7 @@ class BoutiqueParticulierModel extends Model
      * Undocumented function
      *
      * @param [type] $user_id
-     * @return void
+     * @return
      */
     public function findBoutiqueByUser($user_id)
     {
@@ -29,7 +29,7 @@ class BoutiqueParticulierModel extends Model
      * Cherche une boutique de particulier par rapport à l'id de la boutique
      *
      * @param int $id
-     * @return fetch
+     * @return
      */
     public function findBoutiqueById($id)
     {

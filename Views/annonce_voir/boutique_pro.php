@@ -43,20 +43,25 @@ require 'functions/depuis.php';
             </section>
             <section class="boutique_boutique_par">
                 <div class="boutique">Boutique du vendeur</div>
-                <div class="boutique_nom"><?= $boutique->nom_boutique ?></div>
-                <div class="boutique_image"><?php
-                if ($photo_boutique == false) {?>
-                    <img src="../../../public/img/default/18.png" alt="photo de la boutique">
+                <div class="boutique_nom"><?= $boutique->nom ?></div>
+                <div class="boutique_image">
                     <?php
-                }else {?>
-                    <img src="../../../public/img/boutique_par/<?= $photo_boutique->photo ?>" alt="photo de la boutique">
-                    <?php
-                }?>
+                        if ($photo_boutique == false) {
+                            ?>
+                            <img src="../../../public/img/default/18.png" alt="photo de la boutique">
+                            <?php
+                        }else {
+                            ?>
+                            <img src="../../../public/img/boutique_pro/<?= $photo_boutique->photo ?>" alt="photo de la boutique">
+                            <?php
+                        }
+                    ?>
+                    
                 </div>
-                <div class="type">(particulier)</div>
+                <div class="type">(professionnel)</div>
                 <div class="boutique_date">Créée il y a <?= depuis($boutique->create_at) ?></div>
                 <div class="note">notes de la boutique</div>
-                <div class="voir_boutique"><a class="btn btn-primary col-12" href="<?= ACCUEIL ?>boutiqueaccueil/accueilpar">Visiter</a></div>
+                <div class="voir_boutique"><a class="btn btn-primary col-12" href="<?= ACCUEIL ?>boutiqueaccueil/accueilpro">Visiter</a></div>
             </section>
         </section>
     </section>

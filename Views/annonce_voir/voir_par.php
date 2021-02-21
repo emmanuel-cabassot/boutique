@@ -18,7 +18,7 @@ require 'functions/depuis.php';
 <section class="boutique_par_container">
     <section class="boutique_par">
         <section class="photo_container">
-            <img src="../../../public/img/annonce/<?= $photo->photo ?>" alt="photo de l'annonce">
+            <img src="../../public/img/annonce/<?= $photo->photo ?>" alt="photo de l'annonce">
         </section>
         <section class="description_container">
             <section class="description_boutique_par">
@@ -46,10 +46,10 @@ require 'functions/depuis.php';
                 <div class="boutique_nom"><?= $boutique->nom_boutique ?></div>
                 <div class="boutique_image"><?php
                 if ($photo_boutique == false) {?>
-                    <img src="../../../public/img/default/18.png" alt="photo de la boutique">
+                    <img src="../../public/img/default/18.png" alt="photo de la boutique">
                     <?php
                 }else {?>
-                    <img src="../../../public/img/boutique_par/<?= $photo_boutique->photo ?>" alt="photo de la boutique">
+                    <img src="../../public/img/boutique_par/<?= $photo_boutique->photo ?>" alt="photo de la boutique">
                     <?php
                 }?>
                 </div>

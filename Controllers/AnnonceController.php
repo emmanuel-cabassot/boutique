@@ -236,7 +236,7 @@ class AnnonceController extends Controller
             }
 
             // On redirige 
-            $_SESSION['success'] = "votre annonce à été enregistrée avec sucess";
+            $_SESSION['success'] = "votre annonce à été enregistrée avec succès";
             header('location: ' . ACCUEIL . 'boutiqueAccueil/accueilPar');
         } else {
            
@@ -248,7 +248,7 @@ class AnnonceController extends Controller
         foreach ($categories  as  $key => $value) {
             $categoriees [$value->id] = $value->nom;
         }
-        var_dump($categoriees);
+        
         // L'utilisateur est connecté
         $form = new Form;
         $form->debutForm('post', '#', ['enctype' => 'multipart/form-data'])
