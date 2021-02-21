@@ -18,6 +18,11 @@ class BoutiqueProModel extends Model
         $this->table = 'boutique_pro';
     }
 
+    public function findbyId($boutique_pro_id)
+    {
+        return $this->requete("SELECT * FROM $this->table WHERE id = $boutique_pro_id")->fetch();
+    }
+
     public function countByNom($nom)
     {
         return $this->requete("SELECT * FROM $this->table WHERE 'nom' = $nom")->fetch();

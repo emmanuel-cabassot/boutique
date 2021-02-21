@@ -17,16 +17,17 @@ if (isset($_SESSION['success'])) {
     <section class="profil">
         <section class="avatar">
             <?php
-            if ($photo_boutique == false){ ?>
-                <img src="../public\img\default\18.png" alt="photo de la boutique par default">
-            <?php
+            if (empty($photo)) { ?>
+                <img src="../../public\img\default\18.png" alt="boutique">
+                <?php
             } else { ?>
-                <img src="../public\img\boutique_par\<?= $photo->photo ?>" alt="photo de la boutique de particulier">
-            <?php
+                <img src="../../public\img\boutique_pro\<?= $photo->photo ?>" alt="photo de la boutique pro">
+                <?php
             }
-            ?>
-            <p><?= ucfirst($boutique->nom_boutique) ?></p>
+                ?>
+            <p><?= $boutique->nom ?></p>
         </section>
+
         <section class="note">
             <?php
             if (isset($note)) {
@@ -37,21 +38,23 @@ if (isset($_SESSION['success'])) {
             ?>
         </section>
         <section class="modifier">
-            <a class="btn btn-primary col-12" href="<?= ACCUEIL ?>boutiqueprofil/profilparticulier">Modifier son profil</a>
+            <a class="btn btn-primary col-12" href="<?= ACCUEIL ?>boutiqueProfil/profilPro">Modifier son profil</a>
         </section>
     </section>
+
     <section class="annonces">
         <?php
-        $photo_annonce = new PhotoAnnonceModel;
+        /* var_dump($annonce); */
         if (isset($annonce) and !empty($annonce)) {
             foreach ($annonce as $annonces) { ?>
                 <section class="annonce">
-                    <a href="<?= ACCUEIL ?>annonceVoir/boutiquePar/<?= $boutique->id ?>/<?= $annonces->id?>">
+                    <a href="<?= ACCUEIL ?>annonceVoir/boutiquePro/<?= $boutique->id ?>/<?= $annonces->id ?>">
                         <section class="photo">
-                            <?php 
-                            $photo_annonces = $photo_annonce->findPhotoByAnnonceId($annonces->id);
-                            ?>           
-                            <img src="../public/img/annonce/<?= $photo_annonces->photo ?>" alt="photo principale de l'annonce">
+                            <?php $photo_annonces = new PhotoAnnonceModel;
+                            $photo_annonces = $photo_annonces->findPhotoByAnnonceId($annonces->id);
+                            ?>
+                            <img src="../../public/img/annonce/<?= $photo_annonces->photo ?>" alt="photo principale de l'annonce">
+
                         </section>
                         <section class="description">
                             <div class="titre"><?= $annonces->titre ?></div>
@@ -62,7 +65,8 @@ if (isset($_SESSION['success'])) {
             <?php
             }
         } else { ?>
-            <p>Pas d'annonces publiées</p>
+
+            <p class="text-center col-12">Pas d'annonces publiées</p>
         <?php
         } ?>
     </section>

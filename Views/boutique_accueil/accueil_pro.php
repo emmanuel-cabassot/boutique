@@ -18,7 +18,7 @@ if (isset($_SESSION['success'])) {
     <section class="avatar">
     <?php
     if (empty($photo)) {?>      
-        <img src="../public\img\default\boutique.jpg" alt="boutique"> 
+        <img src="../public\img\default\18.png" alt="boutique"> 
     <?php
     }else {?>
         <img src="../public\img\boutique_pro\<?= $photo->photo ?>" alt="photo de la boutique pro">
@@ -48,7 +48,7 @@ if (isset($_SESSION['success'])) {
         if (isset($annonce) and !empty($annonce)) {
             foreach ($annonce as $annonces) { ?>
                 <section class="annonce">
-                    <a href="">
+                    <a href="<?= ACCUEIL ?>annonceVoir/boutiquePro/<?= $boutique->id ?>/<?= $annonces->id?>">
                         <section class="photo">
                             <?php $photo_annonces = new PhotoAnnonceModel;
                             $photo_annonces = $photo_annonces->findPhotoByAnnonceId($annonces->id);
