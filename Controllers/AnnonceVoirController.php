@@ -129,6 +129,7 @@ class AnnonceVoirController extends Controller
 
     public function voirPro($id_annonce)
     {
+        
         // On instancie la classe annonceModel et et on recherche une annonce par rapport à son id
         $annonces = new AnnonceModel();
         $annonce = $annonces->find($id_annonce);
