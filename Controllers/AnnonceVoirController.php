@@ -23,6 +23,19 @@ class AnnonceVoirController extends Controller
     public function boutiquePar($boutique_id, $id_annonce)
     {
         if ($boutique_id = $_SESSION['user']['boutique_id']) {
+            if (isset($_POST['supprimer'])) {
+                // On instancie la classe PhotoAnnonceModel et et on recherche une photo par rapport à  id photo
+                $photos = new PhotoAnnonceModel();
+                $photo = $photos->findPhotoByAnnonceId($id_annonce);
+
+                unlink('public/img/annonce/' . $photo->photo);
+
+                $annonces = new AnnonceModel;
+                $annonces->delete($id_annonce);
+                $_SESSION['success'] = "votre annonce a été supprimée";
+                header('location: ' . ACCUEIL . 'boutiqueaccueil/accueilpar');
+            }
+
             // On instancie la classe annonceModel et et on recherche une annonce par rapport à son id
             $annonces = new AnnonceModel();
             $annonce = $annonces->find($id_annonce);
@@ -68,6 +81,18 @@ class AnnonceVoirController extends Controller
     public function boutiquePro($boutique_id, $id_annonce)
     {
         if ($boutique_id = $_SESSION['user']['id']) {
+            if (isset($_POST['supprimer'])) {
+                // On instancie la classe PhotoAnnonceModel et et on recherche une photo par rapport à  id photo
+                $photos = new PhotoAnnonceModel();
+                $photo = $photos->findPhotoByAnnonceId($id_annonce);
+
+                unlink('public/img/annonce/' . $photo->photo);
+
+                $annonces = new AnnonceModel;
+                $annonces->delete($id_annonce);
+                $_SESSION['success'] = "votre annonce a été supprimée";
+                header('location: ' . ACCUEIL . 'boutiqueaccueil/accueilpro');
+            }
             // On instancie la classe annonceModel et et on recherche une annonce par rapport à son id
             $annonces = new AnnonceModel();
             $annonce = $annonces->find($id_annonce);

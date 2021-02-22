@@ -14,17 +14,10 @@ class CategorieModel extends Model
     
 
 
-
-    /**
-     * Recherche toutes les categories dans la table categorie
-     *
-     * @return void
-     */
-
      /**
       * Recherche toutes les categories de la table categorie
       *
-      * @return void
+      * @return array
       */
     public function findCategories()
     {

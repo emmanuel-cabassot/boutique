@@ -10,5 +10,4 @@ if (isset($_SESSION['success'])) {
     echo '<div class="alert alert-success text-center" role="alert">'. $_SESSION['success'].'</div>';
     unset($_SESSION['succes']);
 }
-
  echo $form ?>
