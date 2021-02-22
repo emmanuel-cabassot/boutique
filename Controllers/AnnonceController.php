@@ -53,9 +53,9 @@ class AnnonceController extends Controller
             // On se protège des failles xss
             $titre = strip_tags($_POST['titre']);
             $description = strip_tags($_POST['description']);
-            $prix = (int) $_POST['prix'];
-            $poids = (int) $_POST['poids'];
-            $stock = (int) $_POST['stock'];
+            $prix = (float) $_POST['prix'];
+            $poids = (float) $_POST['poids'];
+            $stock = (float) $_POST['stock'];
 
             // On instancie notre modele
             $annonce = new AnnonceModel;
@@ -143,11 +143,11 @@ class AnnonceController extends Controller
             ->ajoutLabelFor('description', 'description de l\'article')
             ->ajoutTextarea('description', '', ['id' => 'description', 'required' => true, 'class' => 'form-control'])
             ->ajoutLabelFor('prix', 'prix de l\'article :')
-            ->ajoutInput('number', 'prix', ['id' => 'prix', 'required' => true, 'class' => 'form-control'])
+            ->ajoutInput('number', 'prix', ['id' => 'prix', 'required' => true, 'class' => 'form-control', 'min'=> 0.1, 'max' => 1000000, 'step' => 0.01])
             ->ajoutLabelFor('poids', 'poids de l\'article en kg;  0.600 = 0.6kg')
-            ->ajoutInput('number', 'poids', ['id' => 'poids', 'required' => true, 'class' => 'form-control', 'step' =>'any'])
+            ->ajoutInput('number', 'poids', ['id' => 'poids', 'required' => true, 'class' => 'form-control', 'step' =>'0.001', 'min'=> 0.001, 'max' => 120])
             ->ajoutLabelFor('stock', 'nombre d\'articles en stock')
-            ->ajoutInput('number', 'stock', ['id' => 'stock', 'class' => 'form-control'])
+            ->ajoutInput('number', 'stock', ['id' => 'stock', 'class' => 'form-control', 'min'=> 0, 'max' => 1000])
             ->ajoutLabelFor('photo_principale', 'photo principale :')
             ->ajoutInput('file', 'photo_principale', ['id' => 'photo_principale', 'required' => true, 'class' => 'form-control'])
             ->ajoutBouton('Ajouter', ['class' => 'btn btn-primary'])

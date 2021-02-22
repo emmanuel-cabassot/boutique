@@ -89,7 +89,7 @@ class BoutiqueAccueilController extends Controller
         $annonce = new AnnonceModel;
         $annonce = $annonce->findAnnoneProLimit($boutique->id);
 
-        $this->render('boutique_accueil/accueil_pro', ['boutique' => $boutique, 'adresse' => $adresse, 'annonce' => $annonce, 'photo' => $photo]);
+        $this->render('boutique_accueil/pro', ['boutique' => $boutique, 'adresse' => $adresse, 'annonce' => $annonce, 'photo' => $photo]);
     }
 
     /**

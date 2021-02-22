@@ -1,3 +1,4 @@
+<h1>Boutique de professionnel</h1>
 <?php
 
 use App\Models\PhotoAnnonceModel;
@@ -17,11 +18,11 @@ if (isset($_SESSION['success'])) {
     <section class="profil">
         <section class="avatar">
             <?php
-            if (empty($photo)) { ?>
-                <img src="../../public\img\default\18.png" alt="boutique">
+            if ($photo == false) { ?>
+                <img src="<?= ACCUEIL  ?>public\img\default\18.png" alt="photo de la boutique par default">
                 <?php
             } else { ?>
-                <img src="../../public\img\boutique_pro\<?= $photo->photo ?>" alt="photo de la boutique pro">
+                <img src="<?= ACCUEIL  ?>public\img\boutique_pro\<?= $photo->photo ?>" alt="photo de la boutique pro">
                 <?php
             }
                 ?>
@@ -48,7 +49,7 @@ if (isset($_SESSION['success'])) {
         if (isset($annonce) and !empty($annonce)) {
             foreach ($annonce as $annonces) { ?>
                 <section class="annonce">
-                    <a href="<?= ACCUEIL ?>annonceVoir/boutiquePro/<?= $boutique->id ?>/<?= $annonces->id ?>">
+                    <a href="<?= ACCUEIL ?>annonceVoir/voirpro/<?= $annonces->id ?>">
                         <section class="photo">
                             <?php $photo_annonces = new PhotoAnnonceModel;
                             $photo_annonces = $photo_annonces->findPhotoByAnnonceId($annonces->id);

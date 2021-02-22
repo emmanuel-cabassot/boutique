@@ -1,3 +1,4 @@
+<h1>Ma boutique</h1>
 <?php
 
 use App\Models\PhotoAnnonceModel;

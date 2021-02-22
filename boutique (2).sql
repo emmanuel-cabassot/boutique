@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : Dim 21 fév. 2021 à 11:37
+-- Généré le : lun. 22 fév. 2021 à 09:53
 -- Version du serveur :  5.7.31
 -- Version de PHP : 7.3.21
 
@@ -108,16 +108,18 @@ CREATE TABLE IF NOT EXISTS `annonce` (
   KEY `user_id` (`user_id`,`boutique_pro_id`,`boutique_particulier_id`),
   KEY `annonce_ibfk_1` (`boutique_particulier_id`),
   KEY `categorie_id` (`categorie_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=79 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `annonce`
 --
 
 INSERT INTO `annonce` (`id`, `titre`, `description`, `poids`, `prix`, `stock`, `create_at`, `categorie_id`, `user_id`, `boutique_pro_id`, `boutique_particulier_id`) VALUES
-(60, 'Chat amateur de biÃ¨res', 'Chat affecteux mais qui demande un frigo bien plein', 12, 200, 1, '2021-02-20 23:31:50', 1, NULL, 18, NULL),
-(61, 'figurine Pokemon', 'Belle figurine de mewtwo', 0, 15, 1, '2021-02-20 23:54:01', 1, NULL, NULL, 15),
-(62, 'Dinosaure', 'figurine de t-rex', 0, 10, 1, '2021-02-21 00:23:43', 1, NULL, NULL, 15);
+(74, 'sd', 'sd', 1, 1, 1, '2021-02-22 01:07:50', 1, NULL, 18, NULL),
+(75, 'mll', ';m;m', 5, 5, 5, '2021-02-22 01:20:38', 1, NULL, NULL, 15),
+(76, 'mll', ';m;m', 5, 5, 5, '2021-02-22 01:21:08', 1, NULL, NULL, 15),
+(77, 'tr', ';m;m', 5, 5000, 5, '2021-02-22 01:22:10', 1, NULL, NULL, 15),
+(78, 'nbkn', 'nliojnoi', 1, 2, 5, '2021-02-22 02:20:26', 1, NULL, NULL, 15);
 
 -- --------------------------------------------------------
 
@@ -336,16 +338,18 @@ CREATE TABLE IF NOT EXISTS `photo_annonce` (
   PRIMARY KEY (`id`),
   KEY `annonce_id` (`annonce_id`),
   KEY `annonce_id_2` (`annonce_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `photo_annonce`
 --
 
 INSERT INTO `photo_annonce` (`id`, `photo`, `annonce_id`) VALUES
-(37, '60.jpg', 60),
-(38, '61.png', 61),
-(39, '62.jpg', 62);
+(52, '74.png', 74),
+(64, '75.jpg', 75),
+(65, '76.jpg', 76),
+(66, '77.png', 77),
+(67, '78.jpg', 78);
 
 -- --------------------------------------------------------
 
@@ -362,7 +366,16 @@ CREATE TABLE IF NOT EXISTS `photo_avatar` (
   `boutique_pro_id` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4;
+
+--
+-- Déchargement des données de la table `photo_avatar`
+--
+
+INSERT INTO `photo_avatar` (`id`, `photo`, `user_id`, `boutique_particulier_id`, `boutique_pro_id`) VALUES
+(30, '15.png', NULL, 15, NULL),
+(31, '18.jpg', NULL, NULL, '18'),
+(39, '28.jpg', 28, NULL, NULL);
 
 -- --------------------------------------------------------
 

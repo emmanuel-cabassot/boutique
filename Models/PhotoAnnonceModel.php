@@ -17,7 +17,7 @@ class PhotoAnnonceModel extends Model
      * Cherche une photo par rapport à l'id de l'annonce
      *
      * @param string $annonce_id
-     * @return void
+     * @return 
      */
     public function findPhotoByAnnonceId($annonce_id)
     {
