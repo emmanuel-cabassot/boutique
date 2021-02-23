@@ -34,8 +34,9 @@ require 'functions/depuis.php';
                     <?= $livraison->prix ?> €
                 </div>
                 <div class="date_annonce">publiée il y a <?= depuis($annonce->create_at) ?></div>
+                <form action="#" method="post">
                 <div class="ajouter_panier">
-                    <button class="btn btn-info text_white col-12" href="">Ajouter au panier</button>
+                    <button class="btn btn-info text_white col-12" type="submit" name="panier">Ajouter au panier</button>
                 </div>
                 <div class="favoris">
                     <button class="btn btn-light col-12" href="">
@@ -45,6 +46,7 @@ require 'functions/depuis.php';
                         Favoris
                     </button>
                 </div>
+                </form>
             </section>
             <section class="boutique_boutique_par">
                 <div class="boutique">Boutique du vendeur</div>

@@ -161,6 +161,13 @@ class AnnonceVoirController extends Controller
 
     public function voirPar($id_annonce)
     {
+        if (isset($_POST['panier'])) {
+            if (isset($_SESSION['panier'])) {
+                
+            }else {
+                $_SESSION['panier'][0] = $id_annonce;
+            }
+        }
 
         // On instancie la classe annonceModel et et on recherche une annonce par rapport à son id
         $annonces = new AnnonceModel();
