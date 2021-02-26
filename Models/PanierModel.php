@@ -7,6 +7,8 @@ class PanierModel extends Model
     protected $annonce_id;
     protected $user_id;
     protected $quantite;
+    protected $prix_unité
+    protected $prix
 
     public function __construct()
     {
