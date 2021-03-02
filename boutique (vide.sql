@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : ven. 26 fév. 2021 à 15:41
+-- Généré le : mar. 02 mars 2021 à 23:13
 -- Version du serveur :  5.7.31
 -- Version de PHP : 7.3.21
 
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `adresse_particulier` (
   PRIMARY KEY (`id`),
   KEY `users_id` (`user_id`),
   KEY `boutique_id` (`boutique_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -82,7 +82,7 @@ CREATE TABLE IF NOT EXISTS `annonce` (
   KEY `user_id` (`user_id`,`boutique_pro_id`,`boutique_particulier_id`),
   KEY `annonce_ibfk_1` (`boutique_particulier_id`),
   KEY `categorie_id` (`categorie_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -100,7 +100,7 @@ CREATE TABLE IF NOT EXISTS `boutique_particulier` (
   PRIMARY KEY (`id`),
   KEY `users_id` (`user_id`),
   KEY `droit_id` (`droit_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -247,14 +247,14 @@ CREATE TABLE IF NOT EXISTS `livraison` (
 --
 
 INSERT INTO `livraison` (`id`, `poids_min`, `poids_max`, `prix`) VALUES
-(1, 0, 0.5, 4.55),
-(2, 0.501, 1, 5.35),
-(3, 1.001, 2, 6.05),
-(4, 2.001, 3, 6.95),
-(5, 3.001, 5, 8.15),
-(6, 5.001, 7, 10.75),
-(7, 7.001, 10, 12.6),
-(8, 10.001, 15, 15.7),
+(1, 0, 0.5, 5),
+(2, 0.501, 1, 6),
+(3, 1.001, 2, 7),
+(4, 2.001, 3, 8),
+(5, 3.001, 5, 9),
+(6, 5.001, 7, 11),
+(7, 7.001, 10, 13),
+(8, 10.001, 15, 16),
 (9, 15.001, 30, 36),
 (10, 30.001, 120, 50);
 
@@ -268,15 +268,16 @@ DROP TABLE IF EXISTS `panier`;
 CREATE TABLE IF NOT EXISTS `panier` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `annonce_id` int(11) DEFAULT NULL,
+  `annonce_name` varchar(255) NOT NULL,
   `user_id` int(11) DEFAULT NULL,
+  `vendor_name` varchar(255) NOT NULL,
   `quantite` int(11) NOT NULL,
-  `prix_unité` int(11) NOT NULL,
   `prix` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `annonces_id` (`annonce_id`),
   KEY `users_id` (`user_id`),
   KEY `annonce_id` (`annonce_id`,`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -292,7 +293,7 @@ CREATE TABLE IF NOT EXISTS `photo_annonce` (
   PRIMARY KEY (`id`),
   KEY `annonce_id` (`annonce_id`),
   KEY `annonce_id_2` (`annonce_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -348,7 +349,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `password` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `droit_id` (`droit_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Contraintes pour les tables déchargées
