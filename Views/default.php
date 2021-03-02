@@ -90,6 +90,9 @@
                                     <a class="dropdown-item" href="<?= ACCUEIL ?>user/profil">Modifier mon profil</a>
                                     <a class="dropdown-item" href="<?= ACCUEIL ?>user/adresse">Mon adresse</a>
                                     <a class="dropdown-item" href="<?= ACCUEIL ?>boutiqueProfil/profilPro">Moyen de paiement</a>
+                                    <form method="POST" action="<?= ACCUEIL ?>panier/view" style="max-width: auto;width: 100%;">
+                                    <center><button class="btn btn-primary py-0" type="submit" style="background: rgb(111,111,111)";>Mon Panier</button><center>
+                                    </form>
                                 </div>
                             </div>
                         <?php
@@ -109,6 +112,9 @@
                                     <a class="dropdown-item" href="<?= ACCUEIL ?>user/profil">Modifier mon profil</a>
                                     <a class="dropdown-item" href="<?= ACCUEIL ?>user/adresse">Mon adresse</a>
                                     <a class="dropdown-item" href="<?= ACCUEIL ?>boutiqueProfil/profilPro">Moyen de paiement</a>
+                                    <form method="POST" action="<?= ACCUEIL ?>panier/view" style="max-width: auto;width: 100%;">
+                                    <center><button class="btn btn-primary py-0" type="submit" style="background: rgb(111,111,111)";>Mon Panier</button><center>
+                                    </form>
                                 </div>
                             </div>
                         <?php
