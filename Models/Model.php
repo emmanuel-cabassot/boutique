@@ -130,6 +130,13 @@ class Model extends Db
         }
     }
 
+    public function requeteS(string $sql)
+    {
+        $dbs = mysqli_connect("localhost", "root", "", "boutique");
+        // Requête simple
+        return mysqli_query($dbs, $sql);
+    }
+
 
     public function hydrate($donnees)
     {
