@@ -9,15 +9,29 @@
     <link rel="stylesheet" href="../public/css/style.css">
     <link rel="stylesheet" href="../../public/css/style.css">
     <link rel="stylesheet" href="../../../public/css/style.css">
+    <link rel="stylesheet" href="public/css/Features-Boxed.css">
+    <link rel="stylesheet" href="public/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="public/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="public/fonts/fontawesome5-overrides.min.css">
 </head>
 
 <body>
     <header>
         <section class="navbar navbar-expand-md navbar-dark bg-primary">
             <div class="container-fluid">
-                <a class="navbar-brand ml-4 " href="<?= ACCUEIL ?>">
-                    Boutique en ligne
-                </a>
+            <a class="navbar-brand ml-4 " href="<?= ACCUEIL ?>">
+                Boutique en ligne
+            </a>
+            <form method="POST" action="<?= ACCUEIL ?>annonce/search" class="form-inline d-none d-sm-none d-md-inline-block d-lg-inline-block d-xl-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" style="max-width: auto;width: 100%;">
+                <div class="input-group d-xl-flex">
+                <input type="text" id="search" name="search"class="bg-light form-control d-xl-inline-flex border-0 small" placeholder="Produit Recherché" />
+                <button class="btn btn-primary py-0" type="submit" style="background: rgb(111,111,111)";>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                </svg>
+                </button>
+                </div>
+            </form>
 
                 <!--menu burger-->
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
