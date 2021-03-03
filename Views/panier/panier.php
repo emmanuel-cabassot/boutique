@@ -1,14 +1,19 @@
 <h1>Mon Panier</h1>
 <p>Certains Article Stocké Peuvent avoir etre modifié voir supprimé si le stock des article concerné a changé ou si les articles concerné ont été modifié</p>
-
-<table class="table" border="1">
-<tr><th>Article N°</th><th>Nom du Produit</th><th>Nom du Vendeur</th><th>Quantité</th><th>Prix</th><th>
 <?php
-$ordre = 0;
 $panier_total = 0;
+if (empty($panier_data))
+{
+echo "<h2>Votre Panier Est Vide</h2>";
+}
+if (!empty($panier_data))
+{
+?><table class="table" border="1">
+<tr><th>Nom du Produit</th><th>Nom du Vendeur</th><th>Quantité</th><th>Prix</th><th>
+<?php
 foreach ($panier_data as $panier)
 {
-echo "<tr><td>$panier->annonce_id</td><td>$panier->annonce_name</td><td>$panier->vendor_name</td><td>$panier->quantite</td><td>$panier->prix</td></tr>";
+echo "<tr><td>$panier->annonce_name</td><td>$panier->vendor_name</td><td>$panier->quantite</td><td>$panier->prix</td></tr>";
 $panier_total = $panier_total + $panier->prix;
 $_SESSION['produit_q'][$panier->annonce_id] = $panier->quantite;
 $_SESSION['produit_p'][$panier->annonce_id] = $panier->prix / $panier->quantite;
@@ -16,9 +21,7 @@ $_SESSION['produit_p'][$panier->annonce_id] = $panier->prix / $panier->quantite;
 ?>
 </table>
 <?php
-echo "Frais de Service : 5 Euros</br>";
-$panier_total = $panier_total + 5;
-echo "Total a Payer (Livraison Et Frais de Service Inclus) : $panier_total Euros</br>";
+echo "Total a Payer (Livraison Inclus) : $panier_total Euros</br>";
 echo "En Achetant Ces Produits Vous Acceptez Les Conditions Générales D'Utilisation</br>"
 ?>
 <div class="container" style="margin: 0px;margin-top: 18px;">
@@ -67,4 +70,6 @@ echo "En Achetant Ces Produits Vous Acceptez Les Conditions Générales D'Utilis
         </div>
     </div>
 </div>
-
+<?php
+}
+?>

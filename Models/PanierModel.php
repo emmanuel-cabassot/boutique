@@ -56,10 +56,19 @@ class PanierModel extends Model
         {
         $nquentite = $_SESSION['produit_q'][$TARGET] - 1;
         }
-        $nprix = $_SESSION['produit_p'][$TARGET] * $nquentite;
-        $request = "UPDATE `panier` SET `quantite`= $nquentite,`prix`= $nprix WHERE `annonce_id` = $TARGET && `user_id` = $USER_TARGET";
-        $this->requeteS($request);
-        return $request;
+        if ($nquentite == 0)
+        {
+            $request = "DELETE FROM `panier` WHERE `annonce_id` = $TARGET && `user_id` = $USER_TARGET";
+            $this->requeteS($request);
+            return $request;
+        }
+        else
+        {
+            $nprix = $_SESSION['produit_p'][$TARGET] * $nquentite;
+            $request = "UPDATE `panier` SET `quantite`= $nquentite,`prix`= $nprix WHERE `annonce_id` = $TARGET && `user_id` = $USER_TARGET";
+            $this->requeteS($request);
+            return $request;   
+        }
     }
 
     public function delAll()
