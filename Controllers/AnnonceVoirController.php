@@ -156,7 +156,9 @@ class AnnonceVoirController extends Controller
         $photo_boutiques = new PhotoAvatarModel();
         $photo_boutique = $photo_boutiques->findPhotoBoutique($boutique->id);
 
-        $this->render('annonce_voir/voir_pro', ['annonce' => $annonce, 'livraison' => $livraison, 'photo' => $photo, 'boutique' => $boutique, 'categorie' => $categorie, 'photo_boutique' => $photo_boutique]);
+        // On Ajoute L'ID de L'Annonce Pour le bouton d'achat
+
+        $this->render('annonce_voir/voir_pro', ['id' => $id_annonce, 'annonce' => $annonce, 'livraison' => $livraison, 'photo' => $photo, 'boutique' => $boutique, 'categorie' => $categorie, 'photo_boutique' => $photo_boutique]);
     }
 
     public function voirPar($id_annonce)
@@ -196,6 +198,6 @@ class AnnonceVoirController extends Controller
         $photo_boutiques = new PhotoAvatarModel();
         $photo_boutique = $photo_boutiques->findPhotoBoutiquePar($boutique->id);
 
-        $this->render('annonce_voir/voir_par', ['annonce' => $annonce, 'livraison' => $livraison, 'photo' => $photo, 'boutique' => $boutique, 'categorie' => $categorie, 'photo_boutique' => $photo_boutique]);
+        $this->render('annonce_voir/voir_par', ['id' => $id_annonce, 'annonce' => $annonce, 'livraison' => $livraison, 'photo' => $photo, 'boutique' => $boutique, 'categorie' => $categorie, 'photo_boutique' => $photo_boutique]);
     }
 }
