@@ -39,6 +39,14 @@ require 'functions/depuis.php';
                     <?= $livraison->prix ?> €
                 </div>
                 <div class="date_annonce">publiée il y a <?= depuis($annonce->create_at) ?></div>
+<<<<<<< HEAD
+                <form action="#" method="post">
+                <div class="ajouter_panier">
+                    <button class="btn btn-info text_white col-12" type="submit" name="panier">Ajouter au panier</button>
+                </div>
+                <div class="favoris">
+                    <button class="btn btn-light col-12" href="">
+=======
                 <?php $STOCK_MAX = $annonce->stock; $STOCK = 0;?>
                 
                 <form method="POST" action="<?= ACCUEIL ?>panier/add">
@@ -54,24 +62,26 @@ require 'functions/depuis.php';
                     <button type="submit" class="btn btn-primary" style="margin: 0px;margin-left: 0px;margin-top: 5px;margin-bottom: 10px;">Ajouter Au Panier</button>
                 </form>
                 <div class="favoris"><a class="btn btn-light col-12" href="">
+>>>>>>> main
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-heart text-secondary mr-1 " viewBox="0 0 16 16">
                             <path d="M8 2.748l-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
                         </svg>
                         Favoris
-                    </a>
+                    </button>
                 </div>
+                </form>
             </section>
             <section class="boutique_boutique_par">
                 <div class="boutique">Boutique du vendeur</div>
                 <div class="boutique_nom"><?= $boutique->nom_boutique ?></div>
                 <div class="boutique_image"><?php
-                if ($photo_boutique == false) {?>
-                    <img src="../../public/img/default/18.png" alt="photo de la boutique">
+                                            if ($photo_boutique == false) { ?>
+                        <img src="../../public/img/default/18.png" alt="photo de la boutique">
                     <?php
-                }else {?>
-                    <img src="../../public/img/boutique_par/<?= $photo_boutique->photo ?>" alt="photo de la boutique">
+                                            } else { ?>
+                        <img src="../../public/img/boutique_par/<?= $photo_boutique->photo ?>" alt="photo de la boutique">
                     <?php
-                }?>
+                                            } ?>
                 </div>
                 <div class="type">(particulier)</div>
                 <div class="boutique_date">Créée il y a <?= depuis($boutique->create_at) ?></div>
