@@ -39,7 +39,9 @@ require 'functions/depuis.php';
                 </div>
                 <div class="date_annonce">publiée il y a <?= depuis($annonce->create_at) ?></div>
                 <?php $STOCK_MAX = $annonce->stock; $STOCK = 0;?>
-                
+                <?php 
+                $STOCK_MAX = $annonce->stock; $STOCK = 0;
+                if (isset($_SESSION['user']['droit']) and $_SESSION['user']['droit'] == 1) {?>
                 <form method="POST" action="<?= ACCUEIL ?>panier/add">
                     <select name=Quantité id=Quantité>
                     <?php 
@@ -52,13 +54,21 @@ require 'functions/depuis.php';
                     </select>
                     <button type="submit" class="btn btn-primary" style="margin: 0px;margin-left: 0px;margin-top: 5px;margin-bottom: 10px;">Ajouter Au Panier</button>
                 </form>
-                <div class="favoris"><a class="btn btn-light col-12" href="">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-heart text-secondary mr-1 " viewBox="0 0 16 16">
-                            <path d="M8 2.748l-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
-                        </svg>
-                        Favoris
-                    </a>
-                </div>
+                <?php }
+                if (isset($_SESSION['user']['droit']) and $_SESSION['user']['droit'] == 10) {?>
+                <form method="POST" action="<?= ACCUEIL ?>panier/add">
+                    <select name=Quantité id=Quantité>
+                    <?php 
+                    while($STOCK < $STOCK_MAX)
+                    {
+                    $STOCK = $STOCK + 1;
+                    echo "<option value=$STOCK>$STOCK</option>";
+                    }
+                    ?>
+                    </select>
+                    <button type="submit" class="btn btn-primary" style="margin: 0px;margin-left: 0px;margin-top: 5px;margin-bottom: 10px;">Ajouter Au Panier</button>
+                </form>
+                <?php } ?>
             </section>
             <section class="boutique_boutique_par">
                 <div class="boutique">Boutique du vendeur</div>
