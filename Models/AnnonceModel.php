@@ -35,6 +35,18 @@ class AnnonceModel extends Model
         return $this->requete("SELECT * FROM $this->table WHERE boutique_particulier_id = $boutique_particulier_id ORDER BY create_at DESC")->fetch();
     }
 
+    public function search($titre,$categorie)
+    {
+        if ($categorie == "0")
+        {
+        return $this->requete("SELECT * FROM $this->table WHERE titre LIKE '%$titre%' ORDER BY create_at DESC")->fetchAll();
+        }
+        else
+        {
+        return $this->requete("SELECT * FROM annonce WHERE titre LIKE '%$titre%' && categorie_id LIKE $categorie ORDER BY create_at DESC")->fetchAll();
+        }
+    }
+
     public function findAnnonceParLimit($boutique_particulier_id)
     {
         return $this->requete("SELECT * FROM $this->table WHERE boutique_particulier_id = $boutique_particulier_id ORDER BY create_at DESC LIMIT 10")->fetchAll();

@@ -37,6 +37,9 @@ class AnnonceModifierController extends Controller
 
             // On crée l'annonce en BDD
             $annonce->update();
+            
+
+
 
             if (isset($_FILES) AND !empty($_FILES['photo_principale']['name'])) {
                 //Taille max de la photo

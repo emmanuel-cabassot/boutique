@@ -119,15 +119,24 @@ class Model extends Db
         $this->db = Db::getInstance();
 
         // On vérifie si on a des attributs
-        if ($attributs !== null) {
+        if ($attributs !== null) 
+        {
             // Requête préparée
             $query = $this->db->prepare($sql);
             $query->execute($attributs);
             return $query;
-        } else {
+        } 
+        else 
+        {
             // Requête simple
             return $this->db->query($sql);
         }
+    }
+
+    public function requeteS(string $sql)
+    {
+        $dbs = mysqli_connect("localhost", "root", "", "boutique");
+        return mysqli_query($dbs, $sql);
     }
 
 

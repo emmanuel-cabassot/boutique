@@ -26,6 +26,25 @@ class AnnonceController extends Controller
         $this->render('annonce/index', compact('annonces'));
     }
 
+    public function search()
+    {
+        if (!isset($_POST['categorie']))
+        {
+            $categorie_s = "0";
+        }
+        else
+        {
+            $categorie_s = $_POST['categorie'];
+        }
+        // On instancie le class correspondant à la table annonces
+        $annonce = new AnnonceModel;
+        // On appelle la méthode search qui va rechercher les annonces pertinante dans la base de données
+        $annonces = $annonce->search($_POST['search'],$categorie_s);
+
+        // On génère la vue
+        $this->render('search/search', compact('annonces'));
+    }
+
     /**
      * Affiche 1 annonce
      *

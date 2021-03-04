@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : lun. 22 fév. 2021 à 09:53
+-- Généré le : jeu. 04 mars 2021 à 23:58
 -- Version du serveur :  5.7.31
 -- Version de PHP : 7.3.21
 
@@ -20,8 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Base de données : `boutique`
 --
-CREATE DATABASE IF NOT EXISTS `boutique` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `boutique`;
 
 -- --------------------------------------------------------
 
@@ -40,19 +38,7 @@ CREATE TABLE IF NOT EXISTS `adresse_particulier` (
   PRIMARY KEY (`id`),
   KEY `users_id` (`user_id`),
   KEY `boutique_id` (`boutique_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
-
---
--- Déchargement des données de la table `adresse_particulier`
---
-
-INSERT INTO `adresse_particulier` (`id`, `boutique_id`, `user_id`, `adresse`, `code`, `ville`) VALUES
-(13, NULL, 26, '22 rue poucel', 13004, 'Marseille'),
-(20, NULL, 27, '56 rue Jean Mermoz', 130000, 'Marseille'),
-(21, NULL, 29, '22 rue du chatounet', 13007, 'marseille'),
-(22, NULL, 28, '56 rue Jean Mermoz', 13008, 'Marseille'),
-(23, NULL, 30, '0 rue des fous', 13001, 'Marseille'),
-(24, NULL, 31, '123 Chemin du Cabillot', 13300, 'Salon de Provence');
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -69,19 +55,7 @@ CREATE TABLE IF NOT EXISTS `adresse_pro` (
   `ville` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `boutique_id` (`boutique_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4;
-
---
--- Déchargement des données de la table `adresse_pro`
---
-
-INSERT INTO `adresse_pro` (`id`, `boutique_id`, `adresse`, `code`, `ville`) VALUES
-(7, 18, '22 rue poucel', 13004, 'Marseille'),
-(8, 19, '11 chemin du pas', 13005, 'marseille'),
-(9, 20, '28 rue de la libertÃ©', 69069, 'Lyon'),
-(10, 21, '22 rue Poucel', 13004, 'Marseille'),
-(11, 22, '22 rue du chaton', 13004, 'marseille'),
-(12, 23, '11 chemin du pas', 13005, 'marseille');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -96,7 +70,7 @@ CREATE TABLE IF NOT EXISTS `annonce` (
   `description` longtext NOT NULL,
   `poids` float NOT NULL,
   `prix` int(11) NOT NULL,
-  `stock` int(11) DEFAULT NULL,
+  `stock` float NOT NULL,
   `create_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `categorie_id` int(11) NOT NULL,
   `user_id` int(11) DEFAULT NULL,
@@ -108,18 +82,7 @@ CREATE TABLE IF NOT EXISTS `annonce` (
   KEY `user_id` (`user_id`,`boutique_pro_id`,`boutique_particulier_id`),
   KEY `annonce_ibfk_1` (`boutique_particulier_id`),
   KEY `categorie_id` (`categorie_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=79 DEFAULT CHARSET=utf8mb4;
-
---
--- Déchargement des données de la table `annonce`
---
-
-INSERT INTO `annonce` (`id`, `titre`, `description`, `poids`, `prix`, `stock`, `create_at`, `categorie_id`, `user_id`, `boutique_pro_id`, `boutique_particulier_id`) VALUES
-(74, 'sd', 'sd', 1, 1, 1, '2021-02-22 01:07:50', 1, NULL, 18, NULL),
-(75, 'mll', ';m;m', 5, 5, 5, '2021-02-22 01:20:38', 1, NULL, NULL, 15),
-(76, 'mll', ';m;m', 5, 5, 5, '2021-02-22 01:21:08', 1, NULL, NULL, 15),
-(77, 'tr', ';m;m', 5, 5000, 5, '2021-02-22 01:22:10', 1, NULL, NULL, 15),
-(78, 'nbkn', 'nliojnoi', 1, 2, 5, '2021-02-22 02:20:26', 1, NULL, NULL, 15);
+) ENGINE=InnoDB AUTO_INCREMENT=72 DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -137,18 +100,7 @@ CREATE TABLE IF NOT EXISTS `boutique_particulier` (
   PRIMARY KEY (`id`),
   KEY `users_id` (`user_id`),
   KEY `droit_id` (`droit_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4;
-
---
--- Déchargement des données de la table `boutique_particulier`
---
-
-INSERT INTO `boutique_particulier` (`id`, `nom_boutique`, `create_at`, `droit_id`, `user_id`) VALUES
-(10, 'le stand de Manu', '2021-02-12 11:15:26', 10, 26),
-(14, 'minou et minette', '2021-02-18 17:18:11', 10, 29),
-(15, 'dinoland', '2021-02-18 18:13:34', 10, 28),
-(16, 'zuzu', '2021-02-19 11:42:04', 10, 30),
-(17, 'MHCORP', '2021-02-19 13:58:02', 10, 31);
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -168,19 +120,7 @@ CREATE TABLE IF NOT EXISTS `boutique_pro` (
   `rib` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `droit_id` (`droit_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4;
-
---
--- Déchargement des données de la table `boutique_pro`
---
-
-INSERT INTO `boutique_pro` (`id`, `nom`, `email`, `password`, `droit_id`, `create_at`, `siret`, `rib`) VALUES
-(18, 'Les chats en folie', 'chacha@hotmail.fr', '$argon2i$v=19$m=65536,t=4,p=1$MFhsLlpELk56d2RrZnZHUA$F3vZjRQyyvV1Guh5AJ9apTA/9SucZN02dpvAIvBz/is', 20, '2021-02-12 12:38:37', '2525525', NULL),
-(19, 'leo', 'leonard@yahoo.fr', '$argon2i$v=19$m=65536,t=4,p=1$bDZlWTV6RW5SNWhnV2d3cQ$wonzC9C8Xh3Mwu6vOQpqlrqD17xG7D+qBgPFSfE58nQ', 20, '2021-02-18 17:32:23', '544783627541211', NULL),
-(20, 'Panda', 'panda@hotmail.fr', '$argon2i$v=19$m=65536,t=4,p=1$ckQwWThUTThvV3MvNGJ4dA$GhYlb2Kv1HLzPBMJYC5XI8jxtOi/l22MqvdBgUzYIRI', 20, '2021-02-18 18:49:17', '5555555555555', NULL),
-(21, 'cassiopÃ©e', 'cass@hotmail.fr', '$argon2i$v=19$m=65536,t=4,p=1$dXZGLnQ3OFNpdzlYWVZ4SQ$PxlEi3erhOv93DMCB2uhDyQMFsUgGH0JtoYMzWUTOVE', 20, '2021-02-18 18:55:59', '5555555555555555', NULL),
-(22, 'bibi', 'bibi@hotmail.fr', '$argon2i$v=19$m=65536,t=4,p=1$RUVyWnVXNVBVYVZ5andBUw$7ol1B9MGcwqV/bCwvb1akn0ldt54K4fsIp4tH3XNOR0', 20, '2021-02-18 18:59:09', '55555555555', NULL),
-(23, 'titi', 'titi@hotmail.fr', '$argon2i$v=19$m=65536,t=4,p=1$eVNYZ3lvSnY1VzBwVW8zUg$Kngd865YojrdZdmt/k3sNOwieGSL5gXD57H65ii9Nqk', 20, '2021-02-18 19:00:57', '7777777777', NULL);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -191,7 +131,7 @@ INSERT INTO `boutique_pro` (`id`, `nom`, `email`, `password`, `droit_id`, `creat
 DROP TABLE IF EXISTS `categorie`;
 CREATE TABLE IF NOT EXISTS `categorie` (
   `id` int(11) NOT NULL,
-  `nom` varchar(50) NOT NULL,
+  `nom` varchar(200) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -200,14 +140,26 @@ CREATE TABLE IF NOT EXISTS `categorie` (
 --
 
 INSERT INTO `categorie` (`id`, `nom`) VALUES
-(1, 'Animalerie'),
-(2, 'ameublement'),
-(3, 'enfant'),
-(5, 'vêtements'),
-(6, 'Bijoux'),
-(7, 'Artisanat'),
-(8, 'informatique'),
-(9, 'multimédia');
+(1, 'DVD / Films'),
+(2, 'CD / Musique'),
+(3, 'Livres'),
+(4, 'Jeux De Société'),
+(5, 'Jouets'),
+(6, 'Accessoire pour Animaux'),
+(7, 'Vetements'),
+(8, 'Chaussures'),
+(9, 'Accessoires'),
+(10, 'Montres et Bijoux'),
+(11, 'Informatique (Peripheriques)'),
+(12, 'Informatique (Composants)'),
+(13, 'Console de Jeux Video'),
+(14, 'Console de Jeux Vidéo (Périphériques)'),
+(15, 'Console de Jeux Video (Disques de Jeux)'),
+(16, 'Image et Son'),
+(17, 'Téléphonie (Android)'),
+(18, 'Téléphonie (Apple)'),
+(19, 'Téléphonie (Périphériques)'),
+(20, 'Autres');
 
 -- --------------------------------------------------------
 
@@ -295,14 +247,14 @@ CREATE TABLE IF NOT EXISTS `livraison` (
 --
 
 INSERT INTO `livraison` (`id`, `poids_min`, `poids_max`, `prix`) VALUES
-(1, 0, 0.5, 4.55),
-(2, 0.501, 1, 5.35),
-(3, 1.001, 2, 6.05),
-(4, 2.001, 3, 6.95),
-(5, 3.001, 5, 8.15),
-(6, 5.001, 7, 10.75),
-(7, 7.001, 10, 12.6),
-(8, 10.001, 15, 15.7),
+(1, 0, 0.5, 5),
+(2, 0.501, 1, 6),
+(3, 1.001, 2, 7),
+(4, 2.001, 3, 8),
+(5, 3.001, 5, 9),
+(6, 5.001, 7, 11),
+(7, 7.001, 10, 13),
+(8, 10.001, 15, 16),
 (9, 15.001, 30, 36),
 (10, 30.001, 120, 50);
 
@@ -316,13 +268,17 @@ DROP TABLE IF EXISTS `panier`;
 CREATE TABLE IF NOT EXISTS `panier` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `annonce_id` int(11) DEFAULT NULL,
+  `annonce_name` varchar(255) NOT NULL,
   `user_id` int(11) DEFAULT NULL,
+  `vendor_name` varchar(255) NOT NULL,
   `quantite` int(11) NOT NULL,
+  `prix` int(11) DEFAULT NULL,
+  `livraison` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `annonces_id` (`annonce_id`),
   KEY `users_id` (`user_id`),
   KEY `annonce_id` (`annonce_id`,`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -338,18 +294,7 @@ CREATE TABLE IF NOT EXISTS `photo_annonce` (
   PRIMARY KEY (`id`),
   KEY `annonce_id` (`annonce_id`),
   KEY `annonce_id_2` (`annonce_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8mb4;
-
---
--- Déchargement des données de la table `photo_annonce`
---
-
-INSERT INTO `photo_annonce` (`id`, `photo`, `annonce_id`) VALUES
-(52, '74.png', 74),
-(64, '75.jpg', 75),
-(65, '76.jpg', 76),
-(66, '77.png', 77),
-(67, '78.jpg', 78);
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -366,16 +311,7 @@ CREATE TABLE IF NOT EXISTS `photo_avatar` (
   `boutique_pro_id` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4;
-
---
--- Déchargement des données de la table `photo_avatar`
---
-
-INSERT INTO `photo_avatar` (`id`, `photo`, `user_id`, `boutique_particulier_id`, `boutique_pro_id`) VALUES
-(30, '15.png', NULL, 15, NULL),
-(31, '18.jpg', NULL, NULL, '18'),
-(39, '28.jpg', 28, NULL, NULL);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -414,19 +350,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `password` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `droit_id` (`droit_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4;
-
---
--- Déchargement des données de la table `user`
---
-
-INSERT INTO `user` (`id`, `droit_id`, `nom`, `prenom`, `create_at`, `email`, `password`) VALUES
-(26, 10, 'Cabassot', 'Emmanuel', '2021-02-17 20:30:38', 'emmanuel.cabassot@laplateforme.io', '$argon2i$v=19$m=65536,t=4,p=1$enNMQ1VQY09VQXdWbUFUMw$hwJaQlVXU/XillY3sdirGZmNaLYwNdL2egOLj9BUa48'),
-(27, 1, 'Cabassot', 'Lou', '2021-02-17 20:30:38', 'lou@hotamil.fr', '$argon2i$v=19$m=65536,t=4,p=1$QXVrSURFSEU3a1BNN1BJMw$cIdUW4s0cGtW7Bm1HWawqoOOL3PdzZU04+Xt3E82TDA'),
-(28, 10, 'Cabassot', 'Adrien', '2021-02-17 20:30:38', 'adrien@hotmail.fr', '$argon2i$v=19$m=65536,t=4,p=1$THM2eEloUjEzZFRkQXRqYg$/CNddIdGQiJpzikyGebMRx/FHKQZ/1H48JhnfAS8qbA'),
-(29, 10, 'chat', 'chat', '2021-02-18 16:59:22', 'chatchat@gmail.com', '$argon2i$v=19$m=65536,t=4,p=1$REo4VXNDOGc2UUhJR3plZA$PjltlbA3BiLGTCNKsctcjpTMGygnCleBBQHY12+kaQI'),
-(30, 10, 'Tenorio', 'Fabio', '2021-02-19 11:38:32', 'fabiovalho@fabio.br', '$argon2i$v=19$m=65536,t=4,p=1$NjZ4VEhwY0JHLkNzUmxlaw$CicqIX0JhT7vdBpI4YQYbWZqZ3Z6yoU+vxa1lzryxYA'),
-(31, 10, 'tavernier', 'mathias', '2021-02-19 13:55:26', 'mathias.tavernier1@gmail.com', '$argon2i$v=19$m=65536,t=4,p=1$b0I3dG5hTE55bkdvLjB5bw$Cl781vH93l/XENqxkUNd0K85XvJyxukUeVVYx4V/CnU');
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Contraintes pour les tables déchargées
