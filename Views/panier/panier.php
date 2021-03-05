@@ -6,14 +6,14 @@ if (empty($panier_data)) {
     echo "<h2>Votre Panier Est Vide</h2>";
 }
 if (!empty($panier_data)) {
-?><table class="table" border="1">
+?><table class="table">
         <tr>
             <th>Nom du Produit</th>
             <th>Nom du Vendeur</th>
             <th>Quantité</th>
-            <th></th>
             <th>Prix</th>
             <th>Cout Livraison</th>
+            <th></th>
             <th></th>
         </tr>
         <?php
@@ -59,6 +59,8 @@ if (!empty($panier_data)) {
                 <td><?= $panier->annonce_name ?></td>
                 <td><?= $panier->vendor_name ?></td>
                 <td><?= $quantité ?></td>
+                <td><?= $nprix ?></td>
+                <td><?= $livraison ?></td>
                 <td>
                     <form method="POST" action="<?= ACCUEIL ?>panier/edit">
                         <input style=display:none name=Produit id=Produit value=<?= $panier->annonce_id ?>></input>
@@ -69,8 +71,6 @@ if (!empty($panier_data)) {
                         <button type="submit" class="btn btn-primary" style="margin: 0px;margin-left: 0px;margin-top: 5px;margin-bottom: 10px;">Modifier La Quantité</button>
                     </form>
                 </td>
-                <td><?= $nprix ?></td>
-                <td><?= $livraison ?></td>
                 <td>
                     <form method="POST" action="<?= ACCUEIL ?>panier/del">
                         <input style=display:none name=Produit id=Produit value=<?= $panier->annonce_id ?>></input>
@@ -84,19 +84,17 @@ if (!empty($panier_data)) {
     }
         ?>
     </table>
-    <?php
-    echo "Total a Payer (Livraison Inclus) : $panier_total Euros</br>";
-    echo "En Achetant Ces Produits Vous Acceptez Les Conditions Générales D'Utilisation</br>"
-    ?>
-    <div class="container" style="margin: 0px;margin-top: 18px align-self-center text-center;">
+    <p class="panier-p">Total a Payer (Livraison Inclus) : <b><?=$panier_total?> Euros</b></p></br>
+                    <form method="POST" action="<?= ACCUEIL ?>panier/buy">
+                        <input style=display:none name=Price id=Price value=<?= $panier_total ?>></input>
+                        <button type="submit" class="btn btn-primary" style="margin: 0px;margin-left: 0px;margin-top: 0px;margin-bottom: 50px;">Passer la Commande</button>
+                    </form>
+    <div class="container" style="margin: 0px;margin-top: 0px align-self-center text-center;">
         <div class="align-self-center text-center">
             <h3>Effacer Tout Le Panier</h3>
             <form method="POST" action="<?= ACCUEIL ?>panier/delAll">
                 <button type="submit" class="btn btn-primary" style="margin: 0px;margin-left: 0px;margin-top: 5px;margin-bottom: 10px;">Nettoyer Le Panier</button>
             </form>
-            <center>
-                <h4>ATTENTION : Cette Action Est Irréversible</h4>
-            </center>
         </div>
     </div>
 <?php

@@ -13,7 +13,53 @@ main{
     width: 100%;  
 }
 
+                                    /* ACCUEIL */
+.main_accueil{
+    display: flex;
+    flex-direction: column;
+    background-color: #eef4f7;;
+    width: 100%;
+}
 
+.main_accueil h1{
+    color: rgb(116, 116, 116);
+    text-align: center;
+}
+
+.container_search{
+    background-color: rgb(3, 124, 230);
+    padding: 20px 20px 5px 20px;
+    margin-top: 10px;
+}
+
+.search_accueil{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    text-align: center;
+}
+
+.search_accueil input, .search_accueil select, .search_accueil button{
+    width: 380px;
+    height: 40px;
+    margin-bottom: 15px;
+}
+
+.annonces_accueil{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.annonces_accueil img{
+    height: 250px;
+    padding: 10px;
+}
+
+.annonces_accueil .card{
+    margin: 10px;
+}
+                                    
                                 /* ACCUEIL BOUTIQUE */
 .boutique_accueil{
     display: flex;
@@ -315,5 +361,20 @@ main{
     padding: 3px 3px 4px 3px;
     background-color: white;
     border: 1px solid rgb(27, 239, 247);
+}
+
+                                            /* PANIER */
+td
+{
+vertical-align: middle;
+text-align: center;
+}
+th
+{
+text-align: center;
+}
+.panier-p
+{
+    margin-bottom: 0;
 }
 

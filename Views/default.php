@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-CuOF+2SnTUfTwSZjCXf01h7uYhfOBuxIhGKPbfEJ3+FqH/s6cIFN9bGr1HmAg4fQ" crossorigin="anonymous">
+    <link rel="stylesheet" href="public/css/style.css">
     <link rel="stylesheet" href="../public/css/style.css">
     <link rel="stylesheet" href="../../public/css/style.css">
     <link rel="stylesheet" href="../../../public/css/style.css">
@@ -22,7 +23,7 @@
                 <a class="navbar-brand ml-4 " href="<?= ACCUEIL ?>">
                     Boutique en ligne
                 </a>
-                <form method="POST" action="<?= ACCUEIL ?>annonce/search" class="form-inline d-none d-sm-none d-md-inline-block d-lg-inline-block d-xl-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" style="max-width: auto;width: 100%;">
+                <form method="POST" action="<?= ACCUEIL ?>annonce/search" class="form-inline navbar-search w-50 ">
                     <div class="input-group d-xl-flex">
                         <input type="text" id="search" name="search" class="bg-light form-control d-xl-inline-flex border-0 small" placeholder="Produit Recherché" />
                         <button class="btn btn-primary py-0" type="submit" style="background: rgb(111,111,111)" ;>
@@ -42,7 +43,7 @@
                 <div class="collapse navbar-collapse mr-auto" id="navbarSupportedContent">
                     <ul class="navbar-nav nav-fill ml-auto">
                         <li class="nav-item ml-3 ">
-                            <a class="nav-link" href="<?= ACCUEIL ?>annonce">Annonces</a>
+                            <a class="nav-link" href="<?= ACCUEIL ?>commentcamarche">Comment ca marche</a>
                         </li>
                         <?php
                         if (isset($_SESSION['user']['droit']) and $_SESSION['user']['droit'] == 20) { ?>
