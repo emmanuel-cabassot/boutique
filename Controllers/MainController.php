@@ -2,18 +2,30 @@
 
 namespace App\Controllers;
 
-use App\Models\UserModel;
+use App\Models\AnnonceModel;
 use App\Models\CategorieModel;
+use App\Models\PhotoAnnonceModel;
 
 class MainController extends Controller
 {
+    
+
+    /**
+     * Cette méhode affichera une page listant toutes les annonces de la BDD
+     *
+     * @return void
+     */
     public function index()
     {
-        $utilisateurs = new UserModel;
-        $utilisateurs = $utilisateurs->findAll();
+        // On instancie le class correspondant à la table annonces
+        $annonce = new AnnonceModel;
+        // On appelle la méthode findAll qui va enregistrer les annonces dans $annonces
+        $annonces = $annonce->findAll();
+
         $categories_list = new CategorieModel;
         $categories_list = $categories_list->findCategories();
-        $this->render('main/index', ['utilisateurs'=>$utilisateurs,'categories_list'=>$categories_list]);
-        
+
+        // On génère la vue
+        $this->render('main/index', ['annonces' => $annonces, 'categories_list' => $categories_list]);
     }
 }
