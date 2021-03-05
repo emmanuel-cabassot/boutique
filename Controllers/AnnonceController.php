@@ -10,21 +10,6 @@ use App\Models\PhotoAnnonceModel;
 
 class AnnonceController extends Controller
 {
-    /**
-     * Cette méhode affichera une page listant toutes les annonces de la BDD
-     *
-     * @return void
-     */
-    public function index()
-    {
-        // On instancie le class correspondant à la table annonces
-        $annonce = new AnnonceModel;
-        // On appelle la méthode findAll qui va enregistrer les annonces dans $annonces
-        $annonces = $annonce->findAll();
-
-        // On génère la vue
-        $this->render('annonce/index', compact('annonces'));
-    }
 
     public function search()
     {
