@@ -46,6 +46,16 @@
                             <a class="nav-link" href="<?= ACCUEIL ?>commentcamarche">Comment ca marche</a>
                         </li>
                         <?php
+                        if (isset($_SESSION['user']['droit']) and $_SESSION['user']['droit'] == 43) { ?>
+                            <li class="nav-item ml-3">
+                                <a class="nav-link" href="<?= ACCUEIL ?>dashboard/moderation">Dashboard</a>
+                            </li>
+                        <?php }
+                        if (isset($_SESSION['user']['droit']) and $_SESSION['user']['droit'] == 1337) { ?>
+                            <li class="nav-item ml-3">
+                                <a class="nav-link" href="<?= ACCUEIL ?>dashboard/admin">Dashboard</a>
+                            </li>
+                            <?php }
                         if (isset($_SESSION['user']['droit']) and $_SESSION['user']['droit'] == 20) { ?>
                             <li class="nav-item ml-3">
                                 <a class="nav-link" href="<?= ACCUEIL ?>annonce/ajouterPro">Vends</a>
