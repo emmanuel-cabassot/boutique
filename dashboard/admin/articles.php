@@ -1,9 +1,24 @@
 <?php
 session_start();
-if ($_SESSION['state'] != "ADMIN")
-        {
-            header("Location: ../../");
-        }
+if ($_SESSION['state'] != "ADMIN") {
+    header("Location: ../../");
+}
+?>
+<?php
+$BID = $_POST['BID'];
+$TYPE = $_POST['TYPE'];
+$NAME = $_POST['NAME'];
+$request1 = "SELECT `titre`,`prix`, `stock`, `id` FROM `annonce` WHERE `boutique_particulier_id`= $BID";
+$request2 = "SELECT `titre`,`prix`, `stock`, `id` FROM `annonce` WHERE `boutique_pro_id` = $BID";
+$dbs = mysqli_connect("localhost", "root", "", "boutique");
+if ($TYPE == "PAR") {
+    $query = mysqli_query($dbs, $request1);
+    $result = mysqli_fetch_all($query);
+}
+if ($TYPE == "PRO") {
+    $query = mysqli_query($dbs, $request2);
+    $result = mysqli_fetch_all($query);
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -12,6 +27,7 @@ if ($_SESSION['state'] != "ADMIN")
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Table - BL-DASH</title>
+    <link rel="stylesheet" href="assets/style/style.css">
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
     <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
@@ -30,7 +46,7 @@ if ($_SESSION['state'] != "ADMIN")
                 <ul class="navbar-nav text-light" id="accordionSidebar">
                     <li class="nav-item"><a class="nav-link" href="index.php"><i class="fas fa-tachometer-alt"></i><span>Informations Statistiques</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="users.php"><i class="fas fa-table"></i><span>Gestion des Utilisateurs</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="logs.php"><i class="fas fa-window-maximize"></i><span>Log des Actions</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="../../"><i class="fas fa-table"></i><span>Revenir a La Boutique</span></a></li>
                 </ul>
                 <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
             </div>
@@ -129,7 +145,7 @@ if ($_SESSION['state'] != "ADMIN")
                     </div>
                 </nav>
                 <div class="container-fluid">
-                    <h3 class="text-dark mb-4">Article de La Boutique %Nom de La Boutique%</h3>
+                    <h3 class="text-dark mb-4">Article de La Boutique : <?= $NAME ?></h3>
                     <div class="card shadow" style="margin-bottom: 10px;">
                         <div class="card-header py-3">
                             <p class="text-primary m-0 fw-bold">Articles</p>
@@ -140,20 +156,46 @@ if ($_SESSION['state'] != "ADMIN")
                                     <thead>
                                         <tr>
                                             <th>Nom de L'Article</th>
-                                            <th>Categorie</th>
+                                            <th>Stock</th>
                                             <th>Prix</th>
                                             <th>Action</th>
                                             <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>%Nom du Modo%</td>
-                                            <td>Moderateur</td>
-                                            <td>%PRIX%</td>
-                                            <td>BTN - Supprimer L'Article<br></td>
-                                            <td>BTN -&nbsp;<br>Voir L'Article<br></td>
-                                        </tr>
+                                        <?php
+                                        if ($result != NULL) {
+                                            foreach ($result as $article) {
+                                                $name = $article[0];
+                                                $stock = $article[1];
+                                                $prix = $article[2];
+                                                $id = $article[3];
+                                        ?>
+                                                <tr>
+                                                    <td><?= $name ?></td>
+                                                    <td><?= $stock ?></td>
+                                                    <td><?= $prix ?></td>
+                                                    <td>
+                                                        <form method="POST" action="article-del.php">
+                                                            <input style=display:none name=ID id=ID value=<?= $id ?>></input>
+                                                            <button type="submit" class="btn btn-primary" style="margin: 0px;margin-left: 0px;margin-top: 5px;margin-bottom: 10px;">Supprimer L'Article</button>
+                                                        </form>
+                                                    </td>
+                                                    <td>
+                                                        <?php if ($TYPE == "PAR") {?>
+                                                        <form method="POST" action="../../annoncevoir/voirpar/<?= $id ?>">
+                                                            <button type="submit" class="btn btn-primary" style="margin: 0px;margin-left: 0px;margin-top: 5px;margin-bottom: 10px;">Voir L'Article</button>
+                                                        </form>
+                                                        <?php } ?> 
+                                                        <?php if ($TYPE == "PRO") {?>
+                                                            <form method="POST" action="../../annoncevoir/voirpro/<?= $id ?>">
+                                                                <button type="submit" class="btn btn-primary" style="margin: 0px;margin-left: 0px;margin-top: 5px;margin-bottom: 10px;">Voir L'Article</button>
+                                                            </form>
+                                                        <?php } ?> 
+                                                    </td>
+                                                </tr>
+                                        <?php }
+                                        } ?>
                                     </tbody>
                                     <tfoot>
                                         <tr></tr>

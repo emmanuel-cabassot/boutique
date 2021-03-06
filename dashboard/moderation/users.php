@@ -1,24 +1,21 @@
 <?php
 session_start();
-if ($_SESSION['state'] != "MODERATEUR")
-        {
-            header("Location: ../../");
-        }
+if ($_SESSION['state'] != "MODERATEUR") {
+    header("Location: ../../");
+}
 ?>
 <?php
-$request1 = "SELECT `nom`, `prenom` FROM `user` WHERE `droit_id` = 43";
-$request2 = "SELECT `nom_boutique`,`user_id` FROM `boutique_particulier`";
-$request4 = "SELECT `nom`, `prenom` FROM `user` WHERE `droit_id` = 1";
+$request2 = "SELECT `nom_boutique`,`user_id`, `id` FROM `boutique_particulier`";
+$request4 = "SELECT `nom`, `prenom`, `id` FROM `user` WHERE `droit_id` = 1";
 $dbs = mysqli_connect("localhost", "root", "", "boutique");
-            $query1 = mysqli_query($dbs, $request1);
-            $result1 = mysqli_fetch_all($query1);
-            $query2 = mysqli_query($dbs, $request2);
-            $result2 = mysqli_fetch_all($query2);
-            $query4 = mysqli_query($dbs, $request4);
-            $result4 = mysqli_fetch_all($query4);
+$query2 = mysqli_query($dbs, $request2);
+$result2 = mysqli_fetch_all($query2);
+$query4 = mysqli_query($dbs, $request4);
+$result4 = mysqli_fetch_all($query4);
 ?>
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
@@ -41,8 +38,8 @@ $dbs = mysqli_connect("localhost", "root", "", "boutique");
                 <hr class="sidebar-divider my-0">
                 <ul class="navbar-nav text-light" id="accordionSidebar">
                     <li class="nav-item"><a class="nav-link" href="index.php"><i class="fas fa-tachometer-alt"></i><span>Informations Statistiques</span></a></li>
-                    <li class="nav-item"><a class="nav-link active" href="boutiques.php"><i class="fas fa-table"></i><span>Gestion des Boutiques</span></a></li>
-                    <li class="nav-item"></li>
+                    <li class="nav-item"><a class="nav-link active" href="users.php"><i class="fas fa-table"></i><span>Gestion des Utilisateurs</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="../../"><i class="fas fa-table"></i><span>Revenir a La Boutique</span></a></li>
                 </ul>
                 <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
             </div>
@@ -131,7 +128,7 @@ $dbs = mysqli_connect("localhost", "root", "", "boutique");
                             </li>
                             <div class="d-none d-sm-block topbar-divider"></div>
                             <li class="nav-item dropdown no-arrow">
-                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span class="d-none d-lg-inline me-2 text-gray-600 small">MODE MODERATION</span></a>
+                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span class="d-none d-lg-inline me-2 text-gray-600 small">MODE MODERATEUR</span></a>
                                     <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in"><a class="dropdown-item" href="#"><i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Profile</a><a class="dropdown-item" href="#"><i class="fas fa-cogs fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Settings</a><a class="dropdown-item" href="#"><i class="fas fa-list fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Activity log</a>
                                         <div class="dropdown-divider"></div><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Logout</a>
                                     </div>
@@ -141,9 +138,8 @@ $dbs = mysqli_connect("localhost", "root", "", "boutique");
                     </div>
                 </nav>
                 <div class="container-fluid">
-                    <h3 class="text-dark mb-4">Gestion des Boutiques</h3>
-                </div>
-                <div class="card shadow" style="margin-bottom: 10px;">
+                    <h3 class="text-dark mb-4">Gestion des Utilisateurs</h3>
+                    <div class="card shadow" style="margin-bottom: 10px;">
                         <div class="card-header py-3">
                             <p class="text-primary m-0 fw-bold">Boutiques Particulier</p>
                         </div>
@@ -159,26 +155,40 @@ $dbs = mysqli_connect("localhost", "root", "", "boutique");
                                         </tr>
                                     </thead>
                                     <?php
-                                    if ($result2 != NULL)
-                                    {
-                                    foreach ($result2 as $boutique)
-                                    {
-                                    $id = $boutique[1];
-                                    $requestS2 = "SELECT `nom`, `prenom` FROM `user` WHERE `id` = $id";
-                                    $queryS2 = mysqli_query($dbs, $requestS2);
-                                    $resultS2 = mysqli_fetch_all($queryS2);
-                                    $nom = $resultS2[0][0];
-                                    $prenom = $resultS2[0][1];
+                                    if ($result2 != NULL) {
+                                        foreach ($result2 as $boutique) {
+                                            $name = $boutique[0];
+                                            $id = $boutique[1];
+                                            $bid = $boutique[2];
+                                            $requestS2 = "SELECT `nom`, `prenom` FROM `user` WHERE `id` = $id";
+                                            $queryS2 = mysqli_query($dbs, $requestS2);
+                                            $resultS2 = mysqli_fetch_all($queryS2);
+                                            $nom = $resultS2[0][0];
+                                            $prenom = $resultS2[0][1];
                                     ?>
-                                    <tbody>
-                                        <tr>
-                                            <td><?=$boutique[0]?></td>
-                                            <td><?=$nom?> - <?=$prenom?></td>
-                                            <td>BTN - Supprimer La Boutique / BAN</td>
-                                            <td>Accéder Aux Articles de Cette Boutique</td>
-                                        </tr>
-                                    </tbody>
-                                    <?php }}?>
+                                            <tbody>
+                                                <tr>
+                                                    <td><?= $name ?></td>
+                                                    <td><?= $nom ?> - <?= $prenom ?></td>
+                                                    <td>
+                                                        <form method="POST" action="boutique-del.php">
+                                                            <input style=display:none name=ID id=ID value=<?= $boutique[2] ?>></input>
+                                                            <input style=display:none name=TYPE id=TYPE value=PAR></input>
+                                                            <button type="submit" class="btn btn-primary" style="margin: 0px;margin-left: 0px;margin-top: 5px;margin-bottom: 10px;">Supprimer La Boutique</button>
+                                                        </form>
+                                                    </td>
+                                                    <td>
+                                                        <form method="POST" action="articles.php">
+                                                            <input style=display:none name=BID id=BID value=<?= $bid ?>></input>
+                                                            <input style=display:none name=TYPE id=TYPE value=PAR></input>
+                                                            <input style=display:none name=NAME id=NAME value=<?= $name ?>></input>
+                                                            <button type="submit" class="btn btn-primary" style="margin: 0px;margin-left: 0px;margin-top: 5px;margin-bottom: 10px;">Voir Les Articles</button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                    <?php }
+                                    } ?>
                                     <tfoot>
                                         <tr></tr>
                                     </tfoot>
@@ -198,26 +208,30 @@ $dbs = mysqli_connect("localhost", "root", "", "boutique");
                                             <th>Nom</th>
                                             <th>Prenom</th>
                                             <th>Actions</th>
-                                            <th></th>
                                         </tr>
                                     </thead>
                                     <?php
-                                    if ($result4 != NULL)
-                                    {
-                                    foreach ($result4 as $user)
-                                    {
-                                        $nom = $user[0];
-                                        $prenom = $user[1];
+                                    if ($result4 != NULL) {
+                                        foreach ($result4 as $user) {
+                                            $nom = $user[0];
+                                            $prenom = $user[1];
+                                            $id = $user[2];
                                     ?>
-                                    <tbody>
-                                        <tr>
-                                            <td><?=$nom?></td>
-                                            <td><?=$prenom?></td>
-                                            <td>BTN - Supprimer Le Compte / BAN</td>
-                                            <td>BTN - Rendre Moderateur</td>
-                                        </tr>
-                                    </tbody>
-                                    <?php }}?>
+                                            <tbody>
+                                                <tr>
+                                                    <td><?= $nom ?></td>
+                                                    <td><?= $prenom ?></td>
+                                                    <td>
+                                                    <form method="POST" action="user-mod.php">
+                                                            <input style=display:none name=ID id=ID value=<?= $id ?>></input>
+                                                            <input style=display:none name=CMD id=CMD value=BAN></input>
+                                                            <button type="submit" class="btn btn-primary" style="margin: 0px;margin-left: 0px;margin-top: 5px;margin-bottom: 10px;">Bannir Le Compte</button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                    <?php }
+                                    } ?>
                                     <tfoot>
                                         <tr></tr>
                                     </tfoot>
@@ -225,6 +239,7 @@ $dbs = mysqli_connect("localhost", "root", "", "boutique");
                             </div>
                         </div>
                     </div>
+                </div>
             </div>
             <footer class="bg-white sticky-footer">
                 <div class="container my-auto">
