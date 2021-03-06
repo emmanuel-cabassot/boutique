@@ -1,4 +1,11 @@
 <?php
+session_start();
+if ($_SESSION['state'] != "ADMIN")
+        {
+            header("Location: ../../");
+        }
+?>
+<?php
 $request1 = "SELECT `nom`, `prenom` FROM `user` WHERE `droit_id` = 43";
 $request2 = "SELECT `nom_boutique`,`user_id` FROM `boutique_particulier`";
 $request3 = "SELECT `nom`, `email`, `siret` FROM `boutique_pro`";

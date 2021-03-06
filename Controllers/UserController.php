@@ -58,6 +58,7 @@ class UserController extends Controller
                     $user->setSession($boutique_id);
 
                     // Message de succes
+                    $_SESSION['state'] = $user->verify();
                     $_SESSION['success'] = "Vous êtes connecté";
                     header('location: ' . ACCUEIL . 'main');
                     exit;

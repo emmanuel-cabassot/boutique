@@ -1,4 +1,11 @@
 <?php
+session_start();
+if ($_SESSION['state'] != "ADMIN")
+        {
+            header("Location: ../../");
+        }
+?>
+<?php
 $request1 = "SELECT * FROM `boutique_particulier`";
 $request2 = "SELECT * FROM `boutique_pro`";
 $request3 = "SELECT * FROM `annonce`";

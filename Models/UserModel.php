@@ -16,6 +16,35 @@ class UserModel extends Model
        $this->table = 'user';
    }
 
+    // Outil Pour Simplifier La Détection du Type d'Utilisateur
+    public function Verify()
+    {
+        if (isset($_SESSION['user']['droit']) and $_SESSION['user']['droit'] == 1337)
+        {
+        return "ADMIN";
+        }
+        if (isset($_SESSION['user']['droit']) and $_SESSION['user']['droit'] == 43)
+        {
+        return "MODERATEUR";
+        }
+        if (isset($_SESSION['user']['droit']) and $_SESSION['user']['droit'] == 20)
+        {
+        return "BOUTIQUE_PRO";
+        }
+        if (isset($_SESSION['user']['droit']) and $_SESSION['user']['droit'] == 10)
+        {
+        return "BOUTIQUE_PAR";
+        }
+        if (isset($_SESSION['user']['droit']) and $_SESSION['user']['droit'] == 1)
+        {
+        return "USER";
+        }
+        if (!isset($_SESSION['user']['droit']))
+        {
+        return "DISCONNECTED";
+        }
+    }
+    
     /** 
      * Crée la session de l'utilisateur
      * @return void 
