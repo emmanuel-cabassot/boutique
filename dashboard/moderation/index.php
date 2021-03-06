@@ -5,6 +5,21 @@ if ($_SESSION['state'] != "MODERATEUR")
             header("Location: ../../");
         }
 ?>
+<?php
+$request1 = "SELECT * FROM `boutique_particulier`";
+$request2 = "SELECT * FROM `boutique_pro`";
+$request3 = "SELECT * FROM `annonce`";
+$request4 = "SELECT * FROM `user` WHERE `droit_id` <> 1337 AND `droit_id` <> 34";
+$dbs = mysqli_connect("localhost", "root", "", "boutique");
+            $query1 = mysqli_query($dbs, $request1);
+            $result1 = mysqli_num_rows($query1);
+            $query2 = mysqli_query($dbs, $request2);
+            $result2 = mysqli_num_rows($query2);
+            $query3 = mysqli_query($dbs, $request3);
+            $result3 = mysqli_num_rows($query3);
+            $query4 = mysqli_query($dbs, $request4);
+            $result4 = mysqli_num_rows($query4);
+?>
 <!DOCTYPE html>
 <html>
 
@@ -28,9 +43,9 @@ if ($_SESSION['state'] != "MODERATEUR")
                 </a>
                 <hr class="sidebar-divider my-0">
                 <ul class="navbar-nav text-light" id="accordionSidebar">
-                    <li class="nav-item"><a class="nav-link active" href="index.php"><i class="fas fa-tachometer-alt"></i><span>Informations Statistiques</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="boutiques.php"><i class="fas fa-table"></i><span>Gestion des Boutiques</span></a></li>
-                    <li class="nav-item"></li>
+                    <li class="nav-item"><a class="nav-link" href="index.php"><i class="fas fa-tachometer-alt"></i><span>Informations Statistiques</span></a></li>
+                    <li class="nav-item"><a class="nav-link active" href="users.php"><i class="fas fa-table"></i><span>Gestion des Utilisateurs</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="../../"><i class="fas fa-table"></i><span>Revenir a La Boutique</span></a></li>
                 </ul>
                 <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
             </div>
@@ -119,7 +134,7 @@ if ($_SESSION['state'] != "MODERATEUR")
                             </li>
                             <div class="d-none d-sm-block topbar-divider"></div>
                             <li class="nav-item dropdown no-arrow">
-                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span class="d-none d-lg-inline me-2 text-gray-600 small">MODE MODERATION</span></a>
+                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span class="d-none d-lg-inline me-2 text-gray-600 small">MODE MODERATEUR</span></a>
                                     <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in"><a class="dropdown-item" href="#"><i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Profile</a><a class="dropdown-item" href="#"><i class="fas fa-cogs fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Settings</a><a class="dropdown-item" href="#"><i class="fas fa-list fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Activity log</a>
                                         <div class="dropdown-divider"></div><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Logout</a>
                                     </div>
@@ -138,8 +153,8 @@ if ($_SESSION['state'] != "MODERATEUR")
                                 <div class="card-body">
                                     <div class="row align-items-center no-gutters">
                                         <div class="col me-2">
-                                            <div class="text-uppercase text-primary fw-bold text-xs mb-1"><span>Nombre de Boutique ProFESSIONNEL</span></div>
-                                            <div class="text-dark fw-bold h5 mb-0"><span>%NBR-BPRO%</span></div>
+                                            <div class="text-uppercase text-primary fw-bold text-xs mb-1"><span>Nombre de Boutique Pro</span></div>
+                                            <div class="text-dark fw-bold h5 mb-0"><span><?=$result2?></span></div>
                                         </div>
                                         <div class="col-auto"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" class="bi bi-shop fa-2x text-gray-300">
                                                 <path fill-rule="evenodd" d="M2.97 1.35A1 1 0 0 1 3.73 1h8.54a1 1 0 0 1 .76.35l2.609 3.044A1.5 1.5 0 0 1 16 5.37v.255a2.375 2.375 0 0 1-4.25 1.458A2.371 2.371 0 0 1 9.875 8 2.37 2.37 0 0 1 8 7.083 2.37 2.37 0 0 1 6.125 8a2.37 2.37 0 0 1-1.875-.917A2.375 2.375 0 0 1 0 5.625V5.37a1.5 1.5 0 0 1 .361-.976l2.61-3.045zm1.78 4.275a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 1 0 2.75 0V5.37a.5.5 0 0 0-.12-.325L12.27 2H3.73L1.12 5.045A.5.5 0 0 0 1 5.37v.255a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0zM1.5 8.5A.5.5 0 0 1 2 9v6h1v-5a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v5h6V9a.5.5 0 0 1 1 0v6h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1V9a.5.5 0 0 1 .5-.5zM4 15h3v-5H4v5zm5-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-3zm3 0h-2v3h2v-3z"></path>
@@ -154,7 +169,7 @@ if ($_SESSION['state'] != "MODERATEUR")
                                     <div class="row align-items-center no-gutters">
                                         <div class="col me-2">
                                             <div class="text-uppercase text-success fw-bold text-xs mb-1"><span>Nombre d'Annonces Disponible Actuellement</span></div>
-                                            <div class="text-dark fw-bold h5 mb-0"><span>%NBR-ADIS%</span></div>
+                                            <div class="text-dark fw-bold h5 mb-0"><span><?=$result3?></span></div>
                                         </div>
                                         <div class="col-auto"><i class="fas fa-file fa-2x text-gray-300"></i></div>
                                     </div>
@@ -166,8 +181,8 @@ if ($_SESSION['state'] != "MODERATEUR")
                                 <div class="card-body">
                                     <div class="row align-items-center no-gutters">
                                         <div class="col me-2">
-                                            <div class="text-uppercase text-primary fw-bold text-xs mb-1"><span>Nombre de Boutique PARTICULIER</span></div>
-                                            <div class="text-dark fw-bold h5 mb-0"><span>%NBR-BPAR%</span></div>
+                                            <div class="text-uppercase text-primary fw-bold text-xs mb-1"><span>Nombre de Boutique Utilisateurs</span></div>
+                                            <div class="text-dark fw-bold h5 mb-0"><span><?=$result1?></span></div>
                                         </div>
                                         <div class="col-auto"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" class="bi bi-shop fa-2x text-gray-300">
                                                 <path fill-rule="evenodd" d="M2.97 1.35A1 1 0 0 1 3.73 1h8.54a1 1 0 0 1 .76.35l2.609 3.044A1.5 1.5 0 0 1 16 5.37v.255a2.375 2.375 0 0 1-4.25 1.458A2.371 2.371 0 0 1 9.875 8 2.37 2.37 0 0 1 8 7.083 2.37 2.37 0 0 1 6.125 8a2.37 2.37 0 0 1-1.875-.917A2.375 2.375 0 0 1 0 5.625V5.37a1.5 1.5 0 0 1 .361-.976l2.61-3.045zm1.78 4.275a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 1 0 2.75 0V5.37a.5.5 0 0 0-.12-.325L12.27 2H3.73L1.12 5.045A.5.5 0 0 0 1 5.37v.255a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0zM1.5 8.5A.5.5 0 0 1 2 9v6h1v-5a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v5h6V9a.5.5 0 0 1 1 0v6h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1V9a.5.5 0 0 1 .5-.5zM4 15h3v-5H4v5zm5-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-3zm3 0h-2v3h2v-3z"></path>
@@ -182,7 +197,7 @@ if ($_SESSION['state'] != "MODERATEUR")
                                     <div class="row align-items-center no-gutters">
                                         <div class="col me-2">
                                             <div class="text-uppercase text-warning fw-bold text-xs mb-1"><span>Nombre d'Utilisateurs Inscrit</span></div>
-                                            <div class="text-dark fw-bold h5 mb-0"><span>%NBR-USERS%</span></div>
+                                            <div class="text-dark fw-bold h5 mb-0"><span><?=$result4?></span></div>
                                         </div>
                                         <div class="col-auto"><i class="fas fa-user fa-2x text-gray-300"></i></div>
                                     </div>

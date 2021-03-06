@@ -1,24 +1,23 @@
 <?php
 session_start();
-if ($_SESSION['state'] != "ADMIN")
-        {
-            header("Location: ../../");
-        }
+if ($_SESSION['state'] != "ADMIN") {
+    header("Location: ../../");
+}
 ?>
 <?php
-$request1 = "SELECT `nom`, `prenom` FROM `user` WHERE `droit_id` = 43";
-$request2 = "SELECT `nom_boutique`,`user_id` FROM `boutique_particulier`";
-$request3 = "SELECT `nom`, `email`, `siret` FROM `boutique_pro`";
-$request4 = "SELECT `nom`, `prenom` FROM `user` WHERE `droit_id` = 1";
+$request1 = "SELECT `nom`, `prenom`, `id` FROM `user` WHERE `droit_id` = 43";
+$request2 = "SELECT `nom_boutique`,`user_id`, `id` FROM `boutique_particulier`";
+$request3 = "SELECT `nom`, `email`, `siret`, `id` FROM `boutique_pro`";
+$request4 = "SELECT `nom`, `prenom`, `id` FROM `user` WHERE `droit_id` = 1";
 $dbs = mysqli_connect("localhost", "root", "", "boutique");
-            $query1 = mysqli_query($dbs, $request1);
-            $result1 = mysqli_fetch_all($query1);
-            $query2 = mysqli_query($dbs, $request2);
-            $result2 = mysqli_fetch_all($query2);
-            $query3 = mysqli_query($dbs, $request3);
-            $result3 = mysqli_fetch_all($query3);
-            $query4 = mysqli_query($dbs, $request4);
-            $result4 = mysqli_fetch_all($query4);
+$query1 = mysqli_query($dbs, $request1);
+$result1 = mysqli_fetch_all($query1);
+$query2 = mysqli_query($dbs, $request2);
+$result2 = mysqli_fetch_all($query2);
+$query3 = mysqli_query($dbs, $request3);
+$result3 = mysqli_fetch_all($query3);
+$query4 = mysqli_query($dbs, $request4);
+$result4 = mysqli_fetch_all($query4);
 ?>
 <!DOCTYPE html>
 <html>
@@ -46,7 +45,7 @@ $dbs = mysqli_connect("localhost", "root", "", "boutique");
                 <ul class="navbar-nav text-light" id="accordionSidebar">
                     <li class="nav-item"><a class="nav-link" href="index.php"><i class="fas fa-tachometer-alt"></i><span>Informations Statistiques</span></a></li>
                     <li class="nav-item"><a class="nav-link active" href="users.php"><i class="fas fa-table"></i><span>Gestion des Utilisateurs</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="logs.php"><i class="fas fa-window-maximize"></i><span>Log des Actions</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="../../"><i class="fas fa-table"></i><span>Revenir a La Boutique</span></a></li>
                 </ul>
                 <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
             </div>
@@ -162,22 +161,28 @@ $dbs = mysqli_connect("localhost", "root", "", "boutique");
                                         </tr>
                                     </thead>
                                     <?php
-                                    if ($result1 != NULL)
-                                    {
-                                    foreach ($result1 as $moderateur)
-                                    {
-                                        $nom = $moderateur[0];
-                                        $prenom = $moderateur[1];
+                                    if ($result1 != NULL) {
+                                        foreach ($result1 as $moderateur) {
+                                            $nom = $moderateur[0];
+                                            $prenom = $moderateur[1];
+                                            $id = $moderateur[2];
                                     ?>
-                                    <tbody>
-                                        <tr>
-                                            <td><?=$nom?></td>
-                                            <td><?=$prenom?></td>
-                                            <td>Moderateur</td>
-                                            <td>BTN - Revoquer Accés Moderation</td>
-                                        </tr>
-                                    </tbody>
-                                    <?php }}?>
+                                            <tbody>
+                                                <tr>
+                                                    <td><?= $nom ?></td>
+                                                    <td><?= $prenom ?></td>
+                                                    <td>Moderateur</td>
+                                                    <td>
+                                                        <form method="POST" action="user-mod.php">
+                                                            <input style=display:none name=ID id=ID value=<?= $id ?>></input>
+                                                            <input style=display:none name=CMD id=CMD value=UNMOD></input>
+                                                            <button type="submit" class="btn btn-primary" style="margin: 0px;margin-left: 0px;margin-top: 5px;margin-bottom: 10px;">Retirer Le Statut de Moderateur</button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                    <?php }
+                                    } ?>
                                     <tfoot>
                                         <tr></tr>
                                     </tfoot>
@@ -201,26 +206,40 @@ $dbs = mysqli_connect("localhost", "root", "", "boutique");
                                         </tr>
                                     </thead>
                                     <?php
-                                    if ($result2 != NULL)
-                                    {
-                                    foreach ($result2 as $boutique)
-                                    {
-                                    $id = $boutique[1];
-                                    $requestS2 = "SELECT `nom`, `prenom` FROM `user` WHERE `id` = $id";
-                                    $queryS2 = mysqli_query($dbs, $requestS2);
-                                    $resultS2 = mysqli_fetch_all($queryS2);
-                                    $nom = $resultS2[0][0];
-                                    $prenom = $resultS2[0][1];
+                                    if ($result2 != NULL) {
+                                        foreach ($result2 as $boutique) {
+                                            $name = $boutique[0];
+                                            $id = $boutique[1];
+                                            $bid = $boutique[2];
+                                            $requestS2 = "SELECT `nom`, `prenom` FROM `user` WHERE `id` = $id";
+                                            $queryS2 = mysqli_query($dbs, $requestS2);
+                                            $resultS2 = mysqli_fetch_all($queryS2);
+                                            $nom = $resultS2[0][0];
+                                            $prenom = $resultS2[0][1];
                                     ?>
-                                    <tbody>
-                                        <tr>
-                                            <td><?=$boutique[0]?></td>
-                                            <td><?=$nom?> - <?=$prenom?></td>
-                                            <td>BTN - Supprimer La Boutique / BAN</td>
-                                            <td>Accéder Aux Articles de Cette Boutique</td>
-                                        </tr>
-                                    </tbody>
-                                    <?php }}?>
+                                            <tbody>
+                                                <tr>
+                                                    <td><?= $name ?></td>
+                                                    <td><?= $nom ?> - <?= $prenom ?></td>
+                                                    <td>
+                                                        <form method="POST" action="boutique-del.php">
+                                                            <input style=display:none name=ID id=ID value=<?= $boutique[2] ?>></input>
+                                                            <input style=display:none name=TYPE id=TYPE value=PAR></input>
+                                                            <button type="submit" class="btn btn-primary" style="margin: 0px;margin-left: 0px;margin-top: 5px;margin-bottom: 10px;">Supprimer La Boutique</button>
+                                                        </form>
+                                                    </td>
+                                                    <td>
+                                                        <form method="POST" action="articles.php">
+                                                            <input style=display:none name=BID id=BID value=<?= $bid ?>></input>
+                                                            <input style=display:none name=TYPE id=TYPE value=PAR></input>
+                                                            <input style=display:none name=NAME id=NAME value=<?= $name ?>></input>
+                                                            <button type="submit" class="btn btn-primary" style="margin: 0px;margin-left: 0px;margin-top: 5px;margin-bottom: 10px;">Voir Les Articles</button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                    <?php }
+                                    } ?>
                                     <tfoot>
                                         <tr></tr>
                                     </tfoot>
@@ -245,21 +264,33 @@ $dbs = mysqli_connect("localhost", "root", "", "boutique");
                                         </tr>
                                     </thead>
                                     <?php
-                                    if ($result3 != NULL)
-                                    {
-                                    foreach ($result3 as $boutique)
-                                    {
+                                    if ($result3 != NULL) {
+                                        foreach ($result3 as $boutique) {
                                     ?>
-                                    <tbody>
-                                        <tr>
-                                            <td><?=$boutique[0]?></td>
-                                            <td><?=$boutique[1]?></td>
-                                            <td><?=$boutique[2]?></td>
-                                            <td>BTN - Supprimer La Boutique / BAN</td>
-                                            <td>Accéder Aux Articles de Cette Boutique</td>
-                                        </tr>
-                                    </tbody>
-                                    <?php }}?>
+                                            <tbody>
+                                                <tr>
+                                                    <td><?= $boutique[0] ?></td>
+                                                    <td><?= $boutique[1] ?></td>
+                                                    <td><?= $boutique[2] ?></td>
+                                                    <td>
+                                                        <form method="POST" action="boutique-del.php">
+                                                            <input style=display:none name=ID id=ID value=<?= $boutique[3] ?>></input>
+                                                            <input style=display:none name=TYPE id=TYPE value=PRO></input>
+                                                            <button type="submit" class="btn btn-primary" style="margin: 0px;margin-left: 0px;margin-top: 5px;margin-bottom: 10px;">Supprimer La Boutique</button>
+                                                        </form>
+                                                    </td>
+                                                    <td>
+                                                        <form method="POST" action="articles.php">
+                                                            <input style=display:none name=BID id=BID value=<?= $boutique[3] ?>></input>
+                                                            <input style=display:none name=TYPE id=TYPE value=PRO></input>
+                                                            <input style=display:none name=NAME id=NAME value=<?= $boutique[0] ?>></input>
+                                                            <button type="submit" class="btn btn-primary" style="margin: 0px;margin-left: 0px;margin-top: 5px;margin-bottom: 10px;">Voir Les Articles</button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                    <?php }
+                                    } ?>
                                     <tfoot>
                                         <tr></tr>
                                     </tfoot>
@@ -283,22 +314,34 @@ $dbs = mysqli_connect("localhost", "root", "", "boutique");
                                         </tr>
                                     </thead>
                                     <?php
-                                    if ($result4 != NULL)
-                                    {
-                                    foreach ($result4 as $user)
-                                    {
-                                        $nom = $user[0];
-                                        $prenom = $user[1];
+                                    if ($result4 != NULL) {
+                                        foreach ($result4 as $user) {
+                                            $nom = $user[0];
+                                            $prenom = $user[1];
+                                            $id = $user[2];
                                     ?>
-                                    <tbody>
-                                        <tr>
-                                            <td><?=$nom?></td>
-                                            <td><?=$prenom?></td>
-                                            <td>BTN - Supprimer Le Compte / BAN</td>
-                                            <td>BTN - Rendre Moderateur</td>
-                                        </tr>
-                                    </tbody>
-                                    <?php }}?>
+                                            <tbody>
+                                                <tr>
+                                                    <td><?= $nom ?></td>
+                                                    <td><?= $prenom ?></td>
+                                                    <td>
+                                                        <form method="POST" action="user-mod.php">
+                                                            <input style=display:none name=ID id=ID value=<?= $id ?>></input>
+                                                            <input style=display:none name=CMD id=CMD value=MOD></input>
+                                                            <button type="submit" class="btn btn-primary" style="margin: 0px;margin-left: 0px;margin-top: 5px;margin-bottom: 10px;">Rendre Moderateur</button>
+                                                        </form>
+                                                    </td>
+                                                    <td>
+                                                        <form method="POST" action="user-mod.php">
+                                                            <input style=display:none name=ID id=ID value=<?= $id ?>></input>
+                                                            <input style=display:none name=CMD id=CMD value=BAN></input>
+                                                            <button type="submit" class="btn btn-primary" style="margin: 0px;margin-left: 0px;margin-top: 5px;margin-bottom: 10px;">Bannir Le Compte</button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                    <?php }
+                                    } ?>
                                     <tfoot>
                                         <tr></tr>
                                     </tfoot>

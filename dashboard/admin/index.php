@@ -45,7 +45,7 @@ $dbs = mysqli_connect("localhost", "root", "", "boutique");
                 <ul class="navbar-nav text-light" id="accordionSidebar">
                     <li class="nav-item"><a class="nav-link" href="index.php"><i class="fas fa-tachometer-alt"></i><span>Informations Statistiques</span></a></li>
                     <li class="nav-item"><a class="nav-link active" href="users.php"><i class="fas fa-table"></i><span>Gestion des Utilisateurs</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="logs.php"><i class="fas fa-window-maximize"></i><span>Log des Actions</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="../../"><i class="fas fa-table"></i><span>Revenir a La Boutique</span></a></li>
                 </ul>
                 <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
             </div>

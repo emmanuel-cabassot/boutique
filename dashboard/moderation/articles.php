@@ -1,9 +1,24 @@
 <?php
 session_start();
-if ($_SESSION['state'] != "MODERATEUR")
-        {
-            header("Location: ../../");
-        }
+if ($_SESSION['state'] != "MODERATEUR") {
+    header("Location: ../../");
+}
+?>
+<?php
+$BID = $_POST['BID'];
+$TYPE = $_POST['TYPE'];
+$NAME = $_POST['NAME'];
+$request1 = "SELECT `titre`,`prix`, `stock`, `id` FROM `annonce` WHERE `boutique_particulier_id`= $BID";
+$request2 = "SELECT `titre`,`prix`, `stock`, `id` FROM `annonce` WHERE `boutique_pro_id` = $BID";
+$dbs = mysqli_connect("localhost", "root", "", "boutique");
+if ($TYPE == "PAR") {
+    $query = mysqli_query($dbs, $request1);
+    $result = mysqli_fetch_all($query);
+}
+if ($TYPE == "PRO") {
+    $query = mysqli_query($dbs, $request2);
+    $result = mysqli_fetch_all($query);
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -30,8 +45,8 @@ if ($_SESSION['state'] != "MODERATEUR")
                 <hr class="sidebar-divider my-0">
                 <ul class="navbar-nav text-light" id="accordionSidebar">
                     <li class="nav-item"><a class="nav-link" href="index.php"><i class="fas fa-tachometer-alt"></i><span>Informations Statistiques</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="boutiques.php"><i class="fas fa-table"></i><span>Gestion des Boutiques</span></a></li>
-                    <li class="nav-item"></li>
+                    <li class="nav-item"><a class="nav-link" href="users.php"><i class="fas fa-table"></i><span>Gestion des Utilisateurs</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="../../"><i class="fas fa-table"></i><span>Revenir a La Boutique</span></a></li>
                 </ul>
                 <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
             </div>
@@ -120,7 +135,7 @@ if ($_SESSION['state'] != "MODERATEUR")
                             </li>
                             <div class="d-none d-sm-block topbar-divider"></div>
                             <li class="nav-item dropdown no-arrow">
-                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span class="d-none d-lg-inline me-2 text-gray-600 small">MODE MODERATION</span></a>
+                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span class="d-none d-lg-inline me-2 text-gray-600 small">MODE MODERATEUR</span></a>
                                     <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in"><a class="dropdown-item" href="#"><i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Profile</a><a class="dropdown-item" href="#"><i class="fas fa-cogs fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Settings</a><a class="dropdown-item" href="#"><i class="fas fa-list fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Activity log</a>
                                         <div class="dropdown-divider"></div><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Logout</a>
                                     </div>
@@ -130,31 +145,57 @@ if ($_SESSION['state'] != "MODERATEUR")
                     </div>
                 </nav>
                 <div class="container-fluid">
-                    <h3 class="text-dark mb-4">Gestion des Articles de La Boutique : %NomBoutique%</h3>
+                    <h3 class="text-dark mb-4">Article de La Boutique : <?= $NAME ?></h3>
                     <div class="card shadow" style="margin-bottom: 10px;">
                         <div class="card-header py-3">
                             <p class="text-primary m-0 fw-bold">Articles</p>
                         </div>
                         <div class="card-body">
-                            <div class="table-responsive table mt-2" id="dataTable-1" role="grid" aria-describedby="dataTable_info">
+                            <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
                                 <table class="table my-0" id="dataTable">
                                     <thead>
                                         <tr>
-                                            <th>Nom De L'Article</th>
-                                            <th>Categorie</th>
+                                            <th>Nom de L'Article</th>
+                                            <th>Stock</th>
                                             <th>Prix</th>
-                                            <th>Actions</th>
+                                            <th>Action</th>
                                             <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>%Nom de L'Article%</td>
-                                            <td>%Catégorie%</td>
-                                            <td>%Prix de L'Article%</td>
-                                            <td>BTN - Supprimer La Boutique / BAN</td>
-                                            <td>BTN - Accéder Aux Articles de Cette Boutique</td>
-                                        </tr>
+                                        <?php
+                                        if ($result != NULL) {
+                                            foreach ($result as $article) {
+                                                $name = $article[0];
+                                                $stock = $article[1];
+                                                $prix = $article[2];
+                                                $id = $article[3];
+                                        ?>
+                                                <tr>
+                                                    <td><?= $name ?></td>
+                                                    <td><?= $stock ?></td>
+                                                    <td><?= $prix ?></td>
+                                                    <td>
+                                                        <form method="POST" action="article-del.php">
+                                                            <input style=display:none name=ID id=ID value=<?= $id ?>></input>
+                                                            <button type="submit" class="btn btn-primary" style="margin: 0px;margin-left: 0px;margin-top: 5px;margin-bottom: 10px;">Supprimer L'Article</button>
+                                                        </form>
+                                                    </td>
+                                                    <td>
+                                                        <?php if ($TYPE == "PAR") {?>
+                                                        <form method="POST" action="../../annoncevoir/voirpar/<?= $id ?>">
+                                                            <button type="submit" class="btn btn-primary" style="margin: 0px;margin-left: 0px;margin-top: 5px;margin-bottom: 10px;">Voir L'Article</button>
+                                                        </form>
+                                                        <?php } ?> 
+                                                        <?php if ($TYPE == "PRO") {?>
+                                                            <form method="POST" action="../../annoncevoir/voirpro/<?= $id ?>">
+                                                                <button type="submit" class="btn btn-primary" style="margin: 0px;margin-left: 0px;margin-top: 5px;margin-bottom: 10px;">Voir L'Article</button>
+                                                            </form>
+                                                        <?php } ?> 
+                                                    </td>
+                                                </tr>
+                                        <?php }
+                                        } ?>
                                     </tbody>
                                     <tfoot>
                                         <tr></tr>
