@@ -8,19 +8,27 @@ class DashboardController extends Controller
     public function admin()
     {
         $dashboard = new DashboardModel;
-        $state = $dashboard->Verify();
-        if ($state == "ADMIN")
+        $_SESSION['state'] = $dashboard->Verify();
+        if ($_SESSION['state'] == "ADMIN")
         {
             header("Location: index.php");
+        }
+        else
+        {
+            header("Location: ../../");
         }
     }
     public function moderation()
     {
         $dashboard = new DashboardModel;
         $state = $dashboard->Verify();
-        if ($state == "MODERATION")
+        if ($_SESSION['state'] == "MODERATEUR")
         {
             header("Location: index.php");
+        }
+        else
+        {
+            header("Location: ../../");
         }
     }
 }

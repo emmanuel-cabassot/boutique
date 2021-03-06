@@ -12,7 +12,7 @@ class Model extends Db
     // Instance de Db
     private $db;
 
-
+    
     public function findAll()
     {
         $query = $this->requete('SELECT * FROM ' . $this->table);

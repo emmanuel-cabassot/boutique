@@ -1,3 +1,10 @@
+<?php
+session_start();
+if ($_SESSION['state'] != "MODERATEUR")
+        {
+            header("Location: ../../");
+        }
+?>
 <!DOCTYPE html>
 <html>
 
