@@ -83,7 +83,7 @@ class AnnonceController extends Controller
             $photo = new PhotoAnnonceModel;
 
             //Taille max de la photo
-            $tailleMax = 2000000;
+            $tailleMax = 3000000;
 
             // Extensions valides pour la photo
             $extensionValides = ['jpg', 'jpeg', 'gif', 'png'];
@@ -107,6 +107,12 @@ class AnnonceController extends Controller
                         // On crée insert la photo en BDD
                         $photo->create();
                     } else {
+                        // On hydrate l'objet
+                        $photo->setAnnonce_id($annonce->id)
+                            ->setPhoto('0.png');
+                        // On crée insert la photo en BDD
+                        $photo->create();
+                        
                         $_SESSION['erreur'] = "Erreur durant l'importation du fichier";
                         header('location: ' . ACCUEIL . 'annonce/ajouter');
                         exit;

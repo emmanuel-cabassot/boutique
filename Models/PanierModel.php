@@ -21,7 +21,7 @@ class PanierModel extends Model
     {
 
         $USER = $_SESSION['user']['id'];
-        return $this->requete("SELECT `id`,`annonce_name`,`annonce_id`,`vendor_name`,`quantite`,`prix` FROM `panier` WHERE `user_id` = $USER ORDER BY annonce_id DESC")->fetchAll();
+        return $this->requete("SELECT `id`,`annonce_name`,`annonce_id`,`vendor_name`,`quantite`,`prix`, `livraison` FROM `panier` WHERE `user_id` = $USER ORDER BY annonce_id DESC")->fetchAll();
     }
 
     public function add()

@@ -85,8 +85,8 @@ if (!empty($panier_data)) {
         ?>
     </table>
     <p class="panier-p">Total a Payer (Livraison Inclus) : <b><?=$panier_total?> Euros</b></p></br>
-                    <form method="POST" action="<?= ACCUEIL ?>panier/buy">
-                        <input style=display:none name=Price id=Price value=<?= $panier_total ?>></input>
+                    <form method="POST" action="<?= ACCUEIL ?>paiement">
+                        <input style=display:none name=prix id=prix value=<?= $panier_total ?>></input>
                         <button type="submit" class="btn btn-primary" style="margin: 0px;margin-left: 0px;margin-top: 0px;margin-bottom: 50px;">Passer la Commande</button>
                     </form>
     <div class="container" style="margin: 0px;margin-top: 0px align-self-center text-center;">
