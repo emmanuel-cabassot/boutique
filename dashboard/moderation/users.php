@@ -174,6 +174,7 @@ $result4 = mysqli_fetch_all($query4);
                                                         <form method="POST" action="boutique-del.php">
                                                             <input style=display:none name=ID id=ID value=<?= $boutique[2] ?>></input>
                                                             <input style=display:none name=TYPE id=TYPE value=PAR></input>
+                                                            <input style=display:none name=UID id=UID value=<?= $boutique[1] ?>></input>
                                                             <button type="submit" class="btn btn-primary" style="margin: 0px;margin-left: 0px;margin-top: 5px;margin-bottom: 10px;">Supprimer La Boutique</button>
                                                         </form>
                                                     </td>
