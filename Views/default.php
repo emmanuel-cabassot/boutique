@@ -63,7 +63,7 @@
                             </div>
                         <?php
                         }
-                        if (isset($_SESSION['user']['droit']) and $_SESSION['user']['droit'] == 1 or !isset($_SESSION['user'])) { ?>
+                        if (isset($_SESSION['user']['droit']) and $_SESSION['user']['droit'] == 1) { ?>
                             <li class="nav-item ml-3 ">
                                 <a class="nav-link" href="<?= ACCUEIL ?>panier/view">Mon Panier</a>
                             </li>
@@ -73,10 +73,10 @@
                             <?php
                         }
                         if (isset($_SESSION['user']['droit']) and $_SESSION['user']['droit'] == 10) { ?>
-                                <div class="dropdown">
-                                <li class="nav-item ml-3 ">
+                                    <li class="nav-item ml-3 ">
                                         <a class="nav-link" href="<?= ACCUEIL ?>panier/view">Mon Panier</a>
                                     </li>
+                                <div class="dropdown">
                                     <a class="nav-link dropdown-toggle text-center ml-3" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         Ma boutique
                                     </a>

@@ -37,9 +37,6 @@ class AnnonceModifierController extends Controller
 
             // On crée l'annonce en BDD
             $annonce->update();
-            // On Efface Les Articles Concerné Du Panier des Utilisateur, Pour Forcer L'Utilisateur A Mettre a Jour
-            $request = "DELETE FROM `panier` WHERE `annonce_id` = $annonce_id";
-            $annonce->requeteS($request);
             
 
 
@@ -160,9 +157,6 @@ class AnnonceModifierController extends Controller
 
             // On crée l'annonce en BDD
             $annonce->update();
-            // On Efface Les Articles Concerné Du Panier des Utilisateur, Pour Forcer L'Utilisateur A Mettre a Jour
-            $request = "DELETE FROM `panier` WHERE `annonce_id` = $annonce_id";
-            $annonce->requeteS($request);
 
             if (isset($_FILES) AND !empty($_FILES['photo_principale']['name'])) {
                 //Taille max de la photo
