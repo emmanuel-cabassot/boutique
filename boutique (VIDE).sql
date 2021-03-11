@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : jeu. 04 mars 2021 à 23:58
+-- Généré le : jeu. 11 mars 2021 à 12:51
 -- Version du serveur :  5.7.31
 -- Version de PHP : 7.3.21
 
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `adresse_particulier` (
   PRIMARY KEY (`id`),
   KEY `users_id` (`user_id`),
   KEY `boutique_id` (`boutique_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -82,7 +82,7 @@ CREATE TABLE IF NOT EXISTS `annonce` (
   KEY `user_id` (`user_id`,`boutique_pro_id`,`boutique_particulier_id`),
   KEY `annonce_ibfk_1` (`boutique_particulier_id`),
   KEY `categorie_id` (`categorie_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=72 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=81 DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -100,7 +100,7 @@ CREATE TABLE IF NOT EXISTS `boutique_particulier` (
   PRIMARY KEY (`id`),
   KEY `users_id` (`user_id`),
   KEY `droit_id` (`droit_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -120,7 +120,7 @@ CREATE TABLE IF NOT EXISTS `boutique_pro` (
   `rib` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `droit_id` (`droit_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -173,13 +173,15 @@ CREATE TABLE IF NOT EXISTS `commande` (
   `prix_commande` int(11) NOT NULL,
   `prix_livraison` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `boutique_particulier_id` int(11) NOT NULL,
-  `boutique_pro_id` int(11) NOT NULL,
+  `annonce_id` int(11) NOT NULL,
+  `annonce_name` varchar(255) NOT NULL,
+  `suivi` text,
+  `quantite` int(11) NOT NULL,
+  `date_achat` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `users_id` (`user_id`),
-  KEY `boutiques_particuliers_id` (`boutique_particulier_id`),
-  KEY `boutiques_pro_id` (`boutique_pro_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  KEY `boutiques_particuliers_id` (`annonce_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -278,7 +280,7 @@ CREATE TABLE IF NOT EXISTS `panier` (
   KEY `annonces_id` (`annonce_id`),
   KEY `users_id` (`user_id`),
   KEY `annonce_id` (`annonce_id`,`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -294,7 +296,7 @@ CREATE TABLE IF NOT EXISTS `photo_annonce` (
   PRIMARY KEY (`id`),
   KEY `annonce_id` (`annonce_id`),
   KEY `annonce_id_2` (`annonce_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -311,7 +313,14 @@ CREATE TABLE IF NOT EXISTS `photo_avatar` (
   `boutique_pro_id` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+
+--
+-- Déchargement des données de la table `photo_avatar`
+--
+
+INSERT INTO `photo_avatar` (`id`, `photo`, `user_id`, `boutique_particulier_id`, `boutique_pro_id`) VALUES
+(1, '25.png', NULL, 25, NULL);
 
 -- --------------------------------------------------------
 
@@ -350,7 +359,15 @@ CREATE TABLE IF NOT EXISTS `user` (
   `password` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `droit_id` (`droit_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4;
+
+--
+-- Déchargement des données de la table `user`
+--
+
+INSERT INTO `user` (`id`, `droit_id`, `nom`, `prenom`, `create_at`, `email`, `password`) VALUES
+(1, 1337, 'ADMIN', 'SYSTEM', '2021-03-05 16:41:13', 'admin.system@system', '$argon2i$v=19$m=65536,t=4,p=1$bFRNNkE1NE9Za3UvblFmTg$NR6nLmkR2IrMrVEjlHjev3zyJxQDZaeczH91li1AU7Y'),
+(2, 43, 'MODERATEUR', 'SYSTEM', '2021-03-05 16:41:13', 'modo.system@system', '$argon2i$v=19$m=65536,t=4,p=1$bFRNNkE1NE9Za3UvblFmTg$NR6nLmkR2IrMrVEjlHjev3zyJxQDZaeczH91li1AU7Y');
 
 --
 -- Contraintes pour les tables déchargées

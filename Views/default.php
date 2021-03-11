@@ -86,6 +86,7 @@
                                     <li class="nav-item ml-3 ">
                                         <a class="nav-link" href="<?= ACCUEIL ?>panier/view">Mon Panier</a>
                                     </li>
+                                    
                                 <div class="dropdown">
                                     <a class="nav-link dropdown-toggle text-center ml-3" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         Ma boutique
@@ -106,7 +107,7 @@
                                         <a class="dropdown-item" href="<?= ACCUEIL ?>userprofil/profil">Mon profil</a>
                                         <a class="dropdown-item" href="<?= ACCUEIL ?>user/profil">Modifier mon profil</a>
                                         <a class="dropdown-item" href="<?= ACCUEIL ?>user/adresse">Mon adresse</a>
-                                        <a class="dropdown-item" href="<?= ACCUEIL ?>boutiqueProfil/profilPro">Moyen de paiement</a>
+                                        <a class="dropdown-item" href="<?= ACCUEIL ?>commande/index">Mes Commandes</a>
                                     </div>
                                 </div>
                             <?php
@@ -125,7 +126,7 @@
                                         <a class="dropdown-item" href="<?= ACCUEIL ?>userprofil/profil">Mon profil</a>
                                         <a class="dropdown-item" href="<?= ACCUEIL ?>user/profil">Modifier mon profil</a>
                                         <a class="dropdown-item" href="<?= ACCUEIL ?>user/adresse">Mon adresse</a>
-                                        <a class="dropdown-item" href="<?= ACCUEIL ?>boutiqueProfil/profilPro">Moyen de paiement</a>
+                                        <a class="dropdown-item" href="<?= ACCUEIL ?>commande/index">Mes Commandes</a>
                                     </div>
                                 </div>
                             <?php

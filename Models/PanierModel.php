@@ -11,7 +11,8 @@ class PanierModel extends Model
     protected $quantite;
     protected $prix_unité;
     protected $prix;
-
+    protected $date;
+    
     public function __construct()
     {
         $this->table = 'panier';
@@ -77,26 +78,13 @@ class PanierModel extends Model
         $request = "SELECT `quantite` FROM `panier` WHERE `annonce_id` = $TARGET";
         $query = $this->requeteS($request);
         $result = mysqli_fetch_assoc($query);
-        if ($_POST['EDIT'] == "+") {
-            $nquentite = $result['quantite'] + 1;
-            $request = "SELECT `stock` FROM `annonce` WHERE `id` = $TARGET";
-            $query = $this->requeteS($request);
-            $result = mysqli_fetch_assoc($query);
-            if ($result['stock'] < $nquentite)
-            {
-                return "ERROR1";
-            }
-        } else {
-            $nquentite = $result['quantite'] - 1;
-        }
+        $nquentite = $result['quantite'] - 1;
         if ($nquentite == 0) {
             $request = "DELETE FROM `panier` WHERE `annonce_id` = $TARGET && `user_id` = $USER_TARGET";
             $this->requeteS($request);
-            return "Delete";
         } else {
             $request = "UPDATE `panier` SET `quantite`= $nquentite WHERE `annonce_id` = $TARGET && `user_id` = $USER_TARGET";
             $this->requeteS($request);
-            return "Update";
         }
     }
 
