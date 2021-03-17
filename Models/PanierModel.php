@@ -12,7 +12,7 @@ class PanierModel extends Model
     protected $prix_unité;
     protected $prix;
     protected $date;
-    
+
     public function __construct()
     {
         $this->table = 'panier';
@@ -37,29 +37,23 @@ class PanierModel extends Model
         $request = "SELECT `quantite` FROM `panier` WHERE `annonce_id` = $ARTId";
         $query = $this->requeteS($request);
         $result = mysqli_fetch_assoc($query);
-        if($result == null)
-        {
-        $request = "INSERT INTO panier (`user_id`, `annonce_id`, `annonce_name`, `vendor_name`, `quantite`,`livraison`) VALUES ($ARTAcheteur, $ARTId, '$ARTNom','$ARTVendeur',$ARTQuantité,$ARTLivraison)";
-        $this->requeteS($request);
-        return "SUCCESS";
-        }
-        else
-        {
-        $nquentite = $ARTQuantité + $result['quantite'];
-        $request = "SELECT `stock` FROM `annonce` WHERE `id` = $ARTId";
-        $query = $this->requeteS($request);
-        $result = mysqli_fetch_assoc($query);
-        if ($result['stock'] < $nquentite)
-        {
-            return "ERROR1";
-        }
-        else
-        {
-            $request = "UPDATE `panier` SET `quantite`= $nquentite, `livraison`= $ARTLivraison WHERE `annonce_id` = $ARTId && `user_id` = $ARTAcheteur";
+        if ($result == null) {
+            $request = "INSERT INTO panier (`user_id`, `annonce_id`, `annonce_name`, `vendor_name`, `quantite`,`livraison`) VALUES ($ARTAcheteur, $ARTId, '$ARTNom','$ARTVendeur',$ARTQuantité,$ARTLivraison)";
             $this->requeteS($request);
             return "SUCCESS";
+        } else {
+            $nquentite = $ARTQuantité + $result['quantite'];
+            $request = "SELECT `stock` FROM `annonce` WHERE `id` = $ARTId";
+            $query = $this->requeteS($request);
+            $result = mysqli_fetch_assoc($query);
+            if ($result['stock'] < $nquentite) {
+                return "ERROR1";
+            } else {
+                $request = "UPDATE `panier` SET `quantite`= $nquentite, `livraison`= $ARTLivraison WHERE `annonce_id` = $ARTId && `user_id` = $ARTAcheteur";
+                $this->requeteS($request);
+                return "SUCCESS";
+            }
         }
-    }
     }
 
     public function del()
@@ -78,13 +72,29 @@ class PanierModel extends Model
         $request = "SELECT `quantite` FROM `panier` WHERE `annonce_id` = $TARGET";
         $query = $this->requeteS($request);
         $result = mysqli_fetch_assoc($query);
-        $nquentite = $result['quantite'] - 1;
-        if ($nquentite == 0) {
-            $request = "DELETE FROM `panier` WHERE `annonce_id` = $TARGET && `user_id` = $USER_TARGET";
-            $this->requeteS($request);
+        if ($_POST['EDIT'] == "+") {
+            $nquentite = $result['quantite'] + 1;
+            $request = "SELECT `stock` FROM `annonce` WHERE `id` = $TARGET";
+            $query = $this->requeteS($request);
+            $result = mysqli_fetch_assoc($query);
+            if ($result['stock'] < $nquentite) {
+                return "ERROR1";
+            } else {
+                $request = "UPDATE `panier` SET `quantite`= $nquentite, `annonce_id` = $TARGET && `user_id` = $USER_TARGET";
+                $this->requeteS($request);
+                return "Update";
+            }
         } else {
-            $request = "UPDATE `panier` SET `quantite`= $nquentite WHERE `annonce_id` = $TARGET && `user_id` = $USER_TARGET";
-            $this->requeteS($request);
+            $nquentite = $result['quantite'] - 1;
+            if ($nquentite == 0) {
+                $request = "DELETE FROM `panier` WHERE `annonce_id` = $TARGET && `user_id` = $USER_TARGET";
+                $this->requeteS($request);
+                return "Delete";
+            } else {
+                $request = "UPDATE `panier` SET `quantite`= $nquentite WHERE `annonce_id` = $TARGET && `user_id` = $USER_TARGET";
+                $this->requeteS($request);
+                return "Update";
+            }
         }
     }
 
