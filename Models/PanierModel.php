@@ -72,25 +72,34 @@ class PanierModel extends Model
         $request = "SELECT `quantite` FROM `panier` WHERE `annonce_id` = $TARGET";
         $query = $this->requeteS($request);
         $result = mysqli_fetch_assoc($query);
-        if ($_POST['EDIT'] == "+") {
+        if ($_POST['EDIT'] == "+") 
+        {
             $nquentite = $result['quantite'] + 1;
             $request = "SELECT `stock` FROM `annonce` WHERE `id` = $TARGET";
             $query = $this->requeteS($request);
             $result = mysqli_fetch_assoc($query);
-            if ($result['stock'] < $nquentite) {
+            if ($result['stock'] < $nquentite) 
+            {
                 return "ERROR1";
-            } else {
-                $request = "UPDATE `panier` SET `quantite`= $nquentite, `annonce_id` = $TARGET && `user_id` = $USER_TARGET";
+            } 
+            else 
+            {
+                $request = "UPDATE `panier` SET `quantite`= $nquentite WHERE `annonce_id` = $TARGET && `user_id` = $USER_TARGET";
                 $this->requeteS($request);
                 return "Update";
             }
-        } else {
+        }
+        if ($_POST['EDIT'] == "-") 
+            {
             $nquentite = $result['quantite'] - 1;
-            if ($nquentite == 0) {
+            if ($nquentite == 0) 
+            {
                 $request = "DELETE FROM `panier` WHERE `annonce_id` = $TARGET && `user_id` = $USER_TARGET";
                 $this->requeteS($request);
                 return "Delete";
-            } else {
+            } 
+            else 
+            {
                 $request = "UPDATE `panier` SET `quantite`= $nquentite WHERE `annonce_id` = $TARGET && `user_id` = $USER_TARGET";
                 $this->requeteS($request);
                 return "Update";
