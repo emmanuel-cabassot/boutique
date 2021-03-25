@@ -54,7 +54,7 @@ class Model extends Db
      * Cherche une element grace à son email
      *
      * @param string $email
-     * @return void
+     * @return 
      */
     public function findOneByEmail(string $email)
     {

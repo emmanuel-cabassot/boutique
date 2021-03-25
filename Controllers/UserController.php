@@ -325,19 +325,19 @@ class UserController extends Controller
         $form = new Form;
 
         $form->debutForm('post', '#', ['enctype' => 'multipart/form-data'])
-            ->ajoutLabelFor('avatar', 'photo de profil :')
+            ->ajoutLabelFor('avatar', 'Photo de profil')
             ->ajoutInput('file', 'avatar', ['id' => 'avatar', 'class' => 'form-control'])
-            ->ajoutLabelFor('nom', 'Nom :')
+            ->ajoutLabelFor('nom', 'Nom')
             ->ajoutInput('text', 'nom', ['id' => 'nom', 'class' => 'form-control', 'value' => $_SESSION['user']['nom'], 'required' => true])
-            ->ajoutLabelFor('prenom', 'Prénom :')
+            ->ajoutLabelFor('prenom', 'Prénom')
             ->ajoutInput('text', 'prenom', ['id' => 'prenom', 'class' => 'form-control', 'value' => $_SESSION['user']['prenom'], 'required' => true])
-            ->ajoutLabelFor('email', 'E-mail :')
+            ->ajoutLabelFor('email', 'E-mail')
             ->ajoutInput('email', 'email', ['id' => 'email', 'class' => 'form-control', 'value' => $_SESSION['user']['email'], 'required' => true])
             ->ajoutLabelFor('new_password', 'Modifier mon mot de passe?')
             ->ajoutInput('password', 'new_password', ['id' => 'new_password', 'class' => 'form-control'])
-            ->ajoutLabelFor('password', 'Mot de passe :')
+            ->ajoutLabelFor('password', 'Mot de passe')
             ->ajoutInput('password', 'password', ['id' => 'password', 'class' => 'form-control', 'required' => true])
-            ->ajoutBouton('Modifier mon profil', ['class' => 'btn btn-primary'])
+            ->ajoutBouton('Modifier mon profil', ['class' => 'btn btn-primary col-12'])
             ->finForm();
 
 
@@ -412,23 +412,23 @@ class UserController extends Controller
         $adress = new Form;
         if (empty($adresse)) {
             $adress->debutForm()
-                ->ajoutLabelFor('adresse', 'Adresse :')
+                ->ajoutLabelFor('adresse', 'Adresse')
                 ->ajoutInput('text', 'adresse', ['id' => 'adresse', 'class' => 'form-control'])
-                ->ajoutLabelFor('code', 'Code postal :')
+                ->ajoutLabelFor('code', 'Code postal')
                 ->ajoutInput('numer', 'code', ['id' => 'code', 'class' => 'form-control'])
-                ->ajoutLabelFor('ville', 'Ville :')
+                ->ajoutLabelFor('ville', 'Ville')
                 ->ajoutInput('text', 'ville', ['id' => 'ville', 'class' => 'form-control'])
-                ->ajoutBouton('Valider mon adresse', ['class' => 'btn btn-primary'])
+                ->ajoutBouton('Valider mon adresse', ['class' => 'btn btn-primary col-12'])
                 ->finForm();
         } else {
             $adress->debutForm()
-                ->ajoutLabelFor('adresse', 'Adresse :')
+                ->ajoutLabelFor('adresse', 'Adresse')
                 ->ajoutInput('text', 'adresse', ['id' => 'adresse', 'class' => 'form-control', 'value' => $adresse->adresse])
-                ->ajoutLabelFor('code', 'Code postal :')
+                ->ajoutLabelFor('code', 'Code postal')
                 ->ajoutInput('numer', 'code', ['id' => 'code', 'class' => 'form-control', 'value' => $adresse->code])
-                ->ajoutLabelFor('ville', 'Ville :')
+                ->ajoutLabelFor('ville', 'Ville')
                 ->ajoutInput('text', 'ville', ['id' => 'ville', 'class' => 'form-control', 'value' => $adresse->ville])
-                ->ajoutBouton('Valider mon adresse', ['class' => 'btn btn-primary'])
+                ->ajoutBouton('Valider mon adresse', ['class' => 'btn btn-primary col-12'])
                 ->finForm();
         }
 

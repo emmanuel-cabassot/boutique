@@ -4,7 +4,10 @@ namespace App\functions;
 use DateTime;
 
 
-
+function hello()
+{
+    echo 'hello';
+}
 
 
  function depuis($date)

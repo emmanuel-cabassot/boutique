@@ -71,7 +71,7 @@ class BoutiqueAccueilController extends Controller
     }
 
     /**
-     * Affiche la boutique pro
+     * Affiche la boutique pro 
      *
      * @return void
      */

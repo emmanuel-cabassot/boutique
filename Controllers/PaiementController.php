@@ -10,8 +10,7 @@ use DateTime;
 class PaiementController extends Controller
 {
     public function index()
-    {
-        
+    {     
         $user = new UserModel;
         $user = $user->find($_SESSION['user']['id']);
         $adresse = new AdresseParticulierModel;

@@ -1,8 +1,6 @@
-<h1>Annonce de particulier</h1>0
+<h1>Annonce de particulier</h1>
 <?php
-
 use function App\functions\depuis;
-
 
 if (isset($_SESSION['erreur'])) {
 

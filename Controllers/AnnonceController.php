@@ -160,7 +160,7 @@ class AnnonceController extends Controller
             ->ajoutInput('number', 'stock', ['id' => 'stock', 'class' => 'form-control', 'min'=> 0, 'max' => 1000])
             ->ajoutLabelFor('photo_principale', 'photo principale :')
             ->ajoutInput('file', 'photo_principale', ['id' => 'photo_principale', 'required' => true, 'class' => 'form-control'])
-            ->ajoutBouton('Ajouter', ['class' => 'btn btn-primary'])
+            ->ajoutBouton('Mettre en vente', ['class' => 'btn btn-primary col-12'])
             ->finForm();
 
         $this->render('annonce/ajouter_pro', ['form' => $form->create()]);
@@ -276,7 +276,7 @@ class AnnonceController extends Controller
             ->ajoutInput('number', 'stock', ['id' => 'stock', 'class' => 'form-control'])
             ->ajoutLabelFor('photo_principale', 'photo principale :')
             ->ajoutInput('file', 'photo_principale', ['id' => 'photo_principale', 'required' => true, 'class' => 'form-control'])
-            ->ajoutBouton('Ajouter', ['class' => 'btn btn-primary'])
+            ->ajoutBouton('Mettre en vente', ['class' => 'btn btn-primary col-12'])
             ->finForm();
 
         $this->render('annonce/ajouter_par', ['form' => $form->create()]);

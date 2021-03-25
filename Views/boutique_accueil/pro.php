@@ -20,12 +20,12 @@ if (isset($_SESSION['success'])) {
             <?php
             if ($photo == false) { ?>
                 <img src="<?= ACCUEIL  ?>public\img\default\18.png" alt="photo de la boutique par default">
-                <?php
+            <?php
             } else { ?>
                 <img src="<?= ACCUEIL  ?>public\img\boutique_pro\<?= $photo->photo ?>" alt="photo de la boutique pro">
-                <?php
+            <?php
             }
-                ?>
+            ?>
             <p><?= $boutique->nom ?></p>
         </section>
 
@@ -37,19 +37,16 @@ if (isset($_SESSION['success'])) {
                 echo "5 étoiles";
             }
             ?>
-        </section>
-        <section class="modifier">
-            <a class="btn btn-primary col-12" href="<?= ACCUEIL ?>boutiqueProfil/profilPro">Modifier son profil</a>
+        
         </section>
     </section>
 
     <section class="annonces">
         <?php
-        /* var_dump($annonce); */
         if (isset($annonce) and !empty($annonce)) {
             foreach ($annonce as $annonces) { ?>
                 <section class="annonce">
-                    <a href="<?= ACCUEIL ?>annonceVoir/voirpro/<?= $annonces->id ?>">
+                    <a href="<?= ACCUEIL ?>annoncevoir/voirpro/<?= $annonces->id ?>">
                         <section class="photo">
                             <?php $photo_annonces = new PhotoAnnonceModel;
                             $photo_annonces = $photo_annonces->findPhotoByAnnonceId($annonces->id);

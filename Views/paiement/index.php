@@ -1,35 +1,48 @@
-<?php
-if (isset($_POST['prix']) && !empty($_POST['prix'])) {
-    require_once('vendor/autoload.php');
-    $prix = (float)$_POST['prix'];
+<section class="paiement_page">
+    <?php
+    if (isset($_POST['prix']) && !empty($_POST['prix'])) {
+        require_once('vendor/autoload.php');
+        $prix = (float)$_POST['prix'];
 
-    // On instancie Stripe
-    \Stripe\Stripe::setApiKey('sk_test_51IRmgEHPd5T1UddCm4ZiflsqKIjhvDoBTuvRtRhCleqr47F1N8TIxaxDVeBDIrh8rrqZDwGgfw67IW1QvpS5hY3z007YSnPFkJ');
+        // On instancie Stripe
+        \Stripe\Stripe::setApiKey('sk_test_51IRmgEHPd5T1UddCm4ZiflsqKIjhvDoBTuvRtRhCleqr47F1N8TIxaxDVeBDIrh8rrqZDwGgfw67IW1QvpS5hY3z007YSnPFkJ');
 
-    $intent = \Stripe\PaymentIntent::create([
-        'amount' => $prix * 100,
-        'currency' => 'eur'
-    ]);
-} else {
-    header('Location: '. ACCUEIL);
-}
-?>
-<section class="paiement">
-    <section class="livraison">
-        <h2>Adresse de livraison</h2>
-        <section class="container_livraison">
-            <section class="adresse">
-                <address>
-                    <section class="nom"> <?= ucfirst($user->nom) . ' ' . ucfirst($user->prenom) ?> </section>
-                    <section class="adresse"><?= $adresse->adresse ?></section>
-                    <section class="ville"><?= $adresse->code . ' ' . $adresse->ville ?></section>
+        $intent = \Stripe\PaymentIntent::create([
+            'amount' => $prix * 100,
+            'currency' => 'eur'
+        ]);
+    } else {
+        header('Location: ' . ACCUEIL);
+    }
+    ?>
+    <section class="paiement">
+        <section class="livraison">
+            <h2>Adresse de livraison</h2>
+            <section class="container_livraison">
+                <section class="adresse">
                     <?php
+                    if (isset($adresse->adresse) and !empty($adresse->adresse)) {
                     ?>
-                </address>
+                        <address>
+                            <section class="nom"> <?= ucfirst($user->nom) . ' ' . ucfirst($user->prenom) ?> </section>
+                            <section class="adresse"><?= $adresse->adresse ?></section>
+                            <section class="ville"><?= $adresse->code . ' ' . $adresse->ville ?></section>
+                        </address>
+                </section>
+                <section class="adresse_modifier">
+                    <a href="<?= ACCUEIL ?>user/adresse" class="btn btn-primary">Modifier mon adresse</a>
+                </section>
+            <?php
+                    } else {
+            ?>
+                <adresse>
+                    <a href="<?= ACCUEIL ?>user/adresse" class="btn btn-primary">Veuillez renseigner votre adresse</a>
+                </adresse>
             </section>
-            <section class="adresse_modifier">
-                <a href="<?= ACCUEIL ?>user" class="btn btn-primary">Modifier mon adresse</a>
-            </section>
+        <?php
+                    }
+        ?>
+
         </section>
     </section>
     <section class="recapitulatif_commande">
@@ -90,6 +103,7 @@ if (isset($_POST['prix']) && !empty($_POST['prix'])) {
             <button id="card-button" class="btn btn-primary" type="button" data-secret="<?= $intent['client_secret'] ?>">Procéder au paiement</button>
         </form>
     </section>
+</section>
 </section>
 
 <script src="https://js.stripe.com/v3/"></script>

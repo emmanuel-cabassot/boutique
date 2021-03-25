@@ -171,30 +171,30 @@ class BoutiqueProfilController extends Controller
         }
 
         $boutique = new BoutiqueProModel;
+        
         $boutique = $boutique->find($_SESSION['user']['id']);
-
         $adresse = new AdresseProModel;
         $adresse = $adresse->findAdresse($_SESSION['user']['id']);
         $form = new Form;
 
         $form->debutForm('post', '#', ['enctype' => 'multipart/form-data'])
-            ->ajoutLabelFor('avatar', 'photo de la boutique :')
+            ->ajoutLabelFor('avatar', 'Photo de la boutique')
             ->ajoutInput('file', 'avatar', ['id' => 'avatar', 'class' => 'form-control'])
-            ->ajoutLabelFor('nom', 'Nom de la société:')
+            ->ajoutLabelFor('nom', 'Nom de la société')
             ->ajoutInput('text', 'nom', ['id' => 'nom', 'class' => 'form-control', 'value' => $boutique->nom, 'required' => true])
-            ->ajoutLabelFor('email', 'E-mail :')
+            ->ajoutLabelFor('email', 'E-mail')
             ->ajoutInput('email', 'email', ['id' => 'email', 'class' => 'form-control', 'value' => $boutique->email, 'required' => true])
             ->ajoutLabelFor('adresse', 'Adresse')
             ->ajoutInput('text', 'adresse', ['id' => 'adresse', 'class' => 'form-control', 'value' => $adresse->adresse, 'required' => true])
             ->ajoutLabelFor('code', 'Code postal')
             ->ajoutInput('number', 'code', ['id' => 'code', 'class' => 'form-control', 'value' => $adresse->code, 'required' => true])
-            ->ajoutLabelFor('ville', 'Ville :')
+            ->ajoutLabelFor('ville', 'Ville')
             ->ajoutInput('text', 'ville', ['id' => 'ville', 'class' => 'form-control', 'value' => $adresse->ville, 'required' => true])
             ->ajoutLabelFor('siret', 'Numéro Siret')
             ->ajoutInput('number', 'siret', ['id' => 'siret', 'class' => 'form-control', 'value' => $boutique->siret, 'required' => true])
             ->ajoutLabelFor('new_password', 'Modifier mon mot de passe?')
             ->ajoutInput('password', 'new_password', ['id' => 'new_password', 'class' => 'form-control'])
-            ->ajoutLabelFor('password', 'Mot de passe :')
+            ->ajoutLabelFor('password', 'Mot de passe')
             ->ajoutInput('password', 'password', ['id' => 'password', 'class' => 'form-control', 'required' => true])
             ->ajoutBouton('Valider les modifications', ['class' => 'btn btn-primary col-12'])
             ->finForm();
@@ -326,9 +326,9 @@ class BoutiqueProfilController extends Controller
         $form = new Form;
 
         $form->debutForm('post', '#', ['enctype' => 'multipart/form-data'])
-            ->ajoutLabelFor('avatar', 'photo de ma boutique :')
+            ->ajoutLabelFor('avatar', 'photo de ma boutique')
             ->ajoutInput('file', 'avatar', ['id' => 'avatar', 'class' => 'form-control'])
-            ->ajoutLabelFor('nom', 'Nom de ma boutique:')
+            ->ajoutLabelFor('nom', 'Nom de ma boutique')
             ->ajoutInput('text', 'nom', ['id' => 'nom', 'class' => 'form-control', 'value' => $boutique->nom_boutique, 'required' => true])
             ->ajoutBouton('Valider les modifications', ['class' => 'btn btn-primary col-12'])
             ->finForm();

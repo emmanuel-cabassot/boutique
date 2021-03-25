@@ -1,4 +1,7 @@
 <?php
+use function App\functions\depuis;
+require 'functions/depuis.php';
+
 if (isset($_SESSION['erreur'])) {
 
     echo '<div class="alert alert-danger text-center" role="alert">' . $_SESSION['erreur'] . '</div>';
@@ -10,9 +13,9 @@ if (isset($_SESSION['success'])) {
     unset($_SESSION['success']);
 }
 ?>
-<h1>profil</h1>
+
 <section class="profil_profil">
-    
+<h1>Mon profil</h1>
     <section class="profil_user">
         <section class="photo">
             <?php
@@ -27,13 +30,12 @@ if (isset($_SESSION['success'])) {
         </section>
         <section class="description">
             <div class="nom"><?= ucfirst($user->nom) . ' ' . ucfirst($user->prenom) ?></div>
-            <div class="date"><?= $user->create_at ?></div>
+            <div class="date">Membre depuis <?= depuis($user->create_at) ?></div>
             <div class="ville"><?php if (isset($adresse) AND $adresse !== false){
                 echo $adresse->ville;
             }else {
                 echo "Pas d'adresse renseignée";
             } ?></div>
-            <div class="achat">Nombre d'achats</div>
             <div class="modifier"><a class="btn btn-primary text-center col-10" href="<?= ACCUEIL ?>user/profil">Modifier mon profil</a></div>
         </section>
     </section>
@@ -44,7 +46,7 @@ if (isset($_SESSION['success'])) {
             <a class="btn btn-secondary text-center col-10" href="<?= ACCUEIL ?>creer/index">Crée ta boutique</a>
             <?php
         }else { ?>
-            <a class="btn btn-secondary text-center col-10" href="<?= ACCUEIL ?>boutiqueAccueil/accueilpar">Ma boutique</a>
+            <a class="btn btn-primary text-center col-10" href="<?= ACCUEIL ?>boutiqueAccueil/accueilpar">Ma boutique</a>
             <?php
         } ?>
         </div>
