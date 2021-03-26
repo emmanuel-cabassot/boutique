@@ -8,7 +8,7 @@ require 'functions/depuis.php';
 <section class="main_accueil">
     <?php
         if (isset($_SESSION['success'])) : ?>
-            <div class="alert alert-success text-center" role="alert">
+            <div class="alert alert-success text-center col-12" role="alert">
                 <?php echo $_SESSION['success'];
                 unset($_SESSION['success']) ?>
             </div>
@@ -53,13 +53,13 @@ require 'functions/depuis.php';
                 // Boutique de particulier
                 $photo_annonces = $photo_annonce->findPhotoByAnnonceId($annonce->id);
         ?>
-                <div class="card" style="width: 18rem;">
+                <div class="card" style="width: 16rem;">
                     <img class="card-img-top" src="public/img/annonce/<?= $photo_annonces->photo ?>" alt="Image de l'annonce">
                     <div class="card-body">
-                        <h5 class="card-title"><?= $annonce->titre ?></h5>
-                        <p class="card-text">Prix: <?= $annonce->prix ?> €</p>
-                        <p class="card-text"><?= $categories->nom ?></p>
-                        <p class="card-text">En vente depuis <?= depuis($annonce->create_at) ?></p>
+                        <h5 class="card-title titre"><?= $annonce->titre ?></h5>
+                        <p class="card-text prix">Prix: <?= $annonce->prix ?> €</p>
+                        <p class="card-text categorie">Catégorie: <?= $categories->nom ?></p>
+                        <p class="card-text depuis"><i>En vente depuis <?= depuis($annonce->create_at) ?></i></p>
                         <?php
                         if (isset($_SESSION['user']['droit']) and $_SESSION['user']['droit'] == 10 and $_SESSION['user']['boutique_id'] ==  $annonce->boutique_particulier_id) {
                             // Ceci est l'annonce de l'utilisateur connecté
@@ -84,10 +84,10 @@ require 'functions/depuis.php';
                 <div class="card" style="width: 18rem;">
                     <img class="card-img-top" src="public/img/annonce/<?= $photo_annonces->photo ?>" alt="Image de l'annonce">
                     <div class="card-body">
-                        <h5 class="card-title"><?= $annonce->titre ?></h5>
-                        <p class="card-text"><?= $annonce->prix ?> €</p>
-                        <p class="card-text"><?= $categories->nom ?></p>
-                        <p class="card-text">En vente depuis <?= depuis($annonce->create_at) ?></p>
+                        <h5 class="card-title titre"><?= $annonce->titre ?></h5>
+                        <p class="card-text prix">Prix: <?= $annonce->prix ?> €</p>
+                        <p class="card-text categorie">Catégorie: <?= $categories->nom ?></p>
+                        <p class="card-text depuis">En vente depuis <?= depuis($annonce->create_at) ?></p>
                         <?php
                         if (isset($_SESSION['user']['droit']) and $_SESSION['user']['droit'] == 20 and $_SESSION['user']['id'] ==  $annonce->boutique_pro_id) {
                             // Ceci est l'annonce de l'utilisateur connecté

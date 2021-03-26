@@ -29,10 +29,10 @@
                         <td><?= $commande->prix_livraison ?></td>
                         <td>UAD-<?= $commande->suivi ?></td>
                     </tr>
-            </table>
-    <?php
+                    <?php
                 }
             }
     ?>
+            </table>
     </section>
 </section>

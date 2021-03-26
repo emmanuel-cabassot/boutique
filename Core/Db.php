@@ -20,7 +20,7 @@ class Db extends PDO
     private function __construct()
     {
         // DSN de connexion
-        $_dsn = 'mysql:dbname='. self::DBNAME . ';host=' . self::DBHOST;
+        $_dsn = 'mysql:dbname='. self::DBNAME . ';charset=utf8;host=' . self::DBHOST;
 
         // On appelle le constructeur de la classe PDO
         try{

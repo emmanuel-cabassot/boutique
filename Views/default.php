@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Open Deals</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-CuOF+2SnTUfTwSZjCXf01h7uYhfOBuxIhGKPbfEJ3+FqH/s6cIFN9bGr1HmAg4fQ" crossorigin="anonymous">
     <link rel="stylesheet" href="public/css/style.css">
     <link rel="stylesheet" href="../public/css/style.css">
@@ -21,7 +21,7 @@
         <section class="navbar navbar-expand-md navbar-dark bg-primary">
             <div class="container-fluid">
                 <a class="navbar-brand ml-4 " href="<?= ACCUEIL ?>">
-                    Affaire conclue
+                Open Deals
                 </a>
                 <form method="POST" action="<?= ACCUEIL ?>annonce/search" class="form-inline navbar-search w-50 ">
                     <div class="input-group d-xl-flex">
@@ -137,6 +137,9 @@
                             </li>
                         <?php else : ?>
                             <li class="nav-item ml-3">
+                                <a class="nav-link" href="<?= ACCUEIL ?>creer/index">Créer sa boutique</a>
+                            </li>
+                            <li class="nav-item ml-3">
                                 <a class="nav-link" href="<?= ACCUEIL ?>user/register">Inscription</a>
                             </li>
                             <li class="nav-item ml-3 mr-3">
@@ -155,18 +158,18 @@
     </main>
     <footer>
         <section class="logo">
-            <h3>Boutique en ligne</h3>
+            <h3>Open Deals</h3>
         </section>
         <?php
         if (!isset($_SESSION['user']) and !isset($_SESSION['user']['droit'])) {
         ?>
             <section class="login">
-                <div>Membres</div>
+                <div><h6>Membres</h6></div>
                 <a href="<?= ACCUEIL ?>user/logout">Se connecter</a>
                 <a href="<?= ACCUEIL ?>user/register">Inscription</a>
             </section>
             <section class="apropos">
-                <div>Boutiques</div>
+                <div><h6>Boutiques</h6></div>
                 <a href="<?= ACCUEIL ?>creer/index">Créer un boutique</a>
                 <a href="<?= ACCUEIL ?>creer/index">Publier une annonce</a>
                 <a href="<?= ACCUEIL ?>commentcamarche">Comment ca marche</a>

@@ -1,23 +1,21 @@
-<h1>Annonce de professionnel</h1>
 <?php
-
 use function App\functions\depuis;
-
-
-if (isset($_SESSION['erreur'])) {
-
-    echo '<div class="alert alert-danger text-center" role="alert">' . $_SESSION['erreur'] . '</div>';
-    unset($_SESSION['erreur']);
-}
-if (isset($_SESSION['success'])) {
-
-    echo '<div class="alert alert-success text-center" role="alert">' . $_SESSION['success'] . '</div>';
-    unset($_SESSION['success']);
-}
 require 'functions/depuis.php';
 ?>
-<section class="boutique_par_container">
-    <section class="boutique_par">
+<section class="boutique_par_page">
+    <?php
+    if (isset($_SESSION['erreur'])) {
+        echo '<div class="alert alert-danger text-center" role="alert">' . $_SESSION['erreur'] . '</div>';
+        unset($_SESSION['erreur']);
+    }
+    if (isset($_SESSION['success'])) {
+        echo '<div class="alert alert-success text-center" role="alert">' . $_SESSION['success'] . '</div>';
+        unset($_SESSION['success']);
+    }
+    ?>
+    <h1>Annonce de particulier</h1>
+    <section class="boutique_par_container">
+        <section class="boutique_par">
         <section class="photo_container">
             <img src="../../public/img/annonce/<?= $photo->photo ?>" alt="photo de l'annonce">
         </section>
@@ -27,8 +25,8 @@ require 'functions/depuis.php';
                 <?php $_SESSION['IDA'] = $annonce->id ?>
                 <?php $_SESSION['Nom'] = $annonce->titre ?>
                 <?php $_SESSION['Vendeur'] = $boutique->nom ?>
-                <div class="description"><?= $annonce->description ?></div>
-                <div class="description">Stock : <?= $annonce->stock ?></div>
+                <div class="description"><b>Description:</b><br><?= $annonce->description ?></div>
+                <div class="stock">Stock : <?= $annonce->stock ?></div>
                 <div class="prix">Prix: <?= $annonce->prix ?> €</div>
                 <?php $_SESSION['Prix'] = $annonce->prix + $livraison->prix ?>
                 <div class="livraison">

@@ -2,7 +2,7 @@ window.onload = () => {
     // Variables
     let stripe = Stripe('pk_test_51IRmgEHPd5T1UddCnnOcQtRY3TIMjYNkTxoYIg3WN9hMgD0rDHetLfgeOWKozfz2GLYQtnNjihLoW29FsB0o8wzE00gB1yLLPT')
     let elements = stripe.elements()
-    let redirect = "paiement/success"
+    let redirect = "commande/index"
 
     // Objets de la page
     let cardHolderName = document.getElementById("cardholder-name")

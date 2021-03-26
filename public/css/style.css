@@ -1,10 +1,13 @@
+
 *, a{
     box-sizing: border-box;
     margin: 0;
     text-decoration: none;
     list-style-type: none;
+    overflow-wrap: break-word;
     --main-color:#0d6efd;  
     --bg-color: #eef4f7;
+    --red-color:#dc3545;
 }
 
 main{
@@ -27,6 +30,7 @@ main{
 .main_accueil h1{
     color: rgb(116, 116, 116);
     text-align: center;
+    margin: 35px 0 16px 0;
 }
 
 .container_search{
@@ -52,6 +56,7 @@ main{
     justify-content: center;
     width: 100%;
     text-align: center;
+    margin: 30px 0 0 0;
 }
 
 .search_accueil input, .search_accueil select, .search_accueil button{
@@ -70,13 +75,37 @@ main{
 }
 
 .annonces_accueil img{
-    height: 250px;
+    height: 180px;
     padding: 10px 0 0 0;
+    
 }
+
+.annonces_accueil .titre{
+    font-size: 1.4em;
+    margin: -5px 0 9px 0;
+    text-align: center;
+}
+
+.annonces_accueil .prix{
+    margin: 4px 0;
+}
+
+.annonces_accueil .categorie{
+    margin: 4px 0;
+    
+}
+
+.annonces_accueil .depuis{
+    margin: 4px 0 16px 0;
+    color: var(--red-color);
+    font-size: 0.9em;
+}
+
 
 .annonces_accueil .card{
     margin: 10px;
 }
+
 
                                 /* INSCRIPTION */
 .register_page{
@@ -170,15 +199,105 @@ main{
     margin-bottom: 7px;
 }
 
+                    /* CHOIX DE CREATION DE BOUTIQUE */
+.creer_boutique_page{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--bg-color);
+    width: 100%;
+    text-align: center;
+}
+
+.creer_boutique_page h1{
+    margin: 25px 0 33px 0;
+    font-size: 1.9em;
+}
+
+.creer_boutique{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 35px;
+}
+
+.creer_boutique h2 {
+    font-size: 1.7em;
+    color: var(--red-color);
+    margin: 25px 0 25px 0;
+    padding: 10px;
+}
+
+.creer_boutique p{
+    color: rgb(94, 94, 94);
+}
+
+.creer_boutique .pro {
+width: 400px;
+height: 250px;
+background-color: white;
+margin: 10px;
+}
+
+.creer_boutique .pro:hover{
+    background-color: rgb(226, 226, 226);
+    transition: 0.5s all;
+}
+
+
+.creer_boutique .par{
+    width: 400px;
+    height: 250px;
+    background-color: white;
+    margin: 10px;
+}
+
+.creer_boutique .par:hover{
+    background-color: rgb(226, 226, 226);
+    transition: 0.5s all;
+}
+
+.comment{
+    margin-bottom: 50px;
+}
+
+                    /* Formulaire de création de boutique */
+.register_boutique_page{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--bg-color);
+    width: 100%;
+    text-align: center;
+}
+
+.register_boutique_page h1{
+    font-size: 1.9em;
+    margin-bottom: 17px;
+}
+
+.register_boutique_form{
+    width: 400px;
+    background-color: white;
+    padding: 15px;
+    margin: 40px 0;
+}
+
+.register_boutique_form input{
+    margin-bottom: 7px;
+}
 
                                 /* ACCUEIL BOUTIQUE */
 .boutique_accueil_main{
     background-color: var(--bg-color);
     text-align: center;
+    width: 100%;
+    min-height: 74vh;
 }
 
 .boutique_accueil_main h1{
-    margin: 15px;
+    margin: 25px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 .boutique_accueil{
@@ -226,7 +345,6 @@ main{
     width: 60%;
     display: flex;
     flex-wrap: wrap;
-    height: 148px;
 }
 
 .annonces .annonce{
@@ -234,6 +352,9 @@ main{
     border: 1px solid white;
     transition: all 0.4s;
     background-color: white;
+    margin-bottom: 20px;
+    height: 311px;
+    width: 240px;
 }
 
 .annonces .annonce:hover{
@@ -243,22 +364,33 @@ main{
     transition: all 0.4s;
 }
 
+.annonces .annonce img{
+    width: 230px;
+    height: 190px;
+    padding-top: 5px;
+}
+
 .annonce .titre{
     color: black;
-    font-size: 0.9em;
+    font-size: 1.2em;
+    margin: 3px 0;
     padding-left: 2px;
+    overflow-wrap: break-word;
 }
 
 .annonce .prix{
-    color: grey;
-    font-size: 0.8em;
+    color: var(--main-color);
+    font-size: 1em;
     padding-left: 2px;
     padding-bottom: 2px;
 }
 
-.annonces .annonce img{
-    width: 150px;
-    height: 120px;
+.annonce .categorie{
+    color: rgb(80, 80, 80);
+}
+
+.annonce .date_annonce{
+    color: var(--red-color);
 }
 
                             /* PARAMETRES DE LA BOUTIQUE PRO */
@@ -404,13 +536,14 @@ main{
 }
 
 .profil_user .nom{
-    margin-top: 3px;
-    font-family: monospace;
+    font-family: cursive;
+    margin-top: 11px;
     font-size: 1.4em;
 }
 
 .profil_user .ville{
     color: grey;
+    margin: 12px 0 18px 0;
 }
 
 .profil_user .achat{
@@ -443,13 +576,23 @@ main{
 }
 
                                 /* VOIR ANNONCE  */                    
+.boutique_par_page{
+    width: 100%;
+    background-color: var(--bg-color);
+}
+
+.boutique_par_page h1{
+    text-align: center;
+    margin-top: 10px;
+    color: rgb(71, 71, 71);
+    font-family: 'Times New Roman', Times, serif;
+}
 
 .boutique_par_container{
-    width: 100%;
-    background-color: rgb(247, 247, 247);
     display: flex;
     justify-content: center;
 }
+
 .boutique_par{
     display: flex;
     justify-content: center;
@@ -464,7 +607,7 @@ main{
 .photo_container{
     display: flex;
     justify-content: center;  
-    width: 55%;
+    width: 63%;
 }
 
 .photo_container img{
@@ -475,7 +618,7 @@ main{
 }
 
 .description_container{
-    width: 30%;
+    width: 37%;
     padding-top: 0px;
 }
 
@@ -510,6 +653,8 @@ main{
 
 .description_container .date_annonce{
     font-size: 0.9em;
+    color: var(--red-color);
+    padding-bottom: 10px;
 }
 
 .ajouter_panier a{
@@ -554,7 +699,7 @@ main{
 
 .supprimer button{
     padding: 2px 4px;
-    background-color: rgb(223, 21, 21);
+    background-color: var(--red-color);
     margin-bottom: 12px;
 }
 
@@ -570,7 +715,7 @@ main{
     text-align: center;
 }
 .boutique_boutique_par img{
-    width: 60%;
+    width: 70%;
     
 }
 
@@ -606,6 +751,31 @@ main{
     border: 1px solid var(--main-color);
 }
 
+.annonce_modif_page{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--bg-color);
+    width: 100%;
+    text-align: center;
+}
+
+.annonce_modif_page h1{
+    font-size: 1.9em;
+    margin-bottom: 12px;
+}
+
+.annonce_modif_form{
+    width: 400px;
+    background-color: white;
+    padding: 15px;
+    margin: 48px 0;
+}
+
+.annonce_modif_form input, .annonce_modif_form textarea, .annonce_modif_form select{
+    margin-bottom: 7px;
+}
+
                                             /* PANIER */
 td
 {
@@ -632,7 +802,7 @@ text-align: center;
     text-align: center;
 }
                                         
-.livraison{
+.paiement_page .livraison{
     width: 440px;
     background-color: white;
     padding: 5px 20px 20px 20px;
@@ -726,6 +896,32 @@ font-size: 1.9em;
     font-size: 1.1em;
 }
 
+                            /* MESSAGES DE SUCCESS */
+.success_page{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--bg-color);
+    width: 100%;
+    text-align: center;
+    min-height: 74vh;
+}
+
+.success_container{
+    width: 800px;
+    background-color:white;
+    padding: 15px;
+    margin: 95px;
+    font-size: 1.1em;
+}
+
+.success_page h1{
+    font-size: 2.1em;
+    margin: 25px 0;
+}
+
+
+
                                 /* FOOTER */
 footer{
     display: flex;
@@ -748,6 +944,8 @@ footer a:hover{
 footer .logo{
     margin-top: 5px;
     margin-left: 3%;
+    color: white;
+    font-family: 'Ubuntu Mono', monospace;
 }
 
 
@@ -755,34 +953,46 @@ footer .login{
     margin: 5px 0;
     display: flex;
     flex-direction: column;
-    font-size: 18px;
+    font-size: 20px;
 }
 
 footer .login a{
     font-size: 16px;
 }
 
+footer .login div{
+    font-family: 'Ubuntu Mono', monospace;
+    color: white;
+}
+
 footer .apropos{
     display: flex;
     flex-direction: column;
     margin-top: 5px;
-    font-size: 18px;
+    font-size: 20px;
 }
 
 footer .apropos a{
     font-size: 16px;
 }
-
+footer .apropos div{
+    font-family: 'Ubuntu Mono', monospace;
+    color: white;
+}
 footer .social{
     display: flex;
     flex-direction: column;
     justify-content: center;
     text-align: center;
-    font-size: 18px;
+    font-size: 20px;
     margin-right: 3%;
     margin-top: 5px;
+    color: white;
 }
-
+footer .social div{
+    font-family: 'Ubuntu Mono', monospace;
+    color: white;
+}
 footer .social ul{
     display: flex;
     justify-content: center;

@@ -20,7 +20,7 @@ class MainController extends Controller
         // On instancie le class correspondant à la table annonces
         $annonce = new AnnonceModel;
         // On appelle la méthode findAll qui va enregistrer les annonces dans $annonces
-        $annonces = $annonce->findAll();
+        $annonces = $annonce->findAllAnnoncesByDesc();
 
         $categories_list = new CategorieModel;
         $categories_list = $categories_list->findCategories();

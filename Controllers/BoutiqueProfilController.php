@@ -271,15 +271,15 @@ class BoutiqueProfilController extends Controller
                             $chemin_supp = 'public/img/boutique_par/' . $photos[0]->photo;
                             unlink($chemin_supp);
                             // On supprime la photo de profil enregistrée dans la bdd
-                            $photo->deletePhotoBoutiquePar($_SESSION['user']['boutique_particulier_id']);
+                            $photo->deletePhotoBoutiquePar($_SESSION['user']['boutique_id']);
                             //Chemin et nom du fichier que l'on va enregistrer 
-                            $chemin = 'public/img/boutique_par/' . $_SESSION['user']['boutique_particulier_id'] . '.' . $extensionUpload;
+                            $chemin = 'public/img/boutique_par/' . $_SESSION['user']['boutique_id'] . '.' . $extensionUpload;
                             // On enregistre le fichier grace à move et $resultat = false ou true
                             $resultat = move_uploaded_file($_FILES['avatar']['tmp_name'], $chemin);
                             if ($resultat) {
                                 // On hydrate l'objet
-                                $photo->setBoutique_particulier_id($_SESSION['user']['boutique_particulier_id'])
-                                    ->setPhoto($_SESSION['user']['boutique_particulier_id'] . '.' . $extensionUpload);
+                                $photo->setBoutique_particulier_id($_SESSION['user']['boutique_id'])
+                                    ->setPhoto($_SESSION['user']['boutique_id'] . '.' . $extensionUpload);
                                 // On crée insert la photo en BDD
                                 $photo->create();
                             } else {

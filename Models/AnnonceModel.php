@@ -20,6 +20,11 @@ class AnnonceModel extends Model
         $this->table = 'annonce';
     }
 
+    public function findAllAnnoncesByDesc()
+    {
+        return $this->requete("SELECT * FROM $this->table ORDER BY create_at DESC")->fetchAll();
+    }
+
     public function findAnnoneProLimit($boutique_pro_id)
     {
         return $this->requete("SELECT * FROM $this->table WHERE boutique_pro_id = $boutique_pro_id ORDER BY create_at DESC LIMIT 10")->fetchAll();

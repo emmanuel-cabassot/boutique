@@ -81,19 +81,19 @@ class BoutiqueRegisterController extends Controller
         $form = new Form;
 
         $form->debutForm()
-            ->ajoutLabelFor('nom', 'Nom de la société:')
+            ->ajoutLabelFor('nom', 'Nom de la société')
             ->ajoutInput('text', 'nom', ['id' => 'nom', 'class' => 'form-control', 'required' => true])
-            ->ajoutLabelFor('email', 'E-mail :')
+            ->ajoutLabelFor('email', 'E-mail')
             ->ajoutInput('email', 'email', ['id' => 'email', 'class' => 'form-control', 'required' => true])
             ->ajoutLabelFor('adresse', 'Adresse')
             ->ajoutInput('text', 'adresse', ['id' => 'adresse', 'class' => 'form-control', 'required' => true])
             ->ajoutLabelFor('code', 'Code postal')
             ->ajoutInput('number', 'code', ['id' => 'code', 'class' => 'form-control', 'required' => true])
-            ->ajoutLabelFor('ville', 'Ville :')
+            ->ajoutLabelFor('ville', 'Ville')
             ->ajoutInput('text', 'ville', ['id' => 'ville', 'class' => 'form-control', 'required' => true])
             ->ajoutLabelFor('siret', 'Numéro Siret')
             ->ajoutInput('number', 'siret', ['id' => 'siret', 'class' => 'form-control'])
-            ->ajoutLabelFor('password', 'Mot de passe :')
+            ->ajoutLabelFor('password', 'Mot de passe')
             ->ajoutInput('password', 'password', ['id' => 'password', 'class' => 'form-control', 'required' => true])
             ->ajoutBouton('Créer boutique', ['class' => 'btn btn-primary col-12'])
             ->finForm();
@@ -196,11 +196,11 @@ class BoutiqueRegisterController extends Controller
 
         // Création du formulaire avec la classe Form
         $form->debutForm()
-            ->ajoutLabelFor('nom_boutique', 'Nom de votre boutique  :')
+            ->ajoutLabelFor('nom_boutique', 'Nom de votre boutique')
             ->ajoutInput('text', 'nom_boutique', ['id' => 'nom_boutique', 'class' => 'form-control', 'required' => true])
-            ->ajoutLabelFor('nom', 'Nom  :')
+            ->ajoutLabelFor('nom', 'Nom')
             ->ajoutInput('text', 'nom', ['id' => 'nom', 'class' => 'form-control', 'value' => $_SESSION['user']['nom'], 'required' => true])
-            ->ajoutLabelFor('prenom', 'Prénom  :')
+            ->ajoutLabelFor('prenom', 'Prénom')
             ->ajoutInput('text', 'prenom', ['id' => 'prenom', 'class' => 'form-control', 'value' => $_SESSION['user']['prenom'], 'required' => true])
             ->ajoutLabelFor('email', 'E-mail :')
             ->ajoutInput('email', 'email', ['id' => 'email', 'class' => 'form-control', 'value' => $_SESSION['user']['email'], 'required' => true]);
@@ -209,7 +209,7 @@ class BoutiqueRegisterController extends Controller
                 ->ajoutInput('text', 'adresse', ['id' => 'adresse', 'class' => 'form-control', 'required' => true])
                 ->ajoutLabelFor('code', 'Code postal')
                 ->ajoutInput('number', 'code', ['id' => 'code', 'class' => 'form-control', 'required' => true])
-                ->ajoutLabelFor('ville', 'Ville :')
+                ->ajoutLabelFor('ville', 'Ville')
                 ->ajoutInput('text', 'ville', ['id' => 'ville', 'class' => 'form-control', 'required' => true]);
         }
         $form->ajoutBouton('Créer boutique', ['class' => 'btn btn-primary col-12'])

@@ -1,14 +1,32 @@
-<h1>Créer sa boutique</h1>
+<section class="creer_boutique_page">
+    <h1>Créer votre boutique</h1>
+    <section class="creer_boutique">
+        <section class="pro">
+            <a href="<?= ACCUEIL ?>boutiqueRegister/registerpro">
+                <h2>Créer ma boutique en tant que professionnel</h2>
+                <p>En quelques clics mettez en ligne vos annonces et profitez d'une grande visibilité.</p>
+            </a>
+        </section>
+        <section class="par">
+            <?php
+            if (isset($_SESSION['user']) and !empty($_SESSION['user'])) { ?>
+                <a href="<?= ACCUEIL ?>boutiqueRegister/registerpar">
+                    <h2>Créer ma boutique en tant que particulier</h2>
+                    <p>Rapide et simple d'utilisation. Grâce a votre boutique vous allez pouvoir mettre en vente vos articles.</p>
+                </a>
+            <?php
+            } else { ?>
+                <a href="<?= ACCUEIL ?>user/register">
+                    <h2>Créer ma boutique en tant que particulier</h2>
+                    <p>Pour créer une boutique en tant que particulier il faut créer un compte utilisateur et se connecter</p>
+                </a>
 
-<div><a href="<?= ACCUEIL ?>boutiqueRegister/registerpro">Créer ma boutique pro</a></div>
-
-<?php
-if (isset($_SESSION['user']) AND !empty($_SESSION['user'])) { ?>
-    <div><a href="<?= ACCUEIL ?>boutiqueRegister/registerpar">Créer ma boutique en tant que particulier </a></div>
-    <?php
-}else {?>
-    <h2>Pour créer une boutique en tant que particulier il faut créer un compte utilisateur et se connecter</h2>
-    <div><a href="<?= ACCUEIL ?>user/register">Inscription</a></div>
-    <div><a href="<?= ACCUEIL ?>user/login">Connexion</a></div>
-<?php
-}
+            <?php
+            }
+            ?>
+        </section>
+    </section>
+    <section class="comment">
+        <a class="btn btn-primary"  href="../commentcamarche">Plus d'infos sur le fonctionnement?</a>
+    </section>
+</section>
